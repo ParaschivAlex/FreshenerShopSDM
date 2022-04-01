@@ -1,6 +1,8 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -9,7 +11,12 @@ namespace FreshenerShopSDM.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+
+		public string Name { get; set; }
+
+		public IEnumerable<SelectListItem> AllRoles { get; set; }
+
+		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
@@ -22,10 +29,19 @@ namespace FreshenerShopSDM.Models
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
+		{
+			Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext,
+				FreshenerShopSDM.Migrations.Configuration>("DefaultConnection"));
+		}
 
-        public static ApplicationDbContext Create()
+		public DbSet<Freshener> Fresheners { get; set; }
+		public DbSet<Category> Categories { get; set; }
+		public DbSet<Review> Reviews { get; set; }
+		//public DbSet<Cart> Carts { get; set; }
+		//public DbSet<Order> Orders { get; set; }
+		//public DbSet<OrderDetail> OrderDetails { get; set; }
+
+		public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }

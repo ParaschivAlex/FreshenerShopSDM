@@ -1,0 +1,23 @@
+﻿@model FreshenerShopSDM.Models.Category
+@{
+	ViewBag.Title = "Show Category";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>@ViewBag.Category.CategoryName</h3>
+<br />
+@foreach (var freshener in ViewBag.Fresheners)
+{
+	<a href="/Fresheners/Show/@freshener.FreshenerId">@freshener.FreshenerName</a>
+	<br />
+}
+
+<br />
+<form method="post" action="/Categories/Delete/@Model.CategoryId">
+	@Html.HttpMethodOverride(HttpVerbs.Delete)
+	<button type="submit">Delete Category</button>
+</form>
+
+<br />
+<a href="/Categories/Index">Back to all categories</a>

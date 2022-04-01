@@ -1,0 +1,62 @@
+﻿@model FreshenerShopSDM.Models.Freshener
+
+<h2>Add Freshener</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Fresheners"))
+{
+	@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+	@Html.Label("FreshenerName", "Freshener Name")
+	@Html.ValidationMessageFor(m => m.FreshenerName, " The name is mandatory!", new { @class = "text-danger " })
+	<br />
+	@Html.TextBox("FreshenerName", null, new { @class = "form-control" })
+	<br /><br />
+
+	@Html.Label("FreshenerSlug", "Freshener Slug")
+	@Html.ValidationMessageFor(m => m.FreshenerSlug, " The slug is mandatory!", new { @class = "text-danger " })
+	<br />
+	@Html.TextBox("FreshenerSlug", null, new { @class = "form-control" })
+	<br /><br />
+
+	@Html.Label("FreshenerDescription", "Freshener Description")
+	@Html.ValidationMessageFor(m => m.FreshenerDescription, " The description is mandatory!", new { @class = "text-danger " })
+	<br />
+	@Html.TextArea("FreshenerDescription", null, new { @class = "form-control" })
+	<br /><br />
+
+	@Html.Label("FreshenerPrice", "Freshener Price")
+	@Html.ValidationMessageFor(m => m.FreshenerPrice, " The price is mandatory!", new { @class = "text-danger " })
+	<br />
+	@Html.TextBox("FreshenerPrice", null, new { @class = "form-control" })
+	<br /><br />
+
+	@Html.Label("FreshenerImage", "Freshener Image")
+	@Html.ValidationMessageFor(m => m.FreshenerImage, " The image is mandatory!", new { @class = "text-danger " })
+	<br />
+	@Html.TextBox("FreshenerImage", null, new { @class = "form-control" })
+	<br /><br />
+
+	@Html.Label("FreshenerAvailability", "Freshener Availability")
+	@Html.ValidationMessageFor(m => m.FreshenerAvailability, " The availability is mandatory!", new { @class = "text-danger " })
+	@Html.CheckBox("FreshenerAvailability", true, new { @class = "form-control" })
+	<br /><br />
+
+	@Html.Label("FreshenerCode", "Freshener Code")
+	@Html.ValidationMessageFor(m => m.FreshenerCode, "", new { @class = "text-danger " })
+	<br />
+	@Html.TextBox("FreshenerCode", null, new { @class = "form-control" })
+	<br /><br />
+
+	@Html.Label("FreshenerStock", "Freshener Stock")
+	@Html.ValidationMessageFor(m => m.FreshenerStock, "", new { @class = "text-danger " })
+	<br />
+	@Html.TextBox("FreshenerStock", null, new { @class = "form-control" })
+	<br /><br />
+
+	<label>Select category:</label>
+	@Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryList, "Value", "Text"), "Select category", new { @class = "form-control" })
+	<br />
+	@Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+	<br />
+	<br />
+	<button class="btn btn-sm btn-success" type="submit">Add Freshener</button>
+}

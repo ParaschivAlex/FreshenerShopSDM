@@ -1,0 +1,23 @@
+﻿@if (TempData.ContainsKey("message"))
+{
+	<h1>@ViewBag.message</h1>
+}
+<h2>@ViewBag.Title</h2>
+<br />
+@foreach (var category in ViewBag.Categories)
+{
+	//@Html.Label("CategoryName", "Category Name")
+	<p>@category.CategoryName</p>
+	<a href="/Categories/Show/@category.CategoryId">
+		<img class="img-responsive" src="@category.CategoryImage" alt="category image" style="height:200px; margin: 5px 0px 14px 0px;" />
+	</a>
+	<a class="btn btn-success" href="/Categories/Show/@category.CategoryId">Show Category</a>
+	<a class="btn btn-success" href="/Categories/Edit/@category.CategoryId">Edit Category</a>
+	<br />
+	<hr />
+	<br />
+}
+<br />
+<a class="btn btn-primary" href="/Categories/New">Add Category</a>
+<a class="btn btn-primary" href="/Fresheners/Index">All Fresheners</a>
+<br />

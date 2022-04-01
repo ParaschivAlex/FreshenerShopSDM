@@ -1,0 +1,31 @@
+﻿@model FreshenerShopSDM.Models.Category
+<h2>Editare categorie</h2>
+
+<form method="post" action="/Categories/Edit/@Model.CategoryId">
+
+	@Html.HttpMethodOverride(HttpVerbs.Put)
+
+	@Html.HiddenFor(m => m.CategoryId)
+
+	@Html.Label("CategoryName", "Category Name")
+	<br />
+	@Html.Editor("CategoryName")
+	<br /><br />
+
+	@Html.Label("CategorySlug", "Category Slug")
+	<br />
+	@Html.Editor("CategorySlug")
+	<br /><br />
+
+	@Html.Label("CategoryImage", "Category Image")
+	<br />
+	@Html.Editor("CategoryImage")
+	<br /><br />
+
+	@Html.Label("CategoryDescription", "Category Description")
+	<br />
+	@Html.Editor("CategoryDescription")
+	<br /><br />
+
+	<button class="btn btn-success" type="submit">Modify Category</button>
+</form>

@@ -1,0 +1,56 @@
+﻿@model FreshenerShopSDM.Models.Freshener
+
+<h2 class="text-primary">Edit Freshener @Model.FreshenerId, @Model.FreshenerName</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Fresheners", routeValues: new { id = Model.FreshenerId }))
+{
+	@Html.HttpMethodOverride(HttpVerbs.Put)
+
+	@Html.Label("FreshenerName", "Freshener Name")<br />
+	@Html.EditorFor(m => m.FreshenerName)
+	@Html.ValidationMessageFor(m => m.FreshenerName, "The name is mandatory!", new { @class = "text-danger" })
+	<br /><br />
+
+	@Html.Label("FreshenerSlug", "Freshener Slug")<br />
+	@Html.EditorFor(m => m.FreshenerSlug)
+	@Html.ValidationMessageFor(m => m.FreshenerSlug, "The slug is mandatory!", new { @class = "text-danger" })
+	<br /><br />
+
+	@Html.Label("FreshenerDescription", "Freshener Description")<br />
+	@Html.EditorFor(m => m.FreshenerDescription)
+	@Html.ValidationMessageFor(m => m.FreshenerDescription, "The description is mandatory!", new { @class = "text-danger" })
+	<br /><br />
+
+	@Html.Label("FreshenerPrice", "Freshener Price")<br />
+	@Html.EditorFor(m => m.FreshenerPrice)
+	@Html.ValidationMessageFor(m => m.FreshenerPrice, "The price is mandatory!", new { @class = "text-danger" })
+	<br /><br />
+
+	@Html.Label("FreshenerImage", "Freshener Image")<br />
+	@Html.EditorFor(m => m.FreshenerImage)
+	@Html.ValidationMessageFor(m => m.FreshenerImage, "The image is mandatory!", new { @class = "text-danger" })
+	<br /><br />
+
+	@Html.Label("FreshenerAvailability", "Freshener Availability")<br />
+	@Html.EditorFor(m => m.FreshenerAvailability)
+	@Html.ValidationMessageFor(m => m.FreshenerAvailability, "The availability is mandatory!", new { @class = "text-danger" })
+	<br /><br />
+
+	@Html.Label("FreshenerCode", "Freshener Code")<br />
+	@Html.EditorFor(m => m.FreshenerCode)
+	@Html.ValidationMessageFor(m => m.FreshenerCode, "", new { @class = "text-danger" })
+	<br /><br />
+
+	@Html.Label("FreshenerStock", "Freshener Stock")<br />
+	@Html.EditorFor(m => m.FreshenerStock)
+	@Html.ValidationMessageFor(m => m.FreshenerStock, "", new { @class = "text-danger" })
+	<br /><br />
+
+	<label>Select Category</label>
+	@Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryList, "Value", "Text"), "Select category", new { @class = "form-control" })
+	@Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+	<br />
+
+	<button class="btn btn-sm btn-success" type="submit">Modify freshener</button>
+}
+

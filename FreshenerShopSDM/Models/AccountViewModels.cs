@@ -64,7 +64,12 @@ namespace FreshenerShopSDM.Models
 
     public class RegisterViewModel
     {
-        [Required]
+		[Required]
+		[DataType(DataType.Text)]
+		[Display(Name = "Name")]
+		public string Name { get; set; }
+
+		[Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
