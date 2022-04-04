@@ -36,10 +36,8 @@ namespace FreshenerShopSDM.Controllers
 			{
 				search = Request.Params.Get("search").Trim();
 				List<int> freshenersIds = db.Fresheners.Where(fr => fr.FreshenerName.Contains(search) ||  fr.FreshenerDescription.Contains(search)).Select(f => f.FreshenerId).ToList();
-				List<int> reviewIds = db.Reviews.Where(rev => rev.ReviewComment.Contains(search)).Select(rev => rev.FreshenerId).ToList();
-				List<int> mergedIds = freshenersIds.Union(reviewIds).ToList();
 
-				fresheners = db.Fresheners.Where(freshener => mergedIds.Contains(freshener.FreshenerId)).Include("Category").OrderBy(f => f.FreshenerModifyDate);
+				fresheners = db.Fresheners.Where(freshener => freshenersIds.Contains(freshener.FreshenerId)).Include("Category").OrderBy(f => f.FreshenerModifyDate);
 				FreshenersSorted = fresheners.ToList();
 			}
 
@@ -80,24 +78,39 @@ namespace FreshenerShopSDM.Controllers
 		{
 			switch (id)
 			{
-				case 1: // crescator dupa pret
+				case 1: //increasing by price
 					FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerPrice).ToList();
+                    //System.Diagnostics.Debug.WriteLine("increasing price");
+                    break;
+				case 2: //decreasing by price
+                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerPrice).ToList();
+                    //System.Diagnostics.Debug.WriteLine("decreasing price");
+                    FreshenersSorted.Reverse();
 					break;
-				case 2: //descrescator dupa pret
-					FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerPrice).ToList();
-					FreshenersSorted.Reverse();
+				case 3: //increasing by rating
+                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerRating).ToList();
+                    //System.Diagnostics.Debug.WriteLine("increasing rating");
+                    break;
+				case 4: //decreasing by rating
+                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerRating).ToList();
+                    //System.Diagnostics.Debug.WriteLine("decreasing rating");
+                    FreshenersSorted.Reverse();
 					break;
-				case 3: //crescator dupa rating
-					FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerRating).ToList();
-					break;
-				case 4: //descrescator dupa rating
-					FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerRating).ToList();
-					FreshenersSorted.Reverse();
-					break;
-				default:
-					break;
-			}
-			TempData["Filme"] = FreshenersSorted;
+                case 5: //newest
+                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerModifyDate).ToList();
+                    //System.Diagnostics.Debug.WriteLine("newest");
+                    break;
+                case 6: //oldest
+                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerModifyDate).ToList();
+                   //System.Diagnostics.Debug.WriteLine("oldest");
+                    FreshenersSorted.Reverse();
+                    break;
+                default:
+                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerModifyDate).ToList();
+                    break;
+
+            }
+			TempData["Fresheners"] = FreshenersSorted;
 			return Redirect("/Fresheners/Index");
 		}
 
@@ -139,9 +152,9 @@ namespace FreshenerShopSDM.Controllers
 				{
 					db.Fresheners.Add(freshener);
 					db.SaveChanges();
-					Console.WriteLine("DB.SAVEDCHANGES");
-					TempData["message"] = "The freshener has been added!";
-					return RedirectToAction("Index");
+					//Console.WriteLine("DB.SAVEDCHANGES");
+					TempData["message"] = "The freshener has been added! Add another freshener?";
+					return RedirectToAction("New");
 				}
 				else
 				{
@@ -183,7 +196,8 @@ namespace FreshenerShopSDM.Controllers
 					if (TryUpdateModel(freshener))
 					{
 						freshener = requestFreshener;
-						db.SaveChanges();
+                        freshener.FreshenerModifyDate = DateTime.Now;
+                        db.SaveChanges();
 						TempData["message"] = "The freshener has been modified!";
 					}
 				}
@@ -230,52 +244,29 @@ namespace FreshenerShopSDM.Controllers
 			float rating = 0;
 			//int numberOfReviews = 0;
 			var reviews = db.Reviews.Where(rv => rv.FreshenerId == freshener.FreshenerId);
-
-			foreach (var rev in reviews)
-			{
-				rating += rev.ReviewGrade;
-				//numberOfReviews++;
-			}
-			//rating /= numberOfReviews;
-			rating /= reviews.Count();
-			freshener.FreshenerRating = rating;
-			db.SaveChanges();
+            if (reviews != null)
+            {
+                try
+                {
+                    foreach (var rev in reviews)
+                    {
+                        rating += rev.ReviewGrade;
+                        //numberOfReviews++;
+                    }
+                    //rating /= numberOfReviews;
+                    rating /= reviews.Count();
+                    freshener.FreshenerRating = rating;
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.InnerException.Message);
+                }
+            }
+            else
+            {
+                return;
+            }
 		}
-
-		/*[HttpPost]
-		[Authorize(Roles = "Admin, User")]
-		public ActionResult NewReview(Review rev)
-		{
-			rev.ReviewModifyDate = DateTime.Now;
-			rev.UserId = User.Identity.GetUserId();
-			try
-			{
-				if (ModelState.IsValid)
-				{
-					db.Reviews.Add(rev);
-					db.SaveChanges();
-					return Redirect("/Fresheners/Show/" + rev.FreshenerId);
-				}
-				else
-				{
-					Freshener fresh = db.Fresheners.Find(rev.FreshenerId);
-					ViewBag.isAdmin = User.IsInRole("Admin");
-					ViewBag.currentUser = User.Identity.GetUserId();
-					TempData["message"] = "This field can not be modified!";
-					return Redirect("/Fresheners/Show/" + rev.FreshenerId);
-
-				}
-			}
-
-			catch (Exception e)
-			{
-				Freshener fresh = db.Fresheners.Find(rev.FreshenerId);
-				ViewBag.isAdmin = User.IsInRole("Admin");
-				ViewBag.currentUser = User.Identity.GetUserId();
-				return View(fresh);
-			}
-
-		}
-		*/
 	}
 }

@@ -1,22 +1,32 @@
 ﻿@model FreshenerShopSDM.Models.Category
 @{
-	ViewBag.Title = "Show Category";
+    ViewBag.Title = "Show Category";
 }
-
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
 <h2>@ViewBag.Title</h2>
 
-<h3>@ViewBag.Category.CategoryName</h3>
-<br />
-@foreach (var freshener in ViewBag.Fresheners)
+@if (ViewBag.States != null)
 {
-	<a href="/Fresheners/Show/@freshener.FreshenerId">@freshener.FreshenerName</a>
-	<br />
+    <h3>@ViewBag.Category.CategoryName</h3>
+    <br />
+    foreach (var freshener in ViewBag.Fresheners)
+    {
+        <a href="/Fresheners/Show/@freshener.FreshenerId">@freshener.FreshenerName</a>
+        <br />
+    }
+    <br />
+}
+else
+{
+    <h1>This category has no fresheners!</h1>
 }
 
-<br />
 <form method="post" action="/Categories/Delete/@Model.CategoryId">
-	@Html.HttpMethodOverride(HttpVerbs.Delete)
-	<button type="submit">Delete Category</button>
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <button type="submit">Delete Category</button>
 </form>
 
 <br />

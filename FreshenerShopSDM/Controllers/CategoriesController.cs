@@ -9,7 +9,7 @@ namespace FreshenerShopSDM.Controllers
 {
 	public class CategoriesController : Controller
 	{
-		private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
 		public ActionResult Index()
 		{
@@ -27,9 +27,27 @@ namespace FreshenerShopSDM.Controllers
 
 		public ActionResult Show(int id)
 		{
-			Category category = db.Categories.Find(id);
-			return View(category);
-		}
+            try
+            {
+                Category category = db.Categories.Find(id);
+                var fresheners = from freshener in db.Fresheners
+                                 where freshener.CategoryId == category.CategoryId
+                                 select freshener;
+                if(fresheners != null)
+                {
+                    return View(category);
+                }
+                else
+                {
+                    throw new NullReferenceException("You can't check a category that has no fresheners!");
+                }
+            }
+            catch (Exception e)
+            {               
+                TempData["message"] = e;
+                return Redirect("/Categories/Index");
+            }
+        }
 
 		public ActionResult New()
 		{

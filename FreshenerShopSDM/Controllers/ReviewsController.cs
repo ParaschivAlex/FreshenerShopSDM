@@ -59,17 +59,27 @@ namespace FreshenerShopSDM.Controllers
 			try
 			{
 				Review rev = db.Reviews.Find(id);
+                //System.Diagnostics.Debug.WriteLine("found review");
 
-				if (rev.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+                if (rev.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
 				{
-					if (TryUpdateModel(rev))
-					{
-						rev.ReviewComment = requestReview.ReviewComment;
+                    //System.Diagnostics.Debug.WriteLine("checked user");
+
+                    //if (ModelState.IsValid)
+                    if (TryUpdateModel(rev))
+                    {
+                        //System.Diagnostics.Debug.WriteLine("entered update");
+
+                        rev.ReviewComment = requestReview.ReviewComment;
 						rev.ReviewGrade = requestReview.ReviewGrade;
 						rev.ReviewModifyDate = DateTime.Now;
 						db.SaveChanges();
+
+                        //System.Diagnostics.Debug.WriteLine("pass update");
 					}
-					return Redirect("/Fresheners/Show/" + rev.FreshenerId);
+
+                    //System.Diagnostics.Debug.WriteLine("final update");
+                    return Redirect("/Fresheners/Show/" + rev.FreshenerId);
 				}
 				else
 				{
