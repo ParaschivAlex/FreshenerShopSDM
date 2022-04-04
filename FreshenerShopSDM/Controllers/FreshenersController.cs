@@ -14,7 +14,7 @@ namespace FreshenerShopSDM.Controllers
     {
 		private ApplicationDbContext db = new ApplicationDbContext();
 
-		private readonly int _perPage = 9;
+		private readonly int _perPage = 3;
 		private List<Freshener> FreshenersSorted;
 
 		public ActionResult Index()
