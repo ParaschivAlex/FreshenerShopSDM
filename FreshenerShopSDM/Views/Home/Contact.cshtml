@@ -1,17 +1,88 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿<style>
+    h1 {
+        color: darkblue;
+    }
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+    img {
+        border: 3px dashed indianred;
+    }
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    body {
+        counter-reset: srl;
+        background-image: url('https://i.pinimg.com/originals/eb/de/af/ebdeaf8043e99fe98f0463fe5a22462f.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
+
+    .p1 {
+        font-weight: 600;
+        font-size:32px;
+    }
+    .p2 {
+        font-weight: 600;
+        font-size: 24px;
+    }
+
+    .li1 {
+        font-weight: 600;
+        font-size: 20px;
+    }
+</style>
+<body>
+    @{
+        ViewBag.Title = "Where and when are we?";
+    }
+    <h2 style="text-align:center">@ViewBag.Title</h2>
+
+    <div class="container-fluid">
+        <div class="row" style="margin:5px 0 5px 0;">
+            <div class="col-md-7">
+                <div style="width: 100%"><iframe width="100%" height="700" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Strada%20Teilor%2049,%20Pite%C8%99ti%20110030+(Pitesti)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/sport-gps/">fitness tracker</a></iframe></div>
+            </div>
+            <div class="col-md-5">
+                <p class="p1" style="text-align:left">Our time:</p>
+                <li class="li1" style="text-align:left">Monday - Friday: 8:00 - 19:00</li>
+                &nbsp;
+                <li class="li1" style="text-align:left">Saturday: 09:00 - 13:00</li>
+                &nbsp;
+                <li class="li1" style="text-align:left">Sunday: Closed</li>
+                &nbsp;
+                <p class="p2" style="text-align:left">If you want to tell us someting...</p>
+                &nbsp;
+                <section class="form-section">
+                    <div class="container">
+                        <div class="row">
+                            <form action="">
+                                <div class="form-row">
+                                    <input type="text" class="form-control" placeholder="Name">
+                                </div>&nbsp;
+                                <div class="form-row">
+                                    <input type="email" class="form-control" placeholder="Email">
+                                </div>&nbsp;
+                                <div class="form-row">
+                                    <input type="number" class="form-control" placeholder="Phone number">
+                                </div>&nbsp;
+                                <div class="form-row">
+                                    <input type="text" class="form-control" placeholder="Subject">
+                                </div>&nbsp;
+                                <div class="form-row">
+                                    <textarea class="form-control" rows="3" placeholder="Your message..."></textarea>
+                                </div>&nbsp;
+                                <div class="form-row">
+                                    <button type="submit" class="btn btn-success">Send message</button>
+                                </div>&nbsp;
+                                <p>
+                                    +40 737 015 515<br />
+                                    <a href="mailto:alexandru.paraschiv13@s.unibuc.ro">alexandru.paraschiv13@s.unibuc.ro</a><br>
+                                    Strada Axinte Uricariul, București 011736
+                                </p>&nbsp;
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
