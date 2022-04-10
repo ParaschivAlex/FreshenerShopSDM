@@ -171,6 +171,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\FreshenersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemCartsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -183,10 +184,13 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Freshener.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ItemCart.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -271,6 +275,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Static\" />
+    <Folder Include="Views\ItemCarts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
