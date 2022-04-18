@@ -126,7 +126,7 @@
 				<small class="pull-right">@rev.ReviewModifyDate</small>
 			</div>
 
-			@if (rev.UserId == ViewBag.utilizatorCurent || User.IsInRole("Admin"))
+			@if (rev.UserId == ViewBag.currentUser || User.IsInRole("Admin"))
 			{
 				<div style="display: inline-block; float : left; margin-right: 15px">
 					<a class="fa fa-edit" href="/Reviews/Edit/@rev.ReviewId"></a>

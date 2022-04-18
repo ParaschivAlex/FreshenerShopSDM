@@ -21,7 +21,7 @@
 
 </div>
 
-@if ((string)Model.Id != ViewBag.utilizatorCurent)
+@if ((string)Model.Id != ViewBag.currentUser)
 {
 	<div class="panel-footer">
 		@using (Html.BeginForm(actionName: "Delete", controllerName: "Users", routeValues: new { id = @Model.Id }))

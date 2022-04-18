@@ -120,7 +120,7 @@ namespace FreshenerShopSDM.Controllers
 			ViewBag.Freshener = freshener;
 			ViewBag.Category = freshener.Category;
 			ViewBag.Reviews = freshener.Reviews;
-			ViewBag.utilizatorCurent = User.Identity.GetUserId();
+			ViewBag.currentUser = User.Identity.GetUserId();
 			return View(freshener);
 		}
 
@@ -178,7 +178,7 @@ namespace FreshenerShopSDM.Controllers
 			freshener.CategoryList = GetCategories();
 			ViewBag.Freshener = freshener;
 			ViewBag.Category = freshener.Category;
-			ViewBag.utilizatorCurent = User.Identity.GetUserId();
+			ViewBag.currentUser = User.Identity.GetUserId();
 			return View(freshener);
 			
 		}

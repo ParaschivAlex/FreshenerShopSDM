@@ -1,4 +1,6 @@
-﻿<style>
+﻿@model FreshenerShopSDM.Models.Contact
+
+<style>
     h1 {
         color: darkblue;
     }
@@ -18,8 +20,9 @@
 
     .p1 {
         font-weight: 600;
-        font-size:32px;
+        font-size: 32px;
     }
+
     .p2 {
         font-weight: 600;
         font-size: 24px;
@@ -34,6 +37,12 @@
     @{
         ViewBag.Title = "Where and when are we?";
     }
+
+    @if (TempData.ContainsKey("message"))
+    {
+        <h1>@ViewBag.message</h1>
+    }
+
     <h2 style="text-align:center">@ViewBag.Title</h2>
 
     <div class="container-fluid">
@@ -50,35 +59,38 @@
                 <li class="li1" style="text-align:left">Sunday: Closed</li>
                 &nbsp;
                 <p class="p2" style="text-align:left">If you want to tell us someting...</p>
-                &nbsp;
                 <section class="form-section">
                     <div class="container">
                         <div class="row">
-                            <form action="">
-                                <div class="form-row">
-                                    <input type="text" class="form-control" placeholder="Name">
-                                </div>&nbsp;
-                                <div class="form-row">
-                                    <input type="email" class="form-control" placeholder="Email">
-                                </div>&nbsp;
-                                <div class="form-row">
-                                    <input type="number" class="form-control" placeholder="Phone number">
-                                </div>&nbsp;
-                                <div class="form-row">
-                                    <input type="text" class="form-control" placeholder="Subject">
-                                </div>&nbsp;
-                                <div class="form-row">
-                                    <textarea class="form-control" rows="3" placeholder="Your message..."></textarea>
-                                </div>&nbsp;
-                                <div class="form-row">
-                                    <button type="submit" class="btn btn-success">Send message</button>
-                                </div>&nbsp;
-                                <p>
-                                    +40 737 015 515<br />
-                                    <a href="mailto:alexandru.paraschiv13@s.unibuc.ro">alexandru.paraschiv13@s.unibuc.ro</a><br>
-                                    Strada Axinte Uricariul, București 011736
-                                </p>&nbsp;
-                            </form>
+                            @using (Html.BeginForm(actionName: "New", controllerName: "Contacts"))
+                            {
+                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                                @Html.Label("ContactName", "Name")
+                                <br />
+                                @Html.TextBox("ContactName", null, new { @class = "form-control" })
+                                <br />
+
+                                @Html.Label("ContactEmail", "Email")
+                                <br />
+                                @Html.TextBox("ContactEmail", null, new { @class = "form-control" })
+                                <br />
+
+                                @Html.Label("ContactPhoneNumber", "Phone Number")
+                                <br />
+                                @Html.TextBox("ContactPhoneNumber", null, new { @class = "form-control" })
+                                <br />
+
+                                @Html.Label("ContactSubject", "Subject")
+                                <br />
+                                @Html.TextBox("ContactSubject", null, new { @class = "form-control" })
+                                <br />
+
+                                @Html.Label("ContactMessage", "Message")
+                                <br />
+                                @Html.TextArea("ContactMessage", null, new { @class = "form-control" })
+                                <br />
+                                <button class="btn btn-sm btn-success" type="submit">Contact us!</button>
+                            }
                         </div>
                     </div>
                 </section>

@@ -1,0 +1,24 @@
+﻿@model FreshenerShopSDM.Models.Contact
+
+@{
+    ViewBag.Title = "All contact forms:"; }
+<ol class="breadcrumb">
+    <li><h3>@ViewBag.Title</h3></li>
+</ol>
+@foreach (var contact in ViewBag.Contacts)
+{<div class="panel-heading">UserName: @contact.ContactEmail</div>
+<div class="panel-body">
+    <i class="glyphicon glyphicon-envelope"></i>Subject: <span class="label label-default">@contact.ContactSubject</span>
+    <br /><br />
+    <i class="glyphicon glyphicon-console"></i>Message: <span class="label label-default">@contact.ContactMessage</span>
+</div>
+<div class="panel-footer">
+    <a class="btn btn-sm btn-success" href="/Contacts/Show/@contact.ContactId">Show form details.</a>
+    @using (Html.BeginForm(actionName: "Delete", controllerName: "Contacts", routeValues: new { id = contact.ContactId }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-danger" type="submit">Delete contact form.</button>
+    }
+</div>
+<br /><br />
+}

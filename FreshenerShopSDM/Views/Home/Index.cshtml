@@ -2,6 +2,11 @@
     ViewBag.Title = "Home Page";
 }
 
+@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
 <style>
     body {
         font: 400 15px Lato, sans-serif;

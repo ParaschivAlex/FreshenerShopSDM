@@ -27,6 +27,10 @@
     }
     <h2 style="text-align:center">@ViewBag.Title</h2>
 
+    @if (TempData.ContainsKey("message"))
+    {
+        <h1>@ViewBag.message</h1>
+    }
 
     <div class="container-fluid">
         <div class="row" style="margin:5px 0 5px 0;">
@@ -42,9 +46,9 @@
         </div>
     </div>
     &nbsp;
-    <p class ="pa" style="text-align:center">SDM OFFICE GROUP is a company founded in 2006, with dedicated and professional people.</p>
+    <p class="pa" style="text-align:center">SDM OFFICE GROUP is a company founded in 2006, with dedicated and professional people.</p>
     &nbsp;
-    <p class ="pa" style="text-align:center">SDM OFFICE GROUP has been developing from a great idea that took shape and it is continously involving in big projects. We have unique fresheners in Romania, espacially fresheners imported from big countries. We are also involed in selling books, toys, office suplies and constuction materials, which you can find on our other sites, each one dedicated for its type.</p>
+    <p class="pa" style="text-align:center">SDM OFFICE GROUP has been developing from a great idea that took shape and it is continously involving in big projects. We have unique fresheners in Romania, espacially fresheners imported from big countries. We are also involed in selling books, toys, office suplies and constuction materials, which you can find on our other sites, each one dedicated for its type.</p>
     &nbsp;
     <h2 style="text-align:center">Careers</h2>
     &nbsp;

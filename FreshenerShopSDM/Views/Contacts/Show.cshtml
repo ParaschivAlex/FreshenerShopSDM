@@ -1,0 +1,29 @@
+﻿@model FreshenerShopSDM.Models.Contact
+
+<ol class="breadcrumb">
+    <li><h3>@ViewBag.Title</h3></li>
+</ol>
+
+<div class="panel-body">
+
+    <i class="glyphicon glyphicon-text-color"></i> Name: <span class="label label-default">@Model.ContactName</span>
+    <br />
+    <i class="glyphicon glyphicon-user"></i> Email: <span class="label label-default">@Model.ContactEmail</span>
+    <br />
+    <i class="glyphicon glyphicon-earphone"></i> Phone number: <span class="label label-default">@Model.ContactPhoneNumber</span>
+    <br />
+    <i class="glyphicon glyphicon-envelope"></i> Subject: <span class="label label-default">@Model.ContactSubject</span>
+    <br />
+    <i class="glyphicon glyphicon-console"></i> Message: <span class="label label-default">@Model.ContactMessage</span>
+
+    <br /><br />
+
+</div>
+<div class="panel-footer">
+    @using (Html.BeginForm(actionName: "Delete", controllerName: "Contacts", routeValues: new { id = @Model.ContactId }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <br />
+        <button class="btn btn-danger" type="submit">Delete contact form</button>
+    }
+</div>

@@ -26,7 +26,7 @@ namespace FreshenerShopSDM.Controllers
 		public ActionResult Show(string id)
 		{
 			ApplicationUser user = db.Users.Find(id);
-			ViewBag.utilizatorCurent = User.Identity.GetUserId();
+			ViewBag.currentUser = User.Identity.GetUserId();
 			string currentRole = user.Roles.FirstOrDefault().RoleId;
 			var userRoleName = (from role in db.Roles
 								where role.Id == currentRole
