@@ -41,6 +41,7 @@ namespace FreshenerShopSDM.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin, User")]
         [HttpPost]
         public ActionResult New(Contact con)
         {
@@ -50,13 +51,15 @@ namespace FreshenerShopSDM.Controllers
             {
                 db.Contacts.Add(con);
                 db.SaveChanges();
-                TempData["message"] = "Your contact form has been sent.";
-                return Redirect("/Home/Contact");
+                //TempData["message"] = "Your contact form has been sent.";
+                ViewBag.Message = "Your contact form has been sent.";
+                return View(con);
             }
             catch (Exception)
             {
-                TempData["message"] = "The form has not been sent.";
-                return Redirect("/Home/Contact");
+                //TempData["message"] = "The form has not been sent.";
+                ViewBag.Message = "The form has not been sent.";
+                return View(con);
             }
         }
 

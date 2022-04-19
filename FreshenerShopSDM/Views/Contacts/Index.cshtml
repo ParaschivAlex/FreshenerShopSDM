@@ -1,4 +1,9 @@
-﻿@model FreshenerShopSDM.Models.Contact
+﻿@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+@model FreshenerShopSDM.Models.Contact
 
 @{
     ViewBag.Title = "All contact forms:"; }
@@ -9,8 +14,12 @@
 {<div class="panel-heading">UserName: @contact.ContactEmail</div>
 <div class="panel-body">
     <i class="glyphicon glyphicon-envelope"></i>Subject: <span class="label label-default">@contact.ContactSubject</span>
-    <br /><br />
+    <br />
     <i class="glyphicon glyphicon-console"></i>Message: <span class="label label-default">@contact.ContactMessage</span>
+    <br /><br />
+    <i class="glyphicon glyphicon-time"></i>Date created: <span class="label label-default">@contact.ContactModifyDate</span>
+    <br />
+    <i class="glyphicon glyphicon-info-sign"></i>Added by: <span class="label label-default">@contact.UserId</span>
 </div>
 <div class="panel-footer">
     <a class="btn btn-sm btn-success" href="/Contacts/Show/@contact.ContactId">Show form details.</a>

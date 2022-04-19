@@ -1,6 +1,6 @@
 ﻿@model FreshenerShopSDM.Models.Category
 @{
-    ViewBag.Title = "Show Category";
+    ViewBag.Title = "All fresheners from this category: ";
 }
 @if (TempData.ContainsKey("message"))
 {
@@ -8,26 +8,27 @@
 }
 <h2>@ViewBag.Title</h2>
 
-@if (ViewBag.States != null)
-{
-    <h3>@ViewBag.Category.CategoryName</h3>
-    <br />
-    foreach (var freshener in ViewBag.Fresheners)
-    {
-        <a href="/Fresheners/Show/@freshener.FreshenerId">@freshener.FreshenerName</a>
-        <br />
-    }
-    <br />
-}
-else
-{
-    <h1>This category has no fresheners!</h1>
-}
-
-<form method="post" action="/Categories/Delete/@Model.CategoryId">
-    @Html.HttpMethodOverride(HttpVerbs.Delete)
-    <button type="submit">Delete Category</button>
-</form>
-
+<h3>@Model.CategoryName</h3>
 <br />
-<a href="/Categories/Index">Back to all categories</a>
+<div class="container-fluid">
+    <div class="row" style="margin:auto;">
+        
+            @foreach (var freshener in ViewBag.Fresheners)
+            {
+                <div class="col-md-3">
+                    <a href="/Fresheners/Show/@freshener.FreshenerId">@freshener.FreshenerName</a>
+                    <a href="/Fresheners/Show/@freshener.FreshenerId">
+                        <img class="img-responsive" src="@freshener.FreshenerImage" alt="freshener image" style="height:200px; width:150px; margin: 5px 0px 14px 0px;" />
+                    </a>
+                </div>
+            } 
+    </div>
+</div>
+
+    <br />
+    <form method="post" action="/Categories/Delete/@Model.CategoryId">
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-danger" type="submit">Delete Category</button>
+    </form>
+    <br />
+    <a href="/Categories/Index">Back to all categories</a>

@@ -1,4 +1,9 @@
-﻿@model FreshenerShopSDM.Models.Contact
+﻿@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+@model FreshenerShopSDM.Models.Contact
 
 <style>
     h1 {
@@ -34,15 +39,12 @@
     }
 </style>
 <body>
+
     @{
         ViewBag.Title = "Where and when are we?";
     }
 
-    @if (TempData.ContainsKey("message"))
-    {
-        <h1>@ViewBag.message</h1>
-    }
-
+    <h1 style="text-align:center">@ViewBag.Message</h1>
     <h2 style="text-align:center">@ViewBag.Title</h2>
 
     <div class="container-fluid">

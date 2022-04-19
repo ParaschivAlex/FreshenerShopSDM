@@ -154,7 +154,7 @@ namespace FreshenerShopSDM.Controllers
 					db.SaveChanges();
 					//Console.WriteLine("DB.SAVEDCHANGES");
 					TempData["message"] = "The freshener has been added! Add another freshener?";
-					return RedirectToAction("New");
+					return RedirectToAction("Index");
 				}
 				else
 				{

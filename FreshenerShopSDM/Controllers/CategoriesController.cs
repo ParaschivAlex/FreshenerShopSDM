@@ -35,6 +35,8 @@ namespace FreshenerShopSDM.Controllers
                                  select freshener;
                 if(fresheners != null)
                 {
+                    ViewBag.Categories = category;
+                    ViewBag.Fresheners = fresheners;
                     return View(category);
                 }
                 else

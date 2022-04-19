@@ -22,7 +22,7 @@ namespace FreshenerShopSDM.Controllers
 
 		public ActionResult Contact()
 		{
-			ViewBag.Message = "";
+			ViewBag.Message = "sadassdasdadas";
 
 			return View();
 		}

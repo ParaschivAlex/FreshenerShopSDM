@@ -18,17 +18,17 @@
 	@Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				@Html.ActionLink("SDM Office Group", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-			</div>
-			<div class="navbar-collapse collapse">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("SDM Office Group", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("All Fresheners", "Index", "Fresheners")</li>
                     @if (User.IsInRole("Admin"))
@@ -39,23 +39,23 @@
                         <li>@Html.ActionLink("Add Freshener", "New", "Fresheners")</li>
                     }
                 </ul>
-				@Html.Partial("_LoginPartial")
-			</div>
-		</div>
-	</div>
-	<div class="container body-content">
-		@RenderBody()
-		<hr />
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - SDM Office Group SRL</p>
-            <a href="/Home/index">Home</a>
+            <a href="/Home/Index">Home</a>
             <a href="/Home/About">About us</a>
-            <a href="/Home/Contact">Contact</a>
+            <a href="/Contacts/New">Contact</a>
         </footer>
-	</div>
-
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	@RenderSection("scripts", required: false)
+    </div>
+    <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
