@@ -12,6 +12,6 @@ namespace FreshenerShopSDM.Models
         public int CartId { get; set; }
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
-        public virtual ICollection<ItemCart> ItemsInCart { get; set; }
+        public virtual ICollection<ItemCart> ItemCarts { get; set; }
     }
 }

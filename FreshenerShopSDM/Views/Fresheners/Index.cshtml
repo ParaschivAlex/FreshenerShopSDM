@@ -72,7 +72,15 @@
 					<h4 class="pull-left">
 						<i class="fa pull-left"> @freshener.FreshenerPrice Lei</i>
 					</h4>
-					<div class="clearfix"></div>
+                    <div class="pull-right">
+                        <form method="post" action="/ItemCarts/New">
+                            <input type="hidden" name="FreshenerId" value="@freshener.FreshenerId" />
+                            <input type="hidden" name="Quantity" value="1" />
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-shopping-bag">&ensp;Add to cart</i>
+                            </button>
+                        </form>
+                    </div>
 				</div>
 			</div>
 		}
