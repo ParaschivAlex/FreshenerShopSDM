@@ -15,7 +15,6 @@ namespace FreshenerShopSDM.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -157,11 +156,7 @@ namespace FreshenerShopSDM.Controllers
                 if (result.Succeeded)
                 {
 					UserManager.AddToRole(user.Id, "User");
-                    Cart cart = new Cart();
-                    cart.UserId = user.Id;
-                    db.Carts.Add(cart);
-                    db.SaveChanges();
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+					await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link

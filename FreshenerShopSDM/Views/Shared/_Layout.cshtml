@@ -31,7 +31,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("All Fresheners", "Index", "Fresheners")</li>
-                    <li>@Html.ActionLink("Cart", "Index", "ItemCarts")</li>
                     @if (User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("All Categories", "Index", "Categories")</li>

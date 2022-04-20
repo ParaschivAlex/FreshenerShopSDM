@@ -172,7 +172,6 @@
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\FreshenersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ItemCartsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -275,11 +274,11 @@
     <Content Include="Views\Contacts\Show.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Contacts\New.cshtml" />
-    <Content Include="Views\ItemCarts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Static\" />
+    <Folder Include="Views\ItemCarts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
