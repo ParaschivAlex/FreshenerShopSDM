@@ -33,7 +33,8 @@ namespace FreshenerShopSDM.Controllers
                 var fresheners = from freshener in db.Fresheners
                                  where freshener.CategoryId == category.CategoryId
                                  select freshener;
-                if(fresheners != null)
+                //Console.WriteLine(fresheners);
+                if (fresheners != null)
                 {
                     ViewBag.Categories = category;
                     ViewBag.Fresheners = fresheners;

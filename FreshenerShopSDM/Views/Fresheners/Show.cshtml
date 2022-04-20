@@ -49,11 +49,20 @@
 					<a class="btn btn-warning" href="/Fresheners/Edit/@Model.FreshenerId"><i class="fa fa-edit"></i>Edit Freshener</a>
 				}
 			</div>
-			<div class="col-md-3" style="display:flex;">
-				<h4>
-					<i class="fa"> @Model.FreshenerPrice Lei&ensp;&ensp;</i>
-				</h4>
-			</div>
+            <div class="col-md-3" style="display:flex;">
+                <h4>
+                    <i class="fa"> @Model.FreshenerPrice Lei&ensp;&ensp;</i>
+                </h4>
+                <div class="pull-right">
+                    <form method="post" action="/ItemCarts/New">
+                        <input type="hidden" name="FreshenerId" value="@Model.FreshenerId" />
+                        <input type="hidden" name="Quantity" value="1" />
+                        <button type="submit" class="btn btn-success">
+                            <i class="fa fa-shopping-bag">&ensp;Adauga in cos</i>
+                        </button>
+                    </form>
+                </div>
+            </div>
 			<div class="col-md-4">
 				@if (User.IsInRole("Admin"))
 				{

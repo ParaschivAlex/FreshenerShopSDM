@@ -39,7 +39,7 @@ namespace FreshenerShopSDM.Models
 		public DbSet<Review> Reviews { get; set; }
 		public DbSet<Cart> Carts { get; set; }
 		public DbSet<Order> Orders { get; set; }
-		public DbSet<ItemCart> ItemsCart { get; set; }
+		public DbSet<ItemCart> ItemCarts { get; set; }
         public DbSet<Contact> Contacts { get; set; }
 
         public static ApplicationDbContext Create()
