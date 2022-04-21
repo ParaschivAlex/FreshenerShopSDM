@@ -12,10 +12,10 @@ namespace FreshenerShopSDM.Models
         public int ItemCartId { get; set; }
         public int FreshenerId { get; set; }
         public int CartId { get; set; }
-        public Nullable<int> OrderId { get; set; }
-        public int Quantity { get; set; }
+        //public Nullable<int> OrderId { get; set; }
+        public int ItemCartQuantity { get; set; }
         public virtual Freshener Freshener { get; set; }
         public virtual Cart Cart { get; set; }
-        public virtual Order Order { get; set; }
+        //public virtual Order Order { get; set; }
     }
 }

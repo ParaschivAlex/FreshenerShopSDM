@@ -1,0 +1,33 @@
+﻿@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+@model FreshenerShopSDM.Models.Order
+
+@{
+    ViewBag.Title = "All orders:"; }
+<ol class="breadcrumb">
+    <li><h3>@ViewBag.Title</h3></li>
+</ol>
+@foreach (var order in ViewBag.Orders)
+{<div class="panel-heading">Order Id: @order.OrderId</div>
+<div class="panel-body">
+    <i class="glyphicon glyphicon-envelope"></i>UserName: <span class="label label-default">@order.UserName</span>
+    <br />
+    <i class="glyphicon glyphicon-console"></i>Message: <span class="label label-default">@contact.ContactMessage</span>
+    <br /><br />
+    <i class="glyphicon glyphicon-time"></i>Date created: <span class="label label-default">@contact.ContactModifyDate</span>
+    <br />
+    <i class="glyphicon glyphicon-info-sign"></i>Added by: <span class="label label-default">@contact.UserId</span>
+</div>
+<div class="panel-footer">
+    <a class="btn btn-sm btn-success" href="/Contacts/Show/@contact.ContactId">Show form details.</a>
+    @using (Html.BeginForm(actionName: "Delete", controllerName: "Contacts", routeValues: new { id = contact.ContactId }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-danger" type="submit">Delete contact form.</button>
+    }
+</div>
+<br /><br />
+}

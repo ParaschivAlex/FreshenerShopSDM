@@ -5,12 +5,12 @@
 
     <div class="row">
         <div class="col-md-8">
-            @foreach (var q in ViewBag.ItemCarts)
+            @foreach (var ic in ViewBag.ItemCarts)
             {
                 <div class="panel panel-default">
                     <div class="panel-heading" style="background-color:white;">
-                        <h4 class="text-primary pull-left">@q.Freshener.FreshenerName</h4>
-                        <form method="post" action="/ItemCarts/Delete/@q.ItemCartId">
+                        <h4 class="text-primary pull-left">@ic.Freshener.FreshenerName</h4>
+                        <form method="post" action="/ItemCarts/Delete/@ic.ItemCartId">
                             @Html.HttpMethodOverride(HttpVerbs.Delete)
                             <button class="btn btn-danger pull-right" type="submit"><i class="fa fa-trash"></i>&ensp;Remove</button>
                         </form>
@@ -19,25 +19,25 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <img class="img-responsive" src="@q.Freshener.FreshenerImage" alt="poza produsului" />
+                                <img class="img-responsive" src="@ic.Freshener.FreshenerImage" alt="poza produsului" />
                             </div>
                             <div class="col-md-5">
-                                <p style="height:120px; overflow:hidden;">@q.Freshener.FreshenerDescription</p>
+                                <p style="height:120px; overflow:hidden;">@ic.Freshener.FreshenerDescription</p>
                             </div>
                             <div class="col-md-4">
                                 <div class="row">
                                     <div class="col-md-2"></div>
                                     <div class="col-md-3">
-                                        <form method="post" action="/ItemCarts/EditMinus/@q.ItemCartId">
+                                        <form method="post" action="/ItemCarts/DecreaseItem/@ic.ItemCartId">
                                             @Html.HttpMethodOverride(HttpVerbs.Put)
                                             <button class="btn btn-info" type="submit"><i class="fa fa-minus"></i></button>
                                         </form>
                                     </div>
                                     <div class="col-md-2">
-                                        <h4><b>@q.Quantity</b></h4>
+                                        <h4><b>@ic.ItemCartQuantity</b></h4>
                                     </div>
                                     <div class="col-md-3">
-                                        <form method="post" action="/ItemCarts/EditPlus/@q.ItemCartId">
+                                        <form method="post" action="/ItemCarts/IncrementItem/@ic.ItemCartId">
                                             @Html.HttpMethodOverride(HttpVerbs.Put)
                                             <button class="btn btn-info" type="submit"><i class="fa fa-plus"></i></button>
                                         </form>
@@ -46,7 +46,7 @@
                                 </div>
                                 <h4 class="text-center">
 
-                                    Pret:<i class="fa fa-dollar"> @q.Freshener.FreshenerPrice</i>
+                                    Price:<i> @ic.Freshener.FreshenerPrice Lei</i>
                                 </h4>
                             </div>
                         </div>
@@ -67,9 +67,15 @@
 
 
                     <div class="text-center">
-                        <h4>Total: @ViewBag.Total</h4>
+                        <h4>Total: @ViewBag.TotalSum Lei</h4>
                         <br />
-                        <button class="btn btn-success">Trimite Comanda</button>
+                        <form method="post" action="/Orders/New">
+                            <input type="hidden" name="Total" value="@ViewBag.TotalSum" />
+                            <input type="hidden" name="Email" value="@ViewBag.currentUser.Email" />
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-shopping-bag">&ensp;Continue</i>
+                            </button>
+                        </form>
                     </div>
 
                 </div>

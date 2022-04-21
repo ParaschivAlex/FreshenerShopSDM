@@ -18,26 +18,26 @@ namespace FreshenerShopSDM.Controllers
             var currentUser = User.Identity.GetUserId();
             Cart cart = db.Carts.Where(a => a.UserId == currentUser).First();
 
-            var quantities = from q in db.ItemCarts where q.CartId == cart.CartId select q;
+            var itemsInCart = from ic in db.ItemCarts where ic.CartId == cart.CartId select ic;
 
-            if (quantities != null)
+            if (itemsInCart != null)
             {
-                ViewBag.ItemCarts = quantities;
+                ViewBag.ItemCarts = itemsInCart;
                 ViewBag.currentUser = db.Users.Find(User.Identity.GetUserId());
 
                 float totalSum = 0;
 
-                foreach (var q in cart.ItemCarts)
+                foreach (var ic in cart.ItemCarts)
                 {
-                    totalSum = totalSum + q.Quantity * q.Freshener.FreshenerPrice;
+                    totalSum = totalSum + ic.ItemCartQuantity * ic.Freshener.FreshenerPrice;
                 }
 
                 if (totalSum < 300)
                 {
                     totalSum += 20;
                 }
-
-                ViewBag.Total = totalSum;
+                System.Diagnostics.Debug.WriteLine(totalSum);
+                ViewBag.TotalSum = totalSum;
                 return View();
             }
             else
@@ -49,30 +49,58 @@ namespace FreshenerShopSDM.Controllers
         }
 
         [HttpPost]
-        public ActionResult New(ItemCart q)
+        public ActionResult New(ItemCart ic)
         {
-            //iau id-ul userului si id-ul cosului corespunzator acelui user
             var currentUser = User.Identity.GetUserId();
             Cart cart = db.Carts.Where(a => a.UserId == currentUser).First();
-            //setez parametrul CartId la obiectul q primit dupa apasarea butonului "Adauga in cos", ceilalti 2 parametri fiind primiti din form
-            q.CartId = cart.CartId;
+            ic.CartId = cart.CartId;
 
-            //verific daca exista deja produsul in cosul userului curent
-            if (cart.ItemCarts.Where(a => a.FreshenerId == q.FreshenerId).Count() != 0)
+            if (cart.ItemCarts.Where(a => a.FreshenerId == ic.FreshenerId).Count() != 0)
             {
-                //daca exista, iau produsul din cos printr-un obiect quantity_temp, incrementez cantitatea
-                ItemCart quantity_temp = cart.ItemCarts.Where(a => a.FreshenerId == q.FreshenerId).First();
-                quantity_temp.Quantity++;
-                db.SaveChanges();
+                ItemCart itemInCart = cart.ItemCarts.Where(a => a.FreshenerId == ic.FreshenerId).First();
+                itemInCart.ItemCartQuantity++;
             }
             else
             {
-                //daca nu exista acest produs in cos las cantitatea 1 si il adaug direct in baza de date
-                db.ItemCarts.Add(q);
-                db.SaveChanges();
+                db.ItemCarts.Add(ic);    
             }
+            db.SaveChanges();
 
-            return Redirect("/Fresheners/Index");
+            return Redirect("/ItemCarts/Index");
+        }
+
+        [HttpPut]
+        public ActionResult IncrementItem(int id)
+        {
+            ItemCart ic = db.ItemCarts.Find(id);
+            ic.ItemCartQuantity++;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPut]
+        public ActionResult DecreaseItem(int id)
+        {
+            ItemCart ic = db.ItemCarts.Find(id);
+            if (ic.ItemCartQuantity == 1)
+            {
+                db.ItemCarts.Remove(ic);
+            }
+            else
+            {
+                ic.ItemCartQuantity--;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            ItemCart ic = db.ItemCarts.Find(id);
+            db.ItemCarts.Remove(ic);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
