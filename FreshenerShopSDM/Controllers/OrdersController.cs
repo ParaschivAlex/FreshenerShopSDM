@@ -38,12 +38,22 @@ namespace FreshenerShopSDM.Controllers
         }
 
         [Authorize(Roles = "Admin, User")]
-        [HttpPost]
-        public ActionResult New(Order ord)
+        public ActionResult New()
         {
-            ord.OrderModifyDate = DateTime.Now;
-            ord.UserId = User.Identity.GetUserId();
-            ord.OrderUsername = User.Identity.GetUserName();
+
+            Order order = new Order();
+            order.OrderUsername = User.Identity.GetUserName();
+            order.UserId = User.Identity.GetUserId();        
+
+            return View(order);
+        }
+
+        [Authorize(Roles = "Admin, User")]
+        [HttpPost]
+        public ActionResult New(Order order)
+        {
+            order.OrderModifyDate = DateTime.Now;
+            order.UserId = User.Identity.GetUserId();
 
             var currentUser = User.Identity.GetUserId();
             Cart cart = db.Carts.Where(a => a.UserId == currentUser).First();
@@ -67,21 +77,32 @@ namespace FreshenerShopSDM.Controllers
                     totalSum += 20;
                 }
 
-                ord.OrderTotal = totalSum;
+                order.OrderTotal = totalSum;
             }
+
             try
             {
-                db.Orders.Add(ord);
-                db.SaveChanges();
-                //TempData["message"] = "Your contact form has been sent.";
-                ViewBag.Message = "Your contact form has been sent.";
-                return View(ord);
+                if (ModelState.IsValid)
+                {
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+                    AddOrderIdToItemCart(order.OrderId);
+
+                    db.SaveChanges();
+                    //Console.WriteLine("DB.SAVEDCHANGES");
+                    TempData["message"] = "The order has been added!";
+                    return View(order);
+                }
+                else
+                {
+                    Console.WriteLine("Error on modelstate.isvalid for adding a new order.");
+                    return View(order);
+                }
             }
             catch (Exception)
             {
-                //TempData["message"] = "The form has not been sent.";
-                ViewBag.Message = "The form has not been sent.";
-                return View(ord);
+                Console.WriteLine("Error on try catch for adding a new order.");
+                return View(order);
             }
         }
 
@@ -94,6 +115,31 @@ namespace FreshenerShopSDM.Controllers
             TempData["message"] = "The contact form has been deleted!";
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public void AddOrderIdToItemCart(int id)
+        {
+            var currentUser = User.Identity.GetUserId();
+            var cart = db.Carts.Where(c => c.UserId == currentUser).FirstOrDefault();
+            var items = db.ItemCarts.Where(i => i.CartId == cart.CartId);
+
+            foreach (var item in items)
+            {
+                item.OrderId = id;
+            }
+
+            var completedItems = items.ToList().Select(i => new OrderComplete
+            {
+                FreshenerId = i.FreshenerId,               
+                OrderId = id,
+                FreshenerQuantity = i.ItemCartQuantity
+            });
+            System.Diagnostics.Debug.WriteLine(id);
+
+            foreach (var completedItem in completedItems)
+            {
+                db.OrderCompletes.Add(completedItem);
+            }
         }
     }
 }

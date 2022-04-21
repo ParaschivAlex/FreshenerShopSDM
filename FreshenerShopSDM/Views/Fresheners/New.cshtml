@@ -63,14 +63,17 @@
     @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
     <br />
     <br />
-    <button class="btn btn-sm btn-success" onclick="return validateInput()" type="submit">Add Freshener</button>
+    <button class="btn btn-sm btn-success" type="submit">Add Freshener</button>
 }
-<!--@section Scripts{
+<!--
+
+<button class="btn btn-sm btn-success" onclick="return validateInput()" type="submit">Add Freshener</button>
+    @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
     }
     <script>
-        function validateInput() {  
+        function validateInput() {
             if (document.getElementById("FreshenerName").value == "") {
                 Swal.fire(
                     'Error,',

@@ -41,6 +41,7 @@ namespace FreshenerShopSDM.Models
 		public DbSet<Order> Orders { get; set; }
 		public DbSet<ItemCart> ItemCarts { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<OrderComplete> OrderCompletes { get; set; }
 
         public static ApplicationDbContext Create()
         {

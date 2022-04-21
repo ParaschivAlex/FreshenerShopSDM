@@ -1,97 +1,59 @@
 ﻿@model FreshenerShopSDM.Models.Order
 
-@{
-    ViewBag.Title = "New";
-}
+<h2>Tell us where to deliver your order</h2>
 
-<h2>New</h2>
-
-
-@using (Html.BeginForm()) 
+@if (TempData.ContainsKey("message"))
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Order</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })   
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderFirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderFirstName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderLastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderLastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderLastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderCity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderCity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderCity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderState, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderState, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderState, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderStreet, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderStreet, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderStreet, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderPostalCode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderPostalCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderPostalCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderPhone, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderPhone, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderPhone, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderEmail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => modelOrder.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrderEmail, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    <h1>@ViewBag.message</h1>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@using (Html.BeginForm(actionName: "New", controllerName: "Orders"))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    @Html.Label("OrderFirstName", "First Name")
+    @Html.ValidationMessageFor(m => m.OrderFirstName, " The first name is mandatory!", new { @class = "text-danger " })
+    <br />
+    @Html.TextBox("OrderFirstName", null, new { @class = "form-control" })
+    <br /><br />
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Html.Label("OrderLastName", "Last Name")
+    @Html.ValidationMessageFor(m => m.OrderLastName, "The last name is mandatory!", new { @class = "text-danger " })
+    <br />
+    @Html.TextBox("OrderLastName", null, new { @class = "form-control" })
+    <br /><br />
+
+    @Html.Label("OrderCity", "City")
+    @Html.ValidationMessageFor(m => m.OrderCity, "The city is mandatory!", new { @class = "text-danger " })
+    <br />
+    @Html.TextArea("OrderCity", null, new { @class = "form-control" })
+    <br /><br />
+
+    @Html.Label("OrderState", "State")
+    @Html.ValidationMessageFor(m => m.OrderState, " The state is mandatory!", new { @class = "text-danger " })
+    <br />
+    @Html.TextBox("OrderState", null, new { @class = "form-control" })
+    <br /><br />
+
+    @Html.Label("OrderStreet", "Street")
+    @Html.ValidationMessageFor(m => m.OrderStreet, " The street name is mandatory!", new { @class = "text-danger " })
+    <br />
+    @Html.TextBox("OrderStreet", null, new { @class = "form-control" })
+    <br /><br />
+
+    @Html.Label("OrderPostalCode", "Postal Code")<br />
+    @Html.TextBox("OrderPostalCode", null, new { @class = "form-control" })
+    <br /><br />
+
+    @Html.Label("OrderPhone", "Phone number")
+    @Html.ValidationMessageFor(m => m.OrderPhone, "The phone number is mandatory!", new { @class = "text-danger " })
+    <br />
+    @Html.TextBox("OrderPhone", null, new { @class = "form-control" })
+    <br /><br />
+
+    @Html.Label("OrderEmail", "Email")<br />
+    @Html.TextBox("OrderEmail", null, new { @class = "form-control" })
+    <br /><br />
+
+    <br />
+    <button class="btn btn-sm btn-success" type="submit">Send order</button>
 }

@@ -69,13 +69,9 @@
                     <div class="text-center">
                         <h4>Total: @ViewBag.TotalSum Lei</h4>
                         <br />
-                        <form method="post" action="/Orders/New">
-                            <input type="hidden" name="Total" value="@ViewBag.TotalSum" />
-                            <input type="hidden" name="Email" value="@ViewBag.currentUser.Email" />
-                            <button type="submit" class="btn btn-success">
+                        <a href="/Orders/New" class="btn btn-success">
                                 <i class="fa fa-shopping-bag">&ensp;Continue</i>
-                            </button>
-                        </form>
+                        </a>
                     </div>
 
                 </div>

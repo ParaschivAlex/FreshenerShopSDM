@@ -15,18 +15,18 @@
 <div class="panel-body">
     <i class="glyphicon glyphicon-envelope"></i>UserName: <span class="label label-default">@order.UserName</span>
     <br />
-    <i class="glyphicon glyphicon-console"></i>Message: <span class="label label-default">@contact.ContactMessage</span>
+    <i class="glyphicon glyphicon-phone"></i>Phone: <span class="label label-default">@order.OrderPhone</span>
     <br /><br />
-    <i class="glyphicon glyphicon-time"></i>Date created: <span class="label label-default">@contact.ContactModifyDate</span>
+    <i class="glyphicon glyphicon-euro"></i>Total: <span class="label label-default">@order.OrderTotal</span>
     <br />
-    <i class="glyphicon glyphicon-info-sign"></i>Added by: <span class="label label-default">@contact.UserId</span>
+    <i class="glyphicon glyphicon-info-sign"></i>Items: <span class="label label-default">@order.ItemCarts</span>
 </div>
 <div class="panel-footer">
-    <a class="btn btn-sm btn-success" href="/Contacts/Show/@contact.ContactId">Show form details.</a>
-    @using (Html.BeginForm(actionName: "Delete", controllerName: "Contacts", routeValues: new { id = contact.ContactId }))
+    <a class="btn btn-sm btn-success" href="/Orders/Show/@order.OrderId">Show form details.</a>
+    @using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = order.OrderId }))
     {
         @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button class="btn btn-danger" type="submit">Delete contact form.</button>
+        <button class="btn btn-danger" type="submit">Delete order</button>
     }
 </div>
 <br /><br />
