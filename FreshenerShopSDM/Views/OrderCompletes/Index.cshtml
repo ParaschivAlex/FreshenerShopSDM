@@ -1,0 +1,31 @@
+﻿@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+@model FreshenerShopSDM.Models.OrderComplete
+
+@{
+    ViewBag.Title = "All orders:"; }
+<ol class="breadcrumb">
+    <li><h3>@ViewBag.Title</h3></li>
+</ol>
+@foreach (var order in ViewBag.OrdersCompleted)
+{<div class="panel-heading">Order Id: @order.Orderid</div>
+<div class="panel-body">
+    <i></i>Freshener Id: <span class="label label-default">@order.FreshenerId</span>
+    <br />
+    <i></i>Freshener Quantity: <span class="label label-default">@order.FreshenerQuantity</span>
+    <br />
+    <i></i>Date created: <span class="label label-default">@order.OrderSent</span>
+</div>
+<div class="panel-footer">
+    <a class="btn btn-sm btn-success" href="/OrderCompletes/Delete/@order.Orderid">Show form details.</a>
+    @using (Html.BeginForm(actionName: "Delete", controllerName: "OrderCompletes", routeValues: new { id = order.Orderid }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-danger" type="submit">Delete order.</button>
+    }
+</div>
+<br /><br />
+}

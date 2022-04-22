@@ -32,20 +32,19 @@ namespace FreshenerShopSDM.Controllers
                     totalSum = totalSum + ic.ItemCartQuantity * ic.Freshener.FreshenerPrice;
                 }
 
-                if (totalSum < 300)
+                if (totalSum > 0 && totalSum < 300)
                 {
                     totalSum += 20;
                 }
                 System.Diagnostics.Debug.WriteLine(totalSum);
                 ViewBag.TotalSum = totalSum;
+
                 return View();
             }
             else
             {
                 throw new NullReferenceException("You can't see a cart that has no fresheners!");
-            }
-
-            
+            }           
         }
 
         [HttpPost]

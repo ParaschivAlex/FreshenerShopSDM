@@ -18,7 +18,13 @@ namespace FreshenerShopSDM.Controllers
 
             Order order = new Order();
             order.OrderUsername = User.Identity.GetUserName();
-            order.UserId = User.Identity.GetUserId();        
+            order.UserId = User.Identity.GetUserId();
+
+            if (CheckEmptyCart() == false)
+            {
+                TempData["message"] = "Your cart is empty!";
+                return Redirect("/ItemCarts/Index/");
+            }
 
             return View(order);
         }
@@ -67,11 +73,15 @@ namespace FreshenerShopSDM.Controllers
                     AddOrderIdToItemCart(order.OrderId);
 
                     db.SaveChanges();
+
                     //Console.WriteLine("DB.SAVEDCHANGES");
                     TempData["message"] = "The order has been added!";
+
                     ViewBag.OrderId = order.OrderId;
-                    CompleteOrder();
-                    return Redirect("/Orders/CompleteOrder/");
+
+                    CompleteOrderDeleteItemsFromItemCart();
+
+                    return RedirectToAction("CompleteOrder", new { id = order.OrderId });
                 }
                 else
                 {
@@ -113,7 +123,7 @@ namespace FreshenerShopSDM.Controllers
             }
         }
 
-        public void CompleteOrder()
+        public void CompleteOrderDeleteItemsFromItemCart()
         {
             var currentUser = User.Identity.GetUserId();
             var cart = db.Carts.Where(c => c.UserId == currentUser).FirstOrDefault();
@@ -125,6 +135,72 @@ namespace FreshenerShopSDM.Controllers
             }
 
             db.SaveChanges();
+        }
+
+        public bool CheckEmptyCart()
+        {
+            var currentUser = User.Identity.GetUserId();
+            var cart = db.Carts.Where(c => c.UserId == currentUser).FirstOrDefault();
+            var items = db.ItemCarts.Where(i => i.CartId == cart.CartId);
+
+            foreach (var item in items)
+            {
+                //System.Diagnostics.Debug.WriteLine(item);
+                //if (item.ItemCartId != null)
+                //{
+                return true;
+                // }
+            }
+            return false;
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(int id)
+        {
+            Order order = db.Orders.Find(id);
+            ViewBag.Order = order;
+            ViewBag.currentUser = User.Identity.GetUserId();
+            return View(order);
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut]
+        public ActionResult Edit(int id, Order requestOrder)
+        {
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    Order order = db.Orders.Find(id);
+
+                    if (TryUpdateModel(order))
+                    {
+                        order = requestOrder;
+                        order.OrderModifyDate = DateTime.Now;
+                        db.SaveChanges();
+                        TempData["message"] = "The order has been modified!";
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return View(requestOrder);
+            }
+
+        }
+
+        [Authorize(Roles = "Admin, User")]
+        public ActionResult CompleteOrder(int id)
+        {
+            Order order = db.Orders.Find(id);
+            ViewBag.Order = order;
+            ViewBag.currentUser = User.Identity.GetUserId();
+            return View(order);
+
         }
     }
 }

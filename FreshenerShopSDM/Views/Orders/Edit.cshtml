@@ -1,0 +1,50 @@
+﻿@model FreshenerShopSDM.Models.Order
+
+<h2 class="text-primary">Edit Order Address @Model.OrderId, @Model.UserId</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Orders", routeValues: new { id = Model.OrderId }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+
+    @Html.Label("OrderFirstName", "First Name")<br />
+    @Html.EditorFor(m => m.OrderFirstName)
+    @Html.ValidationMessageFor(m => m.OrderFirstName, "The first name is mandatory!", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("OrderLastName", "Last Name")<br />
+    @Html.EditorFor(m => m.OrderLastName)
+    @Html.ValidationMessageFor(m => m.OrderLastName, "The last name is mandatory!", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("OrderCity", "City")<br />
+    @Html.EditorFor(m => m.OrderCity)
+    @Html.ValidationMessageFor(m => m.OrderCity, "The city is mandatory!", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("OrderState", "State")<br />
+    @Html.EditorFor(m => m.OrderState)
+    @Html.ValidationMessageFor(m => m.OrderState, "The state is mandatory!", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("OrderPostalCode", "Postal Code")<br />
+    @Html.EditorFor(m => m.OrderPostalCode)
+    @Html.ValidationMessageFor(m => m.OrderPostalCode, "The postal code is mandatory!", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("OrderStreet", "Street name")<br />
+    @Html.EditorFor(m => m.OrderStreet)
+    @Html.ValidationMessageFor(m => m.OrderStreet, "The street is mandatory!", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("OrderPhone", "Phone number")<br />
+    @Html.EditorFor(m => m.OrderPhone)
+    @Html.ValidationMessageFor(m => m.OrderPhone, "The phone number is mandatory!", new { @class = "text-danger" })
+    <br /><br />
+
+    @Html.Label("OrderEmail", "Email")<br />
+    @Html.EditorFor(m => m.OrderEmail)
+    <br /><br />
+
+    <button class="btn btn-sm btn-success" type="submit">Modify order address</button>
+}
+

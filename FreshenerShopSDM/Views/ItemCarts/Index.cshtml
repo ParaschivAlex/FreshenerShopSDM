@@ -2,7 +2,10 @@
     <h2 class="text-primary">Cos de cumparaturi</h2>
     <a class="btn btn-info" href="/Fresheners/Index"><i class="fa fa-arrow-left"></i>  Inapoi la lista de produse</a>
     <br /><br />
-
+    @if (TempData.ContainsKey("message"))
+    {
+        <h1>@ViewBag.message</h1>
+    }
     <div class="row">
         <div class="col-md-8">
             @foreach (var ic in ViewBag.ItemCarts)
@@ -46,7 +49,7 @@
                                 </div>
                                 <h4 class="text-center">
 
-                                    Price:<i> @ic.Freshener.FreshenerPrice Lei</i>
+                                    Price:<i> @ic.Freshener.FreshenerPrice Lei</i>                                   
                                 </h4>
                             </div>
                         </div>
@@ -68,9 +71,11 @@
 
                     <div class="text-center">
                         <h4>Total: @ViewBag.TotalSum Lei</h4>
+                        <h5>Free Shipping for orders more than 300 Lei</h5>
+                        <h5>20 Lei shipping tax for orders less than 300 Lei</h5>
                         <br />
                         <a href="/Orders/New" class="btn btn-success">
-                                <i class="fa fa-shopping-bag">&ensp;Continue</i>
+                            <i class="fa fa-shopping-bag">&ensp;Continue</i>
                         </a>
                     </div>
 

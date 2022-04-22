@@ -4,8 +4,8 @@
     <h1>@ViewBag.message</h1>
 }
 <h2>We have received your order!</h2>
-<p>We are processing it, you should expect to receive it in 2-4 working days! Your order number is: @ViewBag.OrderId</p>
+<p>We are processing it, you should expect to receive it in 2-4 working days! Your order number is: @ViewBag.Order.OrderId</p>
 <p>
     Check out more interesting fresheners!
-    @Html.ActionLink("More fresheners", "Index", "Fresheners")
+    <a href="/Fresheners/Index/" class="btn btn-info">Shop Now!</a>
 </p>
