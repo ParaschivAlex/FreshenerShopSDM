@@ -23,7 +23,7 @@ namespace FreshenerShopSDM.Models
         public System.DateTime OrderModifyDate { get; set; }
         public virtual ICollection<ItemCart> ItemCarts { get; set; }
         public virtual ICollection<OrderComplete> OrderCompletes { get; set; }
-        public int OrderCompleteId { get; set; }
+        //public int OrderCompleteId { get; set; }
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
     }

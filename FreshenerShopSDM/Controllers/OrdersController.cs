@@ -8,34 +8,9 @@ using System.Web.Mvc;
 
 namespace FreshenerShopSDM.Controllers
 {
-    [Authorize(Roles = "Admin, User")]
     public class OrdersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult Index()
-        {
-            if (TempData.ContainsKey("message"))
-            {
-                ViewBag.message = TempData["message"].ToString();
-            }
-
-            var orders = from order in db.Orders
-                           orderby order.OrderModifyDate
-                           select order;
-            ViewBag.Orders = orders;
-            return View();
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult Show(int id)
-        {
-            Order order = db.Orders.Find(id);
-            ViewBag.Order = order;
-            ViewBag.currentUser = User.Identity.GetUserId();
-            return View(order);
-        }
 
         [Authorize(Roles = "Admin, User")]
         public ActionResult New()
@@ -77,7 +52,10 @@ namespace FreshenerShopSDM.Controllers
                     totalSum += 20;
                 }
 
-                order.OrderTotal = totalSum;
+                float TS = (float)Math.Round(totalSum * 100f) / 100f;
+
+                order.OrderTotal = TS;
+
             }
 
             try
@@ -85,37 +63,30 @@ namespace FreshenerShopSDM.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Orders.Add(order);
-                    db.SaveChanges();
+                    //db.SaveChanges();
                     AddOrderIdToItemCart(order.OrderId);
 
                     db.SaveChanges();
                     //Console.WriteLine("DB.SAVEDCHANGES");
                     TempData["message"] = "The order has been added!";
-                    return View(order);
+                    ViewBag.OrderId = order.OrderId;
+                    CompleteOrder();
+                    return Redirect("/Orders/CompleteOrder/");
                 }
                 else
                 {
                     Console.WriteLine("Error on modelstate.isvalid for adding a new order.");
-                    return View(order);
+                    TempData["message"] = "Something went wrong!";
+                    return Redirect("/Home/Index/");
                 }
             }
             catch (Exception)
             {
                 Console.WriteLine("Error on try catch for adding a new order.");
-                return View(order);
+                TempData["message"] = "Something went wrong!";
+                return Redirect("/Home/Index/");
             }
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpDelete]
-        public ActionResult Delete(int id)
-        {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            TempData["message"] = "The contact form has been deleted!";
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        }     
 
         public void AddOrderIdToItemCart(int id)
         {
@@ -134,12 +105,26 @@ namespace FreshenerShopSDM.Controllers
                 OrderId = id,
                 FreshenerQuantity = i.ItemCartQuantity
             });
-            System.Diagnostics.Debug.WriteLine(id);
+            //System.Diagnostics.Debug.WriteLine(id);
 
             foreach (var completedItem in completedItems)
             {
                 db.OrderCompletes.Add(completedItem);
             }
+        }
+
+        public void CompleteOrder()
+        {
+            var currentUser = User.Identity.GetUserId();
+            var cart = db.Carts.Where(c => c.UserId == currentUser).FirstOrDefault();
+            var items = db.ItemCarts.Where(i => i.CartId == cart.CartId);
+
+            foreach (var item in items)
+            {
+                db.ItemCarts.Remove(item);
+            }
+
+            db.SaveChanges();
         }
     }
 }
