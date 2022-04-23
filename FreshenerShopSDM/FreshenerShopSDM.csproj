@@ -184,6 +184,10 @@
     <Compile Include="Migrations\202204011900273_initial.Designer.cs">
       <DependentUpon>202204011900273_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202204231949065_Backend.cs" />
+    <Compile Include="Migrations\202204231949065_Backend.Designer.cs">
+      <DependentUpon>202204231949065_Backend.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -305,6 +309,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202204011900273_initial.resx">
       <DependentUpon>202204011900273_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202204231949065_Backend.resx">
+      <DependentUpon>202204231949065_Backend.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
