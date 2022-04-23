@@ -1,0 +1,44 @@
+﻿@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+@model FreshenerShopSDM.Models.Order
+
+@{
+    ViewBag.Title = "Your orders:"; }
+<ol class="breadcrumb">
+    <li><h3>@ViewBag.Title</h3></li>
+</ol>
+@foreach (var order in ViewBag.Orders)
+{<div class="panel-heading">Order Id: @order.OrderId</div>
+<div class="panel-body">
+
+    <i class="glyphicon glyphicon-phone"></i>Phone: <span class="label label-default">@order.OrderPhone</span>
+    <br />
+    <i class="glyphicon glyphicon-euro"></i>Total: <span class="label label-default">@order.OrderTotal</span>
+    <br />
+    <i class="glyphicon glyphicon-time"></i>Date: <span class="label label-default">@order.OrderModifyDate</span>
+    <br />
+    <i class="glyphicon glyphicon-envelope"></i>Email: <span class="label label-default">@order.OrderEmail</span>
+    <br />
+
+</div>
+<div class="panel-footer">
+    <a class="btn btn-sm btn-success" href="/Orders/UserShowOrder/@order.OrderId">Show order details.</a>
+    @if (order.OrderSent == false)
+    {
+        using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = order.OrderId }))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button class="btn btn-danger" type="submit">Cancel order</button>
+        }
+        <p>If you want to edit your order, please contact us via email/phone or cancel this order and make another.</p>
+    }
+    @if (order.OrderSent == true)
+    {
+        <p>You can not cancel/edit this order, it has already been processed and sent to you. Please contact us via email/phone for more information.</p>
+    }
+</div>
+<br /><br />
+}

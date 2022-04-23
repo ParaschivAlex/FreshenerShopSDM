@@ -21,6 +21,7 @@ namespace FreshenerShopSDM.Models
         public string OrderEmail { get; set; }
         public float OrderTotal { get; set; }
         public System.DateTime OrderModifyDate { get; set; }
+        public bool OrderSent { get; set; }
         public virtual ICollection<ItemCart> ItemCarts { get; set; }
         public virtual ICollection<OrderComplete> OrderCompletes { get; set; }
         //public int OrderCompleteId { get; set; }

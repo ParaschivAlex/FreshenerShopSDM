@@ -3,27 +3,12 @@
 <h2 class="text-primary">Edit Order Fresheners (Order Completed: @Model.OrderCompleteId; Order Address: @Model.OrderId)</h2>
 @foreach (var ordCom in ViewBag.OrdersCompleted)
 {
-    @using (Html.BeginForm(actionName: "Edit", controllerName: "OrderCompletes", routeValues: new { id = Model.OrderId }))
-    {
-        @Html.HttpMethodOverride(HttpVerbs.Put)
-
-        @Html.Label("FreshenerId", "Freshener Id")<br />
-        @Html.EditorFor(m => m.FreshenerId)
-        <br />
-
-        @Html.Label("FreshenerQuantity", "Freshener Quantity")<br />
-        @Html.EditorFor(m => m.FreshenerQuantity)
-        <br /> <br />
-    }
-
-}
-
-@using (Html.BeginForm(actionName: "Edit", controllerName: "OrderCompletes", routeValues: new { id = Model.OrderId }))
-{
-    @Html.HttpMethodOverride(HttpVerbs.Put)
-
-    @Html.Label("OrderSent", "Order sent to customer?")<br />
-    @Html.EditorFor(m => m.OrderSent)
+    @Html.Label("FreshenerId", "Freshener Id")<br />
+    @Html.EditorFor(m => m.FreshenerId)
     <br /><br />
-    <button class="btn btn-sm btn-success" type="submit">Modify order</button>
+
+    @Html.Label("FreshenerQuantity", "Freshener Quantity")<br />
+    @Html.EditorFor(m => m.FreshenerQuantity)
+    <br /><br />
+
 }

@@ -15,12 +15,11 @@ namespace FreshenerShopSDM.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-            OrderComplete orderCompleted = db.OrderCompletes.Find(id);
-            Order order = db.Orders.Find(orderCompleted.OrderId);
+            Order order = db.Orders.Find(id);
+
+            ViewBag.OrdersCompleted = order.OrderCompletes;
             ViewBag.Order = order;
-            ViewBag.OrdersCompleted = orderCompleted;
-            ViewBag.currentUser = User.Identity.GetUserId();
-            return View(orderCompleted);
+            return View(order);
 
         }
         [Authorize(Roles = "Admin")]

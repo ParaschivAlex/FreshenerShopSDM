@@ -30,6 +30,26 @@ namespace FreshenerShopSDM.Controllers
         }
 
         [Authorize(Roles = "Admin, User")]
+        public ActionResult UserOrders()
+        {
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.message = TempData["message"].ToString();
+            }
+
+            var currentUser = User.Identity.GetUserId();
+
+            var orders = from order in db.Orders
+                         where order.UserId == currentUser
+                         orderby order.OrderId
+                         select order;
+
+            System.Diagnostics.Debug.WriteLine(orders);
+            ViewBag.Orders = orders.ToList();
+            return View();
+        }
+
+        [Authorize(Roles = "Admin, User")]
         public ActionResult New()
         {
 
@@ -175,22 +195,27 @@ namespace FreshenerShopSDM.Controllers
             return false;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User, Admin")]
         [HttpDelete]
         public ActionResult Delete(int id)
         {
-
+            var currentUser = User.Identity.GetUserId();
             Order order = db.Orders.Find(id);
-            var items = db.OrderCompletes.Where(o => o.OrderId == order.OrderId);
-
-            foreach (var item in items)
+            if (User.IsInRole("Admin") || currentUser == order.UserId)
             {
-                db.OrderCompletes.Remove(item);
-            }
-            db.Orders.Remove(order);           
 
-            db.SaveChanges();
-            TempData["message"] = "The order has been deleted!";
+                var items = db.OrderCompletes.Where(o => o.OrderId == order.OrderId);
+
+                foreach (var item in items)
+                {
+                    db.OrderCompletes.Remove(item);
+                }
+                db.Orders.Remove(order);
+
+                db.SaveChanges();
+                TempData["message"] = "The order has been deleted!";
+                return RedirectToAction("Index");
+            }
             return RedirectToAction("Index");
         }
 
@@ -201,6 +226,20 @@ namespace FreshenerShopSDM.Controllers
             ViewBag.OrdersCompleted = order.OrderCompletes;
             ViewBag.Order = order;
             return View(order);
+        }
+
+        [Authorize(Roles = "Admin, User")]
+        public ActionResult UserShowOrder(int id)
+        {
+            var currentUser = User.Identity.GetUserId();
+            Order order = db.Orders.Find(id);
+            if (User.IsInRole("Admin") || currentUser == order.UserId)
+            {
+                ViewBag.OrdersCompleted = order.OrderCompletes;
+                ViewBag.Order = order;
+                return View(order);
+            }
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "Admin")]

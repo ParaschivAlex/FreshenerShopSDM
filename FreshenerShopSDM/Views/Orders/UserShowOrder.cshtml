@@ -6,7 +6,7 @@
 @model FreshenerShopSDM.Models.Order
 
 @{
-    ViewBag.Title = "Order details:"; 
+    ViewBag.Title = "Order details:";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -38,23 +38,5 @@
     Street name: <span class="label label-default">@Model.OrderStreet</span>
     <br />
     Postal Code: <span class="label label-default">@Model.OrderPostalCode</span>
-    <br />
-    <i class="glyphicon glyphicon-envelope"></i>OrderSent: <span class="label label-default">@Model.OrderSent</span>
-    <br />
-    <i class="glyphicon glyphicon-log-in"></i>UserId: <span class="label label-default">@Model.UserId</span>
-    <br />
-        <div class="panel-footer">
-
-            <a class="btn btn-warning" href="/Orders/Edit/@Model.OrderId"><i class="fa fa-edit"></i>Edit Order Deliver</a>
-            @if (Model.OrderSent == false)
-            {
-            <a class="btn btn-warning" href="/OrderCompletes/Edit/@Model.OrderId"><i class="fa fa-edit"></i>Edit Order Freshener</a>
-            }
-            @using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = Model.OrderId }))
-            {
-                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                <button class="btn btn-danger" type="submit">Delete order</button>
-            }
-        </div>
-        <br /><br />
+    <br /><br />
 </div>
