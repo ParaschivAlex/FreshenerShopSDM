@@ -52,5 +52,6 @@ namespace FreshenerShopSDM.Models
 		public virtual ApplicationUser User { get; set; }
 
 		public virtual ICollection<ItemCart> ItemCarts { get; set; }
-	}
+        public virtual ICollection<OrderComplete> OrderCompletes { get; set; }
+    }
 }

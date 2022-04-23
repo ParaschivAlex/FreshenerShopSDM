@@ -24,11 +24,13 @@
             } 
     </div>
 </div>
-
+@if (User.IsInRole("Admin"))
+{
     <br />
     <form method="post" action="/Categories/Delete/@Model.CategoryId">
         @Html.HttpMethodOverride(HttpVerbs.Delete)
         <button class="btn btn-danger" type="submit">Delete Category</button>
     </form>
-    <br />
+    <br />  
+}
     <a href="/Categories/Index">Back to all categories</a>

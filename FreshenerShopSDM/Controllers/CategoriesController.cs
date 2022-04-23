@@ -11,7 +11,7 @@ namespace FreshenerShopSDM.Controllers
 	{
         private ApplicationDbContext db = new ApplicationDbContext();
 
-		public ActionResult Index()
+        public ActionResult Index()
 		{
 			if (TempData.ContainsKey("message"))
 			{
@@ -25,7 +25,7 @@ namespace FreshenerShopSDM.Controllers
 			return View();
 		}
 
-		public ActionResult Show(int id)
+        public ActionResult Show(int id)
 		{
             try
             {
@@ -52,7 +52,8 @@ namespace FreshenerShopSDM.Controllers
             }
         }
 
-		public ActionResult New()
+        [Authorize(Roles = "Admin")]
+        public ActionResult New()
 		{
 			return View();
 		}

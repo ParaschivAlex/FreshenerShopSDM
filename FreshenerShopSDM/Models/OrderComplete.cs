@@ -14,6 +14,7 @@ namespace FreshenerShopSDM.Models
         public int OrderId { get; set; }
         public int FreshenerQuantity { get; set; }
 
+        public virtual Freshener Freshener { get; set; }
         public virtual Order Order { get; set; }
     }
 }

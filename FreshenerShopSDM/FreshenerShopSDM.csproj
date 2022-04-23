@@ -174,7 +174,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemCartsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrderCompletesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -283,7 +282,6 @@
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\CompleteOrder.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\OrderCompletes\Edit.cshtml" />
     <Content Include="Views\Orders\Show.cshtml" />
     <Content Include="Views\Orders\UserOrders.cshtml" />
     <Content Include="Views\Orders\UserShowOrder.cshtml" />

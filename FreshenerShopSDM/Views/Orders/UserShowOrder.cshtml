@@ -13,11 +13,11 @@
 
 @foreach (var orderCompleted in ViewBag.OrdersCompleted)
 {
-    <div class="panel-body">
-        Freshener Id: <span class="label label-default">@orderCompleted.FreshenerId</span>
-        Quantity: <span class="label label-default">@orderCompleted.FreshenerQuantity</span>
-        <br />
-    </div>
+<div class="panel-body">
+    Freshener: <span class="label label-default">@orderCompleted.Freshener.FreshenerName</span>
+    <a href="/Fresheners/Show/@orderCompleted.Freshener.FreshenerId"><img class="img-responsive" src="@orderCompleted.Freshener.FreshenerImage" alt="freshener image" style="height:200px; width:150px; margin: 5px 0px 14px 0px;" /></a> X <span class="label label-default">@orderCompleted.FreshenerQuantity</span>
+    <br />
+</div>
 }
 <div class="panel-heading">Order Id: @Model.OrderId</div>
 <div class="panel-body">

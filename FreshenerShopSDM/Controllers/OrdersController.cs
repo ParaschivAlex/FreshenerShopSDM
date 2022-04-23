@@ -119,7 +119,7 @@ namespace FreshenerShopSDM.Controllers
 
                     var currentUserEmail = db.Users.FirstOrDefault(u => u.Id == currentUser);
                     order.OrderUsername = currentUserEmail.Email;
-                    System.Diagnostics.Debug.WriteLine(currentUserEmail.Email);
+                    //System.Diagnostics.Debug.WriteLine(currentUserEmail.Email);
 
                     CompleteOrderDeleteItemsFromItemCart();
 

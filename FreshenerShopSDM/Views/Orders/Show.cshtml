@@ -14,8 +14,8 @@
 @foreach (var orderCompleted in ViewBag.OrdersCompleted)
 {
     <div class="panel-body">
-        Freshener Id: <span class="label label-default">@orderCompleted.FreshenerId</span>
-        Quantity: <span class="label label-default">@orderCompleted.FreshenerQuantity</span>
+        Freshener: <span class="label label-default">@orderCompleted.Freshener.FreshenerName</span>
+        <a href="/Fresheners/Show/@orderCompleted.Freshener.FreshenerId"><img class="img-responsive" src="@orderCompleted.Freshener.FreshenerImage" alt="freshener image" style="height:200px; width:150px; margin: 5px 0px 14px 0px;" /></a> X <span class="label label-default">@orderCompleted.FreshenerQuantity</span>
         <br />
     </div>
 }
@@ -43,18 +43,20 @@
     <br />
     <i class="glyphicon glyphicon-log-in"></i>UserId: <span class="label label-default">@Model.UserId</span>
     <br />
-        <div class="panel-footer">
-
+    <div class="panel-footer">
+        @if (Model.OrderSent == false)
+        {
             <a class="btn btn-warning" href="/Orders/Edit/@Model.OrderId"><i class="fa fa-edit"></i>Edit Order Deliver</a>
-            @if (Model.OrderSent == false)
-            {
-            <a class="btn btn-warning" href="/OrderCompletes/Edit/@Model.OrderId"><i class="fa fa-edit"></i>Edit Order Freshener</a>
-            }
-            @using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = Model.OrderId }))
-            {
-                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                <button class="btn btn-danger" type="submit">Delete order</button>
-            }
-        </div>
+        }
+        @if (Model.OrderSent == true)
+        {
+            <p>You can not cancel this order, it has already been processed and sent. Please delete it and make another one.</p>
+        }
+        @using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = Model.OrderId }))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button class="btn btn-danger" type="submit">Delete order</button>
+        }
+    </div>
         <br /><br />
 </div>
