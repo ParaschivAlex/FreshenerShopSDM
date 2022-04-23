@@ -10,34 +10,7 @@ namespace FreshenerShopSDM.Controllers
 {
     public class OrderCompletesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult Index()
-        {
-            if (TempData.ContainsKey("message"))
-            {
-                ViewBag.message = TempData["message"].ToString();
-            }
-
-            var ordersCompleted = from orderCompleted in db.OrderCompletes
-                         orderby orderCompleted.OrderId
-                         select orderCompleted;
-
-            ViewBag.OrdersCompleted = ordersCompleted.ToList();
-            return View();
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult Show(int id)
-        {
-            OrderComplete orderCompleted = db.OrderCompletes.Find(id);
-            Order order = db.Orders.Find(orderCompleted.OrderId);
-            ViewBag.Order = order;
-            ViewBag.OrdersCompleted = orderCompleted;
-            ViewBag.currentUser = User.Identity.GetUserId();
-            return View(orderCompleted);
-        }
+        private ApplicationDbContext db = new ApplicationDbContext();              
 
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
@@ -79,17 +52,6 @@ namespace FreshenerShopSDM.Controllers
                 return View(requestOrderCompleted);
             }
 
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpDelete]
-        public ActionResult Delete(int id)
-        {
-            OrderComplete orderCompleted = db.OrderCompletes.Find(id);
-            db.OrderCompletes.Remove(orderCompleted);
-            db.SaveChanges();
-            TempData["message"] = "The order has been deleted!";
-            return RedirectToAction("Index");
         }
     }
 }

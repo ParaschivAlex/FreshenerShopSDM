@@ -12,17 +12,22 @@
 </ol>
 @foreach (var order in ViewBag.Orders)
 {<div class="panel-heading">Order Id: @order.OrderId</div>
-<div class="panel-body">
-    <i class="glyphicon glyphicon-envelope"></i>UserName: <span class="label label-default">@order.UserName</span>
-    <br />
-    <i class="glyphicon glyphicon-phone"></i>Phone: <span class="label label-default">@order.OrderPhone</span>
-    <br /><br />
-    <i class="glyphicon glyphicon-euro"></i>Total: <span class="label label-default">@order.OrderTotal</span>
-    <br />
-    <i class="glyphicon glyphicon-info-sign"></i>Items: <span class="label label-default">@order.ItemCarts</span>
-</div>
+ <div class="panel-body">
+     <i class="glyphicon glyphicon-user"></i>Name : <span class="label label-default">@order.OrderFirstName @order.OrderLastName</span>
+     <br />
+     <i class="glyphicon glyphicon-phone"></i>Phone: <span class="label label-default">@order.OrderPhone</span>
+     <br />
+     <i class="glyphicon glyphicon-euro"></i>Total: <span class="label label-default">@order.OrderTotal</span>
+     <br />
+     <i class="glyphicon glyphicon-time"></i>Date: <span class="label label-default">@order.OrderModifyDate</span>
+     <br />
+     <i class="glyphicon glyphicon-envelope"></i>Email: <span class="label label-default">@order.OrderEmail</span>
+     <br />
+     <i class="glyphicon glyphicon-log-in"></i>User Id: <span class="label label-default">@order.UserId</span>
+     <br />
+ </div>
 <div class="panel-footer">
-    <a class="btn btn-sm btn-success" href="/Orders/Show/@order.OrderId">Show form details.</a>
+    <a class="btn btn-sm btn-success" href="/Orders/Show/@order.OrderId">Show order details.</a>
     @using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = order.OrderId }))
     {
         @Html.HttpMethodOverride(HttpVerbs.Delete)

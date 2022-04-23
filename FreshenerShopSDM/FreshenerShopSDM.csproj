@@ -284,7 +284,7 @@
     <Content Include="Views\Orders\CompleteOrder.cshtml" />
     <Content Include="Views\Orders\Edit.cshtml" />
     <Content Include="Views\OrderCompletes\Edit.cshtml" />
-    <Content Include="Views\OrderCompletes\Index.cshtml" />
+    <Content Include="Views\Orders\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

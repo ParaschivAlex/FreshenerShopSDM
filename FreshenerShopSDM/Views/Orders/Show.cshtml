@@ -1,0 +1,55 @@
+﻿@if (TempData.ContainsKey("message"))
+{
+    <h1>@ViewBag.message</h1>
+}
+
+@model FreshenerShopSDM.Models.Order
+
+@{
+    ViewBag.Title = "Order details:"; 
+}
+
+<h2>@ViewBag.Title</h2>
+
+@foreach (var orderCompleted in ViewBag.OrdersCompleted)
+{
+    <p>order</p>
+    <div class="panel-body">
+        Freshener Id: <span class="label label-default">@orderCompleted.FreshenerId</span>
+        Quantity: <span class="label label-default">@orderCompleted.FreshenerQuantity</span>
+        <br />
+    </div>
+}
+<div class="panel-heading">Order Id: @Model.OrderId</div>
+<div class="panel-body">
+    <i class="glyphicon glyphicon-user"></i>Name : <span class="label label-default">@Model.OrderFirstName @Model.OrderLastName</span>
+    <br />
+    <i class="glyphicon glyphicon-phone"></i>Phone: <span class="label label-default">@Model.OrderPhone</span>
+    <br />
+    <i class="glyphicon glyphicon-euro"></i>Total: <span class="label label-default">@Model.OrderTotal</span>
+    <br />
+    <i class="glyphicon glyphicon-time"></i>Date: <span class="label label-default">@Model.OrderModifyDate</span>
+    <br />
+    <i class="glyphicon glyphicon-envelope"></i>Email: <span class="label label-default">@Model.OrderEmail</span>
+    <br />
+    <i class="glyphicon glyphicon-log-in"></i>User Id: <span class="label label-default">@Model.UserId</span>
+    <br />
+    City: <span class="label label-default">@Model.OrderCity</span>
+    <br />
+    State: <span class="label label-default">@Model.OrderState</span>
+    <br />
+    Street name: <span class="label label-default">@Model.OrderStreet</span>
+    <br />
+    Postal Code: <span class="label label-default">@Model.OrderPostalCode</span>
+    <br />
+    <div class="panel-footer">
+        <a class="btn btn-warning" href="/Orders/Edit/@Model.OrderId"><i class="fa fa-edit"></i>Edit Order Deliver Details</a>
+        <a class="btn btn-warning" href="/OrderCompletes/Edit/@Model.OrderId"><i class="fa fa-edit"></i>Edit Order Freshener Details</a>
+        @using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = Model.OrderId }))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button class="btn btn-danger" type="submit">Delete order</button>
+        }
+    </div>
+    <br /><br />
+</div>

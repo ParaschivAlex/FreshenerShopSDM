@@ -12,12 +12,30 @@ namespace FreshenerShopSDM.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult Index()
+        {
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.message = TempData["message"].ToString();
+            }
+
+            var orders = from order in db.Orders
+                                  orderby order.OrderId
+                                  select order;
+
+            System.Diagnostics.Debug.WriteLine(orders);
+            ViewBag.Orders = orders.ToList();
+            return View();
+        }
+
         [Authorize(Roles = "Admin, User")]
         public ActionResult New()
         {
 
             Order order = new Order();
-            order.OrderUsername = User.Identity.GetUserName();
+            var currentUser = User.Identity.GetUserId();
+            
             order.UserId = User.Identity.GetUserId();
 
             if (CheckEmptyCart() == false)
@@ -79,6 +97,10 @@ namespace FreshenerShopSDM.Controllers
 
                     ViewBag.OrderId = order.OrderId;
 
+                    var currentUserEmail = db.Users.FirstOrDefault(u => u.Id == currentUser);
+                    order.OrderUsername = currentUserEmail.Email;
+                    System.Diagnostics.Debug.WriteLine(currentUserEmail.Email);
+
                     CompleteOrderDeleteItemsFromItemCart();
 
                     return RedirectToAction("CompleteOrder", new { id = order.OrderId });
@@ -136,7 +158,6 @@ namespace FreshenerShopSDM.Controllers
 
             db.SaveChanges();
         }
-
         public bool CheckEmptyCart()
         {
             var currentUser = User.Identity.GetUserId();
@@ -152,6 +173,34 @@ namespace FreshenerShopSDM.Controllers
                 // }
             }
             return false;
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+
+            Order order = db.Orders.Find(id);
+            var items = db.OrderCompletes.Where(o => o.OrderId == order.OrderId);
+
+            foreach (var item in items)
+            {
+                db.OrderCompletes.Remove(item);
+            }
+            db.Orders.Remove(order);           
+
+            db.SaveChanges();
+            TempData["message"] = "The order has been deleted!";
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Show(int id)
+        {
+            Order order = db.Orders.Find(id);
+            ViewBag.OrdersCompleted = order.OrderCompletes;
+            ViewBag.Order = order;
+            return View(order);
         }
 
         [Authorize(Roles = "Admin")]
