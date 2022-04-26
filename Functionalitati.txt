@@ -1,0 +1,23 @@
+Rezumat functionalitati: 
+Register/Login
+Rol de admin si de user
+Exista produse denumite "fresheners", categorii (many-to-1)
+Cei autentificati pot adauga review-uri la produse
+Adminul poate edita/sterge categorii, produse
+Doar userul care a adaugat un review il poate sterge/edita (si adminul)
+Produsele se pot sorta crescator, cat si descrescator dupa: data adaugarii, pret, rating.
+Exista functionalitatea de search dupa nume sau descriere.
+Fiecare utilizator are un cos de cumparaturi propriu, unde poate adauga produse, 
+creste sau descreste cantitatea si sterge.
+Dupa ce a adaugat produsele dorite, este redirectionat catre o pagina unde completeaza un formular
+cu adresa de livrare si alte date.
+Dupa aceea este redirectionat la o pagina care ii multumeste pentru comanda si ii afiseaza id-ul comenzii
+Adminul are un panou cu toate comenzile si poate edit adresa de livrare a unei comenzi daca aceasta
+nu a fost deja trimisa catre client. Poate si sterge comenzile.
+Si fiecare user are un panou unde isi poate vedea toate comenzile si le poate anula daca nu au fost deja trimise catre el
+Adminul mai are un panou cu toti userii unde ii poate sterge sau edita (numele/rolul/etc.)
+Mai exista o pagina de contact cu un iframe de google maps si un formular pentru contact.
+Dupa completarea formularului, adminul are, de asemenea, un panou unde le poate vedea pe toate si sterge din ele
+Mai este si o pagina de "about us" unde sunt puse cateva chestii, fara functionalitati specifice
+si o pagina de home.
+Urmeaza sa lucrez la partea de frontend.
