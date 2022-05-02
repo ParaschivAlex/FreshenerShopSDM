@@ -1,6 +1,6 @@
 ﻿@model FreshenerShopSDM.Models.Freshener
 
-<h2>Add Freshener</h2>
+<h2 class="text-center">Add Freshener</h2>
 
 @if (TempData.ContainsKey("message"))
 {
@@ -9,117 +9,67 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Fresheners"))
 {
-    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-    @Html.Label("FreshenerName", "Freshener Name")
-    @Html.ValidationMessageFor(m => m.FreshenerName, " *", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("FreshenerName", null, new { @class = "form-control" })
-    <br /><br />
+    <div class="form-row text-left justify-content-center align-items-center">
+        <div class="form-group col-md-4 justify-content-center align-items-center">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+            @Html.Label("FreshenerName", "Freshener Name", new { @class = "text-center " })
+            @Html.ValidationMessageFor(m => m.FreshenerName, " *", new { @class = "text-danger" })
 
-    @Html.Label("FreshenerSlug", "Freshener Slug")
-    @Html.ValidationMessageFor(m => m.FreshenerSlug, "", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("FreshenerSlug", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("FreshenerDescription", "Freshener Description")
-    @Html.ValidationMessageFor(m => m.FreshenerDescription, " *", new { @class = "text-danger " })
-    <br />
-    @Html.TextArea("FreshenerDescription", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("FreshenerPrice", "Freshener Price")
-    @Html.ValidationMessageFor(m => m.FreshenerPrice, " *", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("FreshenerPrice", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("FreshenerImage", "Freshener Image")
-    @Html.ValidationMessageFor(m => m.FreshenerImage, " *", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("FreshenerImage", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("FreshenerAvailability", "Freshener Availability")
-    @Html.ValidationMessageFor(m => m.FreshenerAvailability, " *", new { @class = "text-danger " })
-    @Html.CheckBox("FreshenerAvailability", true, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("FreshenerCode", "Freshener Code")
-    @Html.ValidationMessageFor(m => m.FreshenerCode, "", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("FreshenerCode", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("FreshenerStock", "Freshener Stock")
-    @Html.ValidationMessageFor(m => m.FreshenerStock, "", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("FreshenerStock", null, new { @class = "form-control" })
-    <br /><br />
-
-    <label>Select category:</label>@Html.ValidationMessageFor(m => m.CategoryId, " *", new { @class = "text-danger" })
-    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryList, "Value", "Text"), "Select category", new { @class = "form-control" })
-    <br />
-    <br />
-    <button class="btn btn-sm btn-success" type="submit">Add Freshener</button>
+            @Html.TextBox("FreshenerName", null, new { @class = "form-control justify-content-center align-items-center", @style = "align: center; display: table" })
+        </div>
+        <div class="form-group col-md-4 justify-content-center">
+            @Html.Label("FreshenerSlug", "Freshener Slug", new { @class = "text-center" })
+            @Html.ValidationMessageFor(m => m.FreshenerSlug, "", new { @class = "text-danger " })
+            <br />
+            @Html.TextBox("FreshenerSlug", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4 justify-content-center">
+            @Html.Label("FreshenerDescription", "Freshener Description", new { @class = "text-center" })
+            @Html.ValidationMessageFor(m => m.FreshenerDescription, " *", new { @class = "text-danger " })
+            <br />
+            @Html.TextArea("FreshenerDescription", null, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-row text-left justify-content-center">
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerPrice", "Freshener Price")
+            @Html.ValidationMessageFor(m => m.FreshenerPrice, " *", new { @class = "text-danger " })
+            <br />
+            @Html.TextBox("FreshenerPrice", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerImage", "Freshener Image")
+            @Html.ValidationMessageFor(m => m.FreshenerImage, " *", new { @class = "text-danger " })
+            <br />
+            @Html.TextBox("FreshenerImage", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerAvailability", "Freshener Availability")
+            @Html.ValidationMessageFor(m => m.FreshenerAvailability, " *", new { @class = "text-danger " })
+            @Html.CheckBox("FreshenerAvailability", true, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-row text-left justify-content-center">
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerCode", "Freshener Code")
+            @Html.ValidationMessageFor(m => m.FreshenerCode, "", new { @class = "text-danger " })
+            <br />
+            @Html.TextBox("FreshenerCode", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerStock", "Freshener Stock")
+            @Html.ValidationMessageFor(m => m.FreshenerStock, "", new { @class = "text-danger " })
+            <br />
+            @Html.TextBox("FreshenerStock", null, new { @class = "form-control" })
+        </div>
+        <div class="form-group col-md-4">
+            <label>Select category:</label>@Html.ValidationMessageFor(m => m.CategoryId, " *", new { @class = "text-danger" })
+            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryList, "Value", "Text"), "Select category", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <button class="btn btn-success justify-content-center" type="submit"><i class="fa fa-plus">&ensp;Add Freshener</i></button>
+        </div>
+    </div>
 }
-<!--
-
-<button class="btn btn-sm btn-success" onclick="return validateInput()" type="submit">Add Freshener</button>
-    @section Scripts{
-    @{
-        <partial name="_ValidationScriptsPartial" />
-    }
-    <script>
-        function validateInput() {
-            if (document.getElementById("FreshenerName").value == "") {
-                Swal.fire(
-                    'Error,',
-                    'The freshener must have a name!',
-                    'error'
-                )
-                return false;
-            }
-            if (document.getElementById("FreshenerDescription").value == "") {
-                Swal.fire(
-                    'Error,',
-                    'The freshener must have a description!',
-                    'error'
-                )
-                return false;
-            }
-            if (document.getElementById("FreshenerPrice").value == "") {
-                Swal.fire(
-                    'Error,',
-                    'The freshener must have a price!',
-                    'error'
-                )
-                return false;
-            }
-            if (document.getElementById("FreshenerImage").value == "") {
-                Swal.fire(
-                    'Error,',
-                    'The freshener must have a image!',
-                    'error'
-                )
-                return false;
-            }
-            if (document.getElementById("FreshenerAvailability").value == "") {
-                Swal.fire(
-                    'Error,',
-                    'The freshener must be available or not!',
-                    'error'
-                )
-                return false;
-            }
-            if (document.getElementById("CategoryId").value == null) {
-                Swal.fire(
-                    'Error,',
-                    'The freshener must have a category!',
-                    'error'
-                )
-                return false;
-            }
-            return true;
-    </script>
-}-->

@@ -1,155 +1,235 @@
 ﻿@model FreshenerShopSDM.Models.Freshener
 <br />
-<div class="panel panel-default">
-	<div class="panel-body">
-		<h4 class="text-center text-primary">@Model.FreshenerName</h4>
-		<hr />
-		<div class="row">
-			<div class="col-md-4">
-				<img class="img-responsive" src="@Model.FreshenerImage" alt="freshener image" />
-				<br />
-				Rating:&ensp;
-				@if (Model.FreshenerRating != 0)
-				{
-					var j = 0;
-					for (var i = 1; i <= Model.FreshenerRating; i++)
-					{
-						<i class="fa fa-star" style="color:gold;"></i>
-						j++;
-					}
-					if (Model.FreshenerRating - j != 0)
-					{
-						<i class="fa fa-star-half-full" style="color:gold;"></i>
-					}
-					for (var i = 5 - Model.FreshenerRating; i >= 1; i--)
-					{
-						<i class="fa fa-star-o" style="color:gold;"></i>
-					}
-				}
-				else
-				{
-					<p>No reviews yet!</p>
-				}
+<div class="card mb-3">
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img class="card-img h-100" src="@Model.FreshenerImage" alt="freshener image" />
+        </div>
+        <div class="col-md-8 text-center">
+            <div class="card-body ">
+                <h2 class="card-title">@Model.FreshenerName</h2>
+                <h6><i class="fa">Code: @Model.FreshenerCode</i></h6>
+                <h3><i class="fa"> @Model.FreshenerPrice Lei</i></h3>&nbsp;
+                <p class="card-text">@Model.FreshenerDescription</p>
+                Rating:&ensp;
+                @if (Model.FreshenerRating != 0)
+                {
+                    var j = 0;
+                    for (var i = 1; i <= Model.FreshenerRating; i++)
+                    {
+                        <i class="fa fa-star" style="color:gold;"></i>
+                        j++;
+                    }
+                    if (Model.FreshenerRating - j != 0)
+                    {
+                        <i class="fa fa-star-half-full" style="color:gold;"></i>
+                    }
+                    for (var i = 5 - Model.FreshenerRating; i >= 1; i--)
+                    {
+                        <i class="fa fa-star-o" style="color:gold;"></i>
+                    }
+                }
+                else
+                {
+                    <p>No reviews yet!</p>
+                }
+                <div class="row text-center" style="margin-top:10px;">
+                    <div class="col-md-4">
+                        @if (User.IsInRole("Admin"))
+                        {<form action="javascript:void(0);">
+                                <a class="btn btn-warning" href="/Fresheners/Edit/@Model.FreshenerId"><i class="fa fa-edit">&ensp;Edit Freshener</i></a>
+                            </form>
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        @if (Model.FreshenerAvailability == false)
+                        {
+                            <form action="javascript:void(0);">
+                                <button class="btn btn-outline-danger">
+                                    <i class="fa disabled">Freshener unavailable!</i>
+                                </button>
+                            </form>
+                        }
 
-			</div>
-			<div class="col-md-8">
-				<strong>Description:</strong>
-				<br />
-				<p style="overflow:auto;">@Model.FreshenerDescription</p>
-			</div>
-		</div>
-		<br />
-	</div>
+                        @if (Model.FreshenerStock > 0 && Model.FreshenerAvailability == true)
+                        {
+                            <form method="post" action="/ItemCarts/New">
+                                <input type="hidden" name="FreshenerId" value="@Model.FreshenerId" />
+                                <input type="hidden" name="ItemCartQuantity" value="1" />
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-shopping-bag">&ensp;Add to Basket</i>
+                                </button>
+                            </form>
+                        }
+                        @if (Model.FreshenerStock <= 0 && Model.FreshenerAvailability == true)
+                        {
+                            <form action="javascript:void(0);">
+                                <button class="btn btn-outline-danger">
+                                    <i class="fa">Out of stock!</i>
+                                </button>
+                            </form>
+                        }
+                    </div>
 
-	<div class="panel-footer">
-		<div class="row">
-			<div class="col-md-5">
-				@if (User.IsInRole("Admin"))
-				{
-					<a class="btn btn-warning" href="/Fresheners/Edit/@Model.FreshenerId"><i class="fa fa-edit"></i>Edit Freshener</a>
-				}
-			</div>
-            <div class="col-md-3" style="display:flex;">
-                <h4>
-                    <i class="fa"> @Model.FreshenerPrice Lei&ensp;&ensp;</i>
-                </h4>
-                <div class="pull-right">
-                    <form method="post" action="/ItemCarts/New">
-                        <input type="hidden" name="FreshenerId" value="@Model.FreshenerId" />
-                        <input type="hidden" name="ItemCartQuantity" value="1" />
-                        <button type="submit" class="btn btn-success">
-                            <i class="fa fa-shopping-bag">&ensp;Adauga in cos</i>
-                        </button>
-                    </form>
+                    <div class="col-md-4">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            using (Html.BeginForm(actionName: "Delete", controllerName: "Fresheners", method: FormMethod.Post, routeValues: new { id = @Model.FreshenerId }))
+                            {
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                <button class="btn btn-danger" type="submit"><i class="fa fa-trash">&ensp;Delete Freshener</i></button>
+                            }
+                        }
+                    </div>
+
                 </div>
             </div>
-			<div class="col-md-4">
-				@if (User.IsInRole("Admin"))
-				{
-					using (Html.BeginForm(actionName: "Delete", controllerName: "Fresheners", method: FormMethod.Post, routeValues: new { id = @Model.FreshenerId }))
-					{
-						@Html.HttpMethodOverride(HttpVerbs.Delete)
-						<button class="btn btn-danger pull-right" type="submit"><i class="fa fa-trash"></i>Delete Freshener</button>
-					}
-				}
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="card-footer">
+            <small class="text-muted float-left">Latest update on: @Model.FreshenerModifyDate</small>
+            <small class="text-muted float-right">Stock: @Model.FreshenerStock</small>
+        </div>
+    }
 </div>
 
-<div class="row">
-	<div class="col-md-1"></div>
-	<div class="col-md-7">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<form method="post" action="/Reviews/New">
-					<input type="hidden" name="FreshenerId" value="@Model.FreshenerId" />
-					<label for="rating-1">
-						<input id="rating-1" class="form-check-input" type="radio" name="ReviewGrade" value="1">&ensp;1&ensp;
-					</label>
-					<label for="rating-2">
-						<input id="rating-2" class="form-check-input" type="radio" name="ReviewGrade" value="2">&ensp;2&ensp;
-					</label>
-					<label for="rating-3">
-						<input id="rating-3" class="form-check-input" type="radio" name="ReviewGrade" value="3">&ensp;3&ensp;
-					</label>
-					<label for="rating-4">
-						<input id="rating-4" class="form-check-input" type="radio" name="ReviewGrade" value="4">&ensp;4&ensp;
-					</label>
-					<label for="rating-5">
-						<input id="rating-5" class="form-check-input" type="radio" name="ReviewGrade" value="5" checked>&ensp;5&ensp;
-					</label>
-					@Html.ValidationMessage("FreshenerRating", "", new { @class = "text-danger" })
-					<br />
-					<label>
-						Your Comment:
-					</label>
-					<textarea class="form-control" name="ReviewComment" style="box-sizing: border-box; max-width: 100%; min-height:150px;"></textarea>
-					@Html.ValidationMessage("ReviewComment", "", new { @class = "text-danger" })
-					<h5 class="text-danger">@ViewBag.Message</h5>
-					<button class="btn btn-success" type="submit"><i class="fa fa-plus"></i>Add review</button>
-				</form>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-4"></div>
+<div class="card mb-3">
+    <div class="card-body text-center">
+        <form method="post" action="/Reviews/New">
+            <div class="form-check form-check-inline">
+                <h5 class="card-title">
+                    Your rating:
+                    <input type="hidden" name="FreshenerId" value="@Model.FreshenerId" />
+                    <label for="rating-1">
+                        <input id="rating-1" class="form-check-input" type="radio" name="ReviewGrade" value="1">1&ensp;
+                    </label>
+                    <label class="form-check-label" for="rating-2">
+                        <input id="rating-2" class="form-check-input" type="radio" name="ReviewGrade" value="2">2&ensp;
+                    </label>
+                    <label class="form-check-label" for="rating-3">
+                        <input id="rating-3" class="form-check-input" type="radio" name="ReviewGrade" value="3">3&ensp;
+                    </label>
+                    <label class="form-check-label" for="rating-4">
+                        <input id="rating-4" class="form-check-input" type="radio" name="ReviewGrade" value="4">4&ensp;
+                    </label>
+                    <label class="form-check-label" for="rating-5">
+                        <input id="rating-5" class="form-check-input" type="radio" name="ReviewGrade" value="5" checked>5
+                    </label>
+                    @Html.ValidationMessage("FreshenerRating", "", new { @class = "text-danger" })
+                </h5>
+            </div>
+            <h5 class="card-text">
+                Your Comment:
+            </h5>
+            <textarea class="form-control" name="ReviewComment" style="box-sizing: border-box; max-width: 100%;" rows="5"></textarea>
+            @Html.ValidationMessage("ReviewComment", "", new { @class = "text-danger" })
+            <div class="row text-center" style="margin-top:20px; margin-bottom:-10px;">
+                <div class="col-md-12">
+                    <button class="btn btn-success" type="submit"><i class="fa fa-plus">&ensp;Add review</i></button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 @foreach (var rev in Model.Reviews)
 {
-	<div class="row">
-		<div class="col-md-1"></div>
-		<div class="col-md-7" style="border-bottom:1px solid black">
-			<br />
-			<div>
-				<strong>@rev.User.UserName</strong><br />
-				<strong>Rating: </strong>@rev.ReviewGrade of 5
-				@for (var i = 1; i <= rev.ReviewGrade; i++)
-				{
-					<i class="fa fa-star" style="color:gold;"></i>
-				}
-			</div>
-
-			<div>
-				<p>@rev.ReviewComment</p>
-				<small class="pull-right">@rev.ReviewModifyDate</small>
-			</div>
-
-			@if (rev.UserId == ViewBag.currentUser || User.IsInRole("Admin"))
-			{
-				<div style="display: inline-block; float : left; margin-right: 15px">
-					<a class="fa fa-edit" href="/Reviews/Edit/@rev.ReviewId"></a>
-				</div>
-				<div style="display: inline-block; float : left">
-					<form method="post" action="/Reviews/Delete/@rev.ReviewId">
-						@Html.HttpMethodOverride(HttpVerbs.Delete)
-						<button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
-					</form>
-				</div>
-			}
-			<br />
-			<br />
-		</div>
-		<div class="col-md-4"></div>
-	</div>
+    if (rev.ReviewGrade <= 2)
+    {
+<div class="card border-danger mb-3">
+    <div class="card-header">
+        <strong class="float-left">Rating:</strong>&ensp;@rev.ReviewGrade of 5
+        @for (var i = 1; i <= rev.ReviewGrade; i++)
+        {
+            <i class="fa fa-star" style="color:gold;"></i>
+        }
+        <p class="float-right">Added by:&ensp;@rev.User.UserName</p>
+    </div>
+    @if (rev.ReviewComment != null)
+    {
+        <div class="card-body">
+            <p class="card-text">@rev.ReviewComment</p>
+        </div>
+    }
+    <div class="card-footer">
+        <small class="text-muted float-right">Latest update on: @Model.FreshenerModifyDate</small>
+        @if (rev.UserId == ViewBag.currentUser || User.IsInRole("Admin"))
+        {
+            <small class="text-muted float-left"><a class="fa fa-edit" href="/Reviews/Edit/@rev.ReviewId"></a></small>
+            <small class="text-muted float-left">
+                <form method="post" action="/Reviews/Delete/@rev.ReviewId">
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="fa fa-trash" style="border: none; background: transparent" type="submit"></button>
+                </form>
+            </small>
+        }
+    </div>
+</div>
+    }
+    if (rev.ReviewGrade >= 4)
+    {
+        <div class="card border-success mb-3">
+            <div class="card-header">
+                <strong class="float-left">Rating:</strong>&ensp;@rev.ReviewGrade of 5
+                @for (var i = 1; i <= rev.ReviewGrade; i++)
+                {
+                    <i class="fa fa-star" style="color:gold;"></i>
+                }
+                <p class="float-right">Added by:&ensp;@rev.User.UserName</p>
+            </div>
+            @if (rev.ReviewComment != null)
+            {
+                <div class="card-body">
+                    <p class="card-text">@rev.ReviewComment</p>
+                </div>
+            }
+            <div class="card-footer">
+                <small class="text-muted float-right">Latest update on: @Model.FreshenerModifyDate</small>
+                @if (rev.UserId == ViewBag.currentUser || User.IsInRole("Admin"))
+                {
+                    <small class="text-muted float-left"><a class="fa fa-edit" href="/Reviews/Edit/@rev.ReviewId"></a></small>
+                    <small class="text-muted float-left">
+                        <form method="post" action="/Reviews/Delete/@rev.ReviewId">
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="fa fa-trash" style="border: none; background: transparent" type="submit"></button>
+                        </form>
+                    </small>
+                }
+            </div>
+        </div>
+    }
+    if (rev.ReviewGrade == 3)
+    {
+        <div class="card border-warning mb-3">
+            <div class="card-header">
+                <strong class="float-left">Rating:</strong>&ensp;@rev.ReviewGrade of 5
+                @for (var i = 1; i <= rev.ReviewGrade; i++)
+                {
+                    <i class="fa fa-star" style="color:gold;"></i>
+                }
+                <p class="float-right">Added by:&ensp;@rev.User.UserName</p>
+            </div>
+            @if (rev.ReviewComment != null)
+            {
+                <div class="card-body">
+                    <p class="card-text">@rev.ReviewComment</p>
+                </div>
+            }
+            <div class="card-footer">
+                <small class="text-muted float-right">Latest update on: @Model.FreshenerModifyDate</small>
+                @if (rev.UserId == ViewBag.currentUser || User.IsInRole("Admin"))
+                {
+                    <small class="text-muted float-left"><a class="fa fa-edit" href="/Reviews/Edit/@rev.ReviewId"></a></small>
+                    <small class="text-muted float-left">
+                        <form method="post" action="/Reviews/Delete/@rev.ReviewId">
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="fa fa-trash" style="border: none; background: transparent" type="submit"></button>
+                        </form>
+                    </small>
+                }
+            </div>
+        </div>
+    }
 }

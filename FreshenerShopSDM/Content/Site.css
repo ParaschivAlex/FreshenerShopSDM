@@ -22,3 +22,10 @@ select,
 textarea {
     max-width: 280px;
 }
+.responsive {
+    position: relative;
+    top: 7vh;
+}
+.foot{
+    top:7vh;
+}

@@ -1,55 +1,67 @@
 ﻿@model FreshenerShopSDM.Models.Freshener
 
-<h2 class="text-primary">Edit Freshener @Model.FreshenerId, @Model.FreshenerName</h2>
+<h2 class="text-center">Edit Freshener @Model.FreshenerId, @Model.FreshenerName</h2>
 
 @using (Html.BeginForm(actionName: "Edit", controllerName: "Fresheners", routeValues: new { id = Model.FreshenerId }))
 {
     @Html.HttpMethodOverride(HttpVerbs.Put)
+    <div class="form-row text-center justify-content-center">
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerName", "Freshener Name", new { @class = "text-center" })<br />
+            @Html.ValidationMessageFor(m => m.FreshenerName, " *", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.FreshenerName, new { @class = "form-control" })
+        </div>
 
-    @Html.Label("FreshenerName", "Freshener Name")<br />
-    @Html.EditorFor(m => m.FreshenerName)
-    @Html.ValidationMessageFor(m => m.FreshenerName, " *", new { @class = "text-danger" })
-    <br /><br />
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerSlug", "Freshener Slug")<br />
+            @Html.ValidationMessageFor(m => m.FreshenerSlug, " *", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.FreshenerSlug, new { @class = "form-control" })
+        </div>
 
-    @Html.Label("FreshenerSlug", "Freshener Slug")<br />
-    @Html.EditorFor(m => m.FreshenerSlug)
-    @Html.ValidationMessageFor(m => m.FreshenerSlug, " *", new { @class = "text-danger" })
-    <br /><br />
 
-    @Html.Label("FreshenerDescription", "Freshener Description")<br />
-    @Html.EditorFor(m => m.FreshenerDescription)
-    @Html.ValidationMessageFor(m => m.FreshenerDescription, " *", new { @class = "text-danger" })
-    <br /><br />
-
-    @Html.Label("FreshenerPrice", "Freshener Price")<br />
-    @Html.EditorFor(m => m.FreshenerPrice)
-    @Html.ValidationMessageFor(m => m.FreshenerPrice, " *", new { @class = "text-danger" })
-    <br /><br />
-
-    @Html.Label("FreshenerImage", "Freshener Image")<br />
-    @Html.EditorFor(m => m.FreshenerImage)
-    @Html.ValidationMessageFor(m => m.FreshenerImage, " *", new { @class = "text-danger" })
-    <br /><br />
-
-    @Html.Label("FreshenerAvailability", "Freshener Availability")<br />
-    @Html.EditorFor(m => m.FreshenerAvailability)
-    @Html.ValidationMessageFor(m => m.FreshenerAvailability, " *", new { @class = "text-danger" })
-    <br /><br />
-
-    @Html.Label("FreshenerCode", "Freshener Code")<br />
-    @Html.EditorFor(m => m.FreshenerCode)
-    @Html.ValidationMessageFor(m => m.FreshenerCode, "", new { @class = "text-danger" })
-    <br /><br />
-
-    @Html.Label("FreshenerStock", "Freshener Stock")<br />
-    @Html.EditorFor(m => m.FreshenerStock)
-    @Html.ValidationMessageFor(m => m.FreshenerStock, "", new { @class = "text-danger" })
-    <br /><br />
-
-    <label>Select Category</label>@Html.ValidationMessageFor(m => m.CategoryId, " *", new { @class = "text-danger" })
-    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryList, "Value", "Text"), "Select category", new { @class = "form-control" })
-    <br />
-
-    <button class="btn btn-sm btn-success" type="submit">Modify freshener</button>
-}
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerDescription", "Freshener Description")<br />
+            @Html.ValidationMessageFor(m => m.FreshenerDescription, " *", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.FreshenerDescription)
+        </div>
+    </div>
+    <div class="form-row text-center justify-content-center">
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerPrice", "Freshener Price")<br />
+            @Html.ValidationMessageFor(m => m.FreshenerPrice, " *", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.FreshenerPrice)
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerImage", "Freshener Image")<br />
+            @Html.ValidationMessageFor(m => m.FreshenerImage, " *", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.FreshenerImage)
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerAvailability", "Freshener Availability")<br />
+            @Html.ValidationMessageFor(m => m.FreshenerAvailability, " *", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.FreshenerAvailability)
+        </div>
+    </div>
+    <div class="form-row text-center justify-content-center">
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerCode", "Freshener Code")<br />
+            @Html.ValidationMessageFor(m => m.FreshenerCode, " *", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.FreshenerCode)
+        </div>
+        <div class="form-group col-md-4">
+            @Html.Label("FreshenerStock", "Freshener Stock")<br />
+            @Html.ValidationMessageFor(m => m.FreshenerStock, " *", new { @class = "text-danger" })
+            @Html.EditorFor(m => m.FreshenerStock)
+        </div>
+        <div class="form-group col-md-4">
+            <label>Select Category</label>@Html.ValidationMessageFor(m => m.CategoryList, " *", new { @class = "text-danger" })
+            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.CategoryList, "Value", "Text"), "Select category", new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <button class="btn btn-success justify-content-center" type="submit"><i class="fa fa-check">&ensp;Modify freshener</i></button>
+        </div>
+    </div>
+     }
 

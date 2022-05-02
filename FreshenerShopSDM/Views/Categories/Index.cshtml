@@ -24,7 +24,7 @@
     <a class="btn btn-primary" href="/Fresheners/Index">All Fresheners</a>
     <br />
 }
-@if (User.IsInRole("User"))
+else
 {
     foreach (var category in ViewBag.Categories)
     {

@@ -1,139 +1,173 @@
 ﻿@if (TempData.ContainsKey("message"))
 {
-	<h1>@ViewBag.message</h1>
+    <h1> @ViewBag.message</h1>
 }
 &nbsp;
-<div class="container-fluid">
-	<div class="row" style="margin:5px 0 5px 0;">
-		<div class="col-md-4">
-			<div class="dropdown">
-				<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Sort
-				</button>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort
+                </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <li><a class="dropdown-item" href="/Fresheners/SortFresheners/1">Price Ascending</a></li>
                     <li><a class="dropdown-item" href="/Fresheners/SortFresheners/2">Price Descending</a></li>
+                    <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/Fresheners/SortFresheners/3">Rating Ascending</a></li>
                     <li><a class="dropdown-item" href="/Fresheners/SortFresheners/4">Rating Descending</a></li>
+                    <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/Fresheners/SortFresheners/5">Newest updated</a></li>
                     <li><a class="dropdown-item" href="/Fresheners/SortFresheners/6">Oldest updated</a></li>
                 </ul>
-			</div>
-		</div>
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
-			<form class="card card-sm" method="GET">
-				<input class="form-control form-control-lg form-controlborderless pull-left" type="text" name="search" value="@ViewBag.SearchString" placeholder="Search topics or keywords">
-				<button class="btn btn-success pull-right" type="submit">
-					<i class="fa fa-search"></i>
-				</button>
-				<div class="clearfix"></div>
-			</form>
-		</div>
-	</div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 text-right">
+            <form class="d-flex justify-content-end" method="GET">
+                <input class="form-control me-2" type="search" name="search" value="@ViewBag.SearchString" placeholder="Search" aria-label="Search">&ensp;
+                <button class="btn btn-success pull-right" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+    </div>
 
-	<div style="display:grid; grid-template-columns: 1fr 1fr 1fr; grid-column-gap: 10px;">
-		@foreach (FreshenerShopSDM.Models.Freshener freshener in ViewBag.Fresheners)
-		{
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<a href="/Fresheners/Show/@freshener.FreshenerId">
-						<img class="img-responsive" src="@freshener.FreshenerImage" alt="freshener image" style="height:200px; margin:auto;" />
-					</a>
-					<a href="/Fresheners/Show/@freshener.FreshenerId">
-						<h3 class="text-center text-primary">@freshener.FreshenerName</h3>
-					</a>
-					<hr />
-					Rating:&ensp;
-					@if (!float.IsNaN(freshener.FreshenerRating))
-					{
-						var j = 0;
-						for (var i = 1; i <= freshener.FreshenerRating; i++)
-						{
-							<i class="fa fa-star" style="color:gold;"></i>
-							j++;
-						}
-						if (freshener.FreshenerRating - j != 0)
-						{
-							<i class="fa fa-star-half-full" style="color:gold;"></i>
-						}
-						for (var i = 5 - freshener.FreshenerRating; i >= 1; i--)
-						{
-							<i class="fa fa-star-o" style="color:gold;"></i>
-						}
-					}
-					else
-					{
-						<a href="/Fresheners/Show/@freshener.FreshenerId">No reviews yet!</a>
-					}
-					<br />
-				</div>
-                <div class="panel-footer" style="display:block">
-                    <h4 class="pull-left">
-                        <i class="fa pull-left"> @freshener.FreshenerPrice Lei</i>
-                    </h4>
-                    <div class="pull-right">
-                        <form method="post" action="/ItemCarts/New">
-                            <input type="hidden" name="FreshenerId" value="@freshener.FreshenerId" />
-                            <input type="hidden" name="ItemCartQuantity" value="1" />
-                            <button type="submit" class="btn btn-success">
-                                <i class="fa fa-shopping-bag">&ensp;Adauga in cos</i>
-                            </button>
-                        </form>
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xl-3">
+
+        @foreach (FreshenerShopSDM.Models.Freshener freshener in ViewBag.Fresheners)
+        {
+            <div class="col mb-4">
+                <div class="card h-100 border-secondary mb-3">
+                    <a href="/Fresheners/Show/@freshener.FreshenerId">
+                        <img class="card-img-top" src="@freshener.FreshenerImage" alt="freshener image" style="height:200px;" />
+                    </a>
+                    <div class="card-body">
+                        <a href="/Fresheners/Show/@freshener.FreshenerId" style="color:black">
+                            <h4 class="card-title text-center">@freshener.FreshenerName</h4>
+                        </a>
                     </div>
-                    <div class="clearfix"></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-center">
+                            Rating:&ensp;
+                            @if (!float.IsNaN(freshener.FreshenerRating))
+                            {
+                                var j = 0;
+                                for (var i = 1; i <= freshener.FreshenerRating; i++)
+                                {
+                                    <i class="fa fa-star" style="color:gold;"></i>
+                                    j++;
+                                }
+                                if (freshener.FreshenerRating - j != 0)
+                                {
+                                    <i class="fa fa-star-half-full" style="color:gold;"></i>
+                                }
+                                for (var i = 5 - freshener.FreshenerRating; i >= 1; i--)
+                                {
+                                    <i class="fa fa-star-o" style="color:gold;"></i>
+                                }
+                            }
+                            else
+                            {
+                                <a href="/Fresheners/Show/@freshener.FreshenerId" style="color:black">No reviews yet!</a>
+                            }
+                        </li>
+                        <li class="list-group-item text-center">
+                            @freshener.FreshenerPrice Lei
+                        </li>
+                        @if (freshener.FreshenerAvailability == false)
+                        {
+                            <li class="list-group-item text-center" style="padding-top:1.7em;">
+                                <form action="javascript:void(0);">
+                                    <button class="btn btn-outline-danger">
+                                        <i class="fa">Freshener unavailable!</i>
+                                    </button>
+                                </form>
+                            </li>
+                        }
+
+                        @if (freshener.FreshenerStock > 0 && freshener.FreshenerAvailability == true)
+                        {
+                            <li class="list-group-item text-center" style="padding-top:1.7em;">
+                                <form method="post" action="/ItemCarts/New">
+                                    <input type="hidden" name="FreshenerId" value="@freshener.FreshenerId" />
+                                    <input type="hidden" name="ItemCartQuantity" value="1" />
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-shopping-bag">&ensp;Add to Basket</i>
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                        @if (freshener.FreshenerStock <= 0 && freshener.FreshenerAvailability == true)
+                        {
+                            <li class="list-group-item text-center" style="padding-top:1.7em;">
+                                <form action="javascript:void(0);">
+                                    <button class="btn btn-outline-danger">
+                                        <i class="fa">Out of stock!</i>
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                    </ul>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="card-footer text-center">
+                            <small class="text-muted">Latest update on: @freshener.FreshenerModifyDate</small>
+                        </div>
+                    }
                 </div>
-			</div>
-		}
-	</div>
+            </div>
+        }&nbsp;
+    </div>
 
-
-	<div class="text-center">
-		<nav aria-label="Page navigation">
-			<ul class="pagination">
-				<li>
-					@if (ViewBag.search != "")
-					{
-						<a href="/Fresheners/Index?page=1&search=@ViewBag.SearchString"
-						   aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-						</a>
-					}
-					else
-					{
-						<a href="/Fresheners/Index?page=1" aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-						</a>
-					}
-				</li>
-				@for (int i = 1; i <= ViewBag.lastPage; i++)
-				{
-					if (ViewBag.search != "")
-					{
-						<li>
-							<a href="/Fresheners/Index?page=@i&search=@ViewBag.SearchString">@(i)</a>
-						</li>
-					}
-					else
-					{
-						<li><a href="/Fresheners/Index?page=@i">@(i)</a></li>
-					}
-				}
-				<li>
-					@if (ViewBag.search != "")
-					{
-						<a href="/Fresheners/Index?page=@(ViewBag.lastPage)&search=@ViewBag.SearchString" arialabel="Next">
-							<span aria-hidden="true">&raquo;</span>
-						</a>
-					}
-					else
-					{
-						<a href="/Fresheners/Index?page=@(ViewBag.lastPage)" arialabel="Next">
-							<span aria-hidden="true">&raquo;</span>
-						</a>
-					}
-				</li>
-			</ul>
-		</nav>
-	</div>
+    &nbsp;
+    <div class="text-center">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    @if (ViewBag.search != "")
+                    {
+                        <a class="page-link" href="/Fresheners/Index?page=1&search=@ViewBag.SearchString"
+                           aria-label="Previous" style="color:black">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="page-link" href="/Fresheners/Index?page=1" aria-label="Previous" style="color:black">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    }
+                </li>
+                @for (int i = 1; i <= ViewBag.lastPage; i++)
+                {
+                    if (ViewBag.search != "")
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/Fresheners/Index?page=@i&search=@ViewBag.SearchString" style="color:black">@(i)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item"><a href="/Fresheners/Index?page=@i" style="color:black">@(i)</a></li>
+                    }
+                }
+                <li class="page-item">
+                    @if (ViewBag.search != "")
+                    {
+                        <a class="page-link" href="/Fresheners/Index?page=@(ViewBag.lastPage)&search=@ViewBag.SearchString" arialabel="Next" style="color:black">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="page-link" href="/Fresheners/Index?page=@(ViewBag.lastPage)" arialabel="Next" style="color:black">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    }
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>
+

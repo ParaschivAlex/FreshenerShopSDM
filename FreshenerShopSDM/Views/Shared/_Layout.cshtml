@@ -1,64 +1,73 @@
 ﻿<style>
-    body { 
-        counter-reset: srl; background-image: url('https://i.pinimg.com/originals/eb/de/af/ebdeaf8043e99fe98f0463fe5a22462f.jpg'); 
-        background-repeat: no-repeat; 
-        background-size: cover;
-        background-attachment: fixed; 
-         background-position: center;
-    }
+body { counter-reset: srl; background-image: url('https://images.unsplash.com/photo-1495195129352-aeb325a55b65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed; background-position: center; }    
 </style>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>@ViewBag.Title - My ASP.NET Application</title>
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("SDM Office Group", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("All Fresheners", "Index", "Fresheners")</li>
-                    <li>@Html.ActionLink("All Categories", "Index", "Categories")</li>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("All Orders", "Index", "Orders")</li>
-                        <li>@Html.ActionLink("All Users", "Index", "Users")</li>
-                        <li>@Html.ActionLink("All Conctact Forms", "Index", "Contacts")</li>
-                        <li>@Html.ActionLink("Add Freshener", "New", "Fresheners")</li>
-                    }
-                    <li>@Html.ActionLink("Your orders", "UserOrders", "Orders")</li>
-                    <li>@Html.ActionLink("Cart", "Index", "ItemCarts")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - SDM Office Group SRL</p>
-            <a href="/Home/Index">Home</a>
-            <a href="/Home/About">About us</a>
-            <a href="/Contacts/New">Contact</a>
-        </footer>
-    </div>
-    <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("Scripts", required: false)
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark" style="background-color: #04281d;">
+        <a class="navbar-brand" href="/Home/Index"> SDM Office Group</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarSupportedContent" style="background-color: #04281d; height:5.5vh;">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="/Fresheners/Index">Fresheners</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Categories/Index">Categories</a></li>
+                @if (User.IsInRole("Admin"))
+                {
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/Orders/Index">All Orders</a>
+                        <a class="dropdown-item" href="/Users/Index">All Users</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/Contacts/Index">Contact Forms</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/Fresheners/New">Add Freshener</a>
+                    </div>
+                    </li>
+                }
+
+                @if (User.IsInRole("User") || User.IsInRole("Admin"))
+                {
+                    <li class="nav-item"><a class="nav-link" href="/Orders/UserOrders">Your Orders</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/ItemCarts/Index">Cart</a></li>
+                }
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </nav>
+        <div class="container body-content responsive">
+            @RenderBody()
+
+            <div class="foot">
+                <footer>
+                    <hr />
+                    <p>&copy; @DateTime.Now.Year - SDM Office Group SRL</p>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/Home/About">About us</a></li>
+                            <li class="breadcrumb-item"><a href="/Contacts/New">Contact</a></li>
+                        </ol>
+                    </nav>
+                </footer>
+            </div>
+        </div>       
 </body>
 </html>

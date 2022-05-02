@@ -11,7 +11,7 @@ namespace FreshenerShopSDM.Models
 		[Key]
 		public int ReviewId { get; set; }
 
-		[StringLength(512, ErrorMessage = "The comment is maximum 512 character long.")]
+		[StringLength(2048, ErrorMessage = "The comment is maximum 2048 character long.")]
 		public string ReviewComment { get; set; }
 
 		[Required(ErrorMessage = "The rating is mandatory.")]
