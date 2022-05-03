@@ -4,7 +4,8 @@
 
 @if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
 }
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Fresheners"))

@@ -157,7 +157,7 @@
         <small class="text-muted float-right">Latest update on: @Model.FreshenerModifyDate</small>
         @if (rev.UserId == ViewBag.currentUser || User.IsInRole("Admin"))
         {
-            <small class="text-muted float-left"><a class="fa fa-edit" href="/Reviews/Edit/@rev.ReviewId"></a></small>
+            <small class="text-muted float-left"><a class="fa fa-edit" style="color:black; border: none; background: transparent" href="/Reviews/Edit/@rev.ReviewId"></a></small>
             <small class="text-muted float-left">
                 <form method="post" action="/Reviews/Delete/@rev.ReviewId">
                     @Html.HttpMethodOverride(HttpVerbs.Delete)
@@ -189,7 +189,7 @@
                 <small class="text-muted float-right">Latest update on: @Model.FreshenerModifyDate</small>
                 @if (rev.UserId == ViewBag.currentUser || User.IsInRole("Admin"))
                 {
-                    <small class="text-muted float-left"><a class="fa fa-edit" href="/Reviews/Edit/@rev.ReviewId"></a></small>
+                    <small class="text-muted float-left"><a class="fa fa-edit" style="color:black; border: none; background: transparent" href="/Reviews/Edit/@rev.ReviewId"></a></small>
                     <small class="text-muted float-left">
                         <form method="post" action="/Reviews/Delete/@rev.ReviewId">
                             @Html.HttpMethodOverride(HttpVerbs.Delete)
@@ -221,7 +221,7 @@
                 <small class="text-muted float-right">Latest update on: @Model.FreshenerModifyDate</small>
                 @if (rev.UserId == ViewBag.currentUser || User.IsInRole("Admin"))
                 {
-                    <small class="text-muted float-left"><a class="fa fa-edit" href="/Reviews/Edit/@rev.ReviewId"></a></small>
+                    <small class="text-muted float-left"><a class="fa fa-edit" style="color:black; border: none; background: transparent" href="/Reviews/Edit/@rev.ReviewId"></a></small>
                     <small class="text-muted float-left">
                         <form method="post" action="/Reviews/Delete/@rev.ReviewId">
                             @Html.HttpMethodOverride(HttpVerbs.Delete)

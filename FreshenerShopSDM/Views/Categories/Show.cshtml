@@ -1,36 +1,45 @@
 ﻿@model FreshenerShopSDM.Models.Category
-@{
-    ViewBag.Title = "All fresheners from this category: ";
-}
 @if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
 }
-<h2>@ViewBag.Title</h2>
-
-<h3>@Model.CategoryName</h3>
-<br />
-<div class="container-fluid">
-    <div class="row" style="margin:auto;">
-        
-            @foreach (var freshener in ViewBag.Fresheners)
-            {
-                <div class="col-md-3">
-                    <a href="/Fresheners/Show/@freshener.FreshenerId">@freshener.FreshenerName</a>
-                    <a href="/Fresheners/Show/@freshener.FreshenerId">
-                        <img class="img-responsive" src="@freshener.FreshenerImage" alt="freshener image" style="height:200px; width:150px; margin: 5px 0px 14px 0px;" />
-                    </a>
+    <h2 class="text-center">@Model.CategoryName</h2>
+    <br />
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xl-4">
+        @foreach (var freshener in ViewBag.Fresheners)
+        {
+        <div class="col mb-3">
+            <div class="card h-100 mb-3" style="background-color:#f1f3e0">
+                <div class="card-body">
+                    <h4 class="card-title text-center"><a style="color:black" href="/Fresheners/Show/@freshener.FreshenerId">@freshener.FreshenerName</a></h4>
+                    <h5 class="card-title text-center">@freshener.FreshenerPrice Lei</h5>
                 </div>
-            } 
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center" style="background-color:#f1f3e0">
+                        
+
+                        <a href="/Fresheners/Show/@freshener.FreshenerId">
+                            <img class="card-img-bottom" src="@freshener.FreshenerImage" alt="freshener image" style="height:200px;" />
+                        </a>
+                        </li>
+                </ul>
+            </div>
+        </div>
+        }
+    </div>
+    <br />
+<div class="row text-center">
+    <div class="col-md-12">
+        <a class="btn btn-info justify-content-center" href="/Categories/Index"><i class="fa fa-arrow-circle-o-left">&ensp;Back to all categories</i></a><br />
+        @if (User.IsInRole("Admin"))
+        {
+            <br />
+            <form method="post" action="/Categories/Delete/@Model.CategoryId">
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-danger justify-content-center" type="submit"><i class="fa fa-trash">&ensp;Delete Category</i></button>
+            </form>
+        }
+
     </div>
 </div>
-@if (User.IsInRole("Admin"))
-{
-    <br />
-    <form method="post" action="/Categories/Delete/@Model.CategoryId">
-        @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button class="btn btn-danger" type="submit">Delete Category</button>
-    </form>
-    <br />  
-}
-    <a href="/Categories/Index">Back to all categories</a>

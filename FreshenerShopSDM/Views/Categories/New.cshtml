@@ -1,27 +1,37 @@
-﻿@{
-	ViewBag.Title = "Add Category";
-}
-<h2>Add Category</h2>
+﻿<h2 class="text-center">Add Category</h2><br />
 
-<form method="post" action="/Categories/New">
-	@Html.Label("CategoryName", "Category Name")
-	<br />
-	@Html.TextBox("CategoryName", null, new { @class = "form-control" })
-	<br /><br />
-
-	@Html.Label("CategorySlug", "Category Slug")
-	<br />
-	@Html.TextBox("CategorySlug", null, new { @class = "form-control" })
-	<br /><br />
-
-	@Html.Label("CategoryImage", "Category Image")
-	<br />
-	@Html.TextBox("CategoryImage", null, new { @class = "form-control" })
-	<br /><br />
-
-	@Html.Label("CategoryDescription", "Category Description")
-	<br />
-	@Html.TextBox("CategoryDescription", null, new { @class = "form-control" })
-	<br /><br />
-          <button class="btn btn-sm btn-success" type="submit">Add category</button>
+<form method="post" action="/Categories/New" class="justify-content-center align-items-center" style="text-align:center; display: block; position: relative;">
+    <div class="form-row text-left justify-content-center align-items-center">
+        <div class="form-group col-md-6 justify-content-center align-items-center">
+            @Html.Label("CategoryName", "Category Name", new { @class = "text-center" })
+            <br />
+            @Html.TextBox("CategoryName", null, new { @class = "form-control" })
+            <br />
+        </div>
+        <div class="form-group col-md-6 justify-content-center align-items-center">
+            @Html.Label("CategorySlug", "Category Slug", new { @class = "text-center" })
+            <br />
+            @Html.TextBox("CategorySlug", null, new { @class = "form-control" })
+            <br />
+        </div>
+    </div>
+            <div class="form-row text-left justify-content-center align-items-center">
+                <div class="form-group col-md-6 justify-content-center align-items-center">
+                    @Html.Label("CategoryImage", "Category Image", new { @class = "text-center" })
+                    <br />
+                    @Html.TextBox("CategoryImage", null, new { @class = "form-control" })
+                    <br />
+                </div>
+                <div class="form-group col-md-6 justify-content-center align-items-center">
+                    @Html.Label("CategoryDescription", "Category Description", new { @class = "text-center" })
+                    <br />
+                    @Html.TextBox("CategoryDescription", null, new { @class = "form-control" })
+                    <br />
+                </div>
+            </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <button class="btn btn-sm btn-success justify-content-center" type="submit"><i class="fa fa-plus">&ensp;Add category</i></button>
+                    </div>
+                </div>
 </form>

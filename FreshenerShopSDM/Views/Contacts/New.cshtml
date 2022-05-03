@@ -13,88 +13,76 @@
     img {
         border: 3px dashed indianred;
     }
-
-    body {
-        counter-reset: srl;
-        background-image: url('https://i.pinimg.com/originals/eb/de/af/ebdeaf8043e99fe98f0463fe5a22462f.jpg');
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: fixed;
-        background-position: center;
-    }
-
-    .p1 {
-        font-weight: 600;
-        font-size: 32px;
-    }
-
-    .p2 {
-        font-weight: 600;
-        font-size: 24px;
-    }
-
-    .li1 {
-        font-weight: 600;
-        font-size: 20px;
-    }
 </style>
 <body>
-
-    @{
-        ViewBag.Title = "Where and when are we?";
+    @if (TempData.ContainsKey("message"))
+    {
+        <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+        <br />
     }
-
-    <h1 style="text-align:center">@ViewBag.Message</h1>
-    <h2 style="text-align:center">@ViewBag.Title</h2>
+    <h2 class="text-center">Where and when are we?</h2><br /><br />
 
     <div class="container-fluid">
         <div class="row" style="margin:5px 0 5px 0;">
-            <div class="col-md-7">
-                <div style="width: 100%"><iframe width="100%" height="700" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Strada%20Teilor%2049,%20Pite%C8%99ti%20110030+(Pitesti)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/sport-gps/">fitness tracker</a></iframe></div>
+            <div class="col-md-6">
+                <div style="width: 100%"><iframe width="100%" height="94%" class="embed-responsive-item" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Strada%20Teilor%2049,%20Pite%C8%99ti%20110030+(Pitesti)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/sport-gps/">sdm map</a></iframe></div>
             </div>
-            <div class="col-md-5">
-                <p class="p1" style="text-align:left">Our time:</p>
-                <li class="li1" style="text-align:left">Monday - Friday: 8:00 - 19:00</li>
+            <div class="col-md-6">
+                <h2 class="text-center">Our time:</h2>
+                <h4 style="text-align:center">Monday - Friday: 8:00 - 19:00</h4>
                 &nbsp;
-                <li class="li1" style="text-align:left">Saturday: 09:00 - 13:00</li>
+                <h4 style="text-align:center">Saturday: 09:00 - 13:00</h4>
                 &nbsp;
-                <li class="li1" style="text-align:left">Sunday: Closed</li>
-                &nbsp;
-                <p class="p2" style="text-align:left">If you want to tell us someting...</p>
+                <h4 style="text-align:center">Sunday: Closed</h4>
+                &nbsp;<br/><br />
+                <h3 style="text-align:center;">If you want to tell us someting...</h3>
                 <section class="form-section">
                     <div class="container">
                         <div class="row">
                             @using (Html.BeginForm(actionName: "New", controllerName: "Contacts"))
                             {
-                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-                                @Html.Label("ContactName", "Name")
-                                <br />
-                                @Html.TextBox("ContactName", null, new { @class = "form-control" })
-                                <br />
-
-                                @Html.Label("ContactEmail", "Email")
-                                <br />
-                                @Html.TextBox("ContactEmail", null, new { @class = "form-control" })
-                                <br />
-
-                                @Html.Label("ContactPhoneNumber", "Phone Number")
-                                <br />
-                                @Html.TextBox("ContactPhoneNumber", null, new { @class = "form-control" })
-                                <br />
-
-                                @Html.Label("ContactSubject", "Subject")
-                                <br />
-                                @Html.TextBox("ContactSubject", null, new { @class = "form-control" })
-                                <br />
-
-                                @Html.Label("ContactMessage", "Message")
-                                <br />
-                                @Html.TextArea("ContactMessage", null, new { @class = "form-control" })
-                                <br />
-                                <button class="btn btn-sm btn-success" type="submit">Contact us!</button>
-                            }
-                        </div>
-                    </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("ContactName", "Name")
+                                        <br />
+                                        @Html.TextBox("ContactName", null, new { @class = "form-control" })
+                                        <br />
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.Label("ContactEmail", "Email")
+                                        <br />
+                                        @Html.TextBox("ContactEmail", null, new { @class = "form-control" })
+                                        <br />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("ContactPhoneNumber", "Phone Number")
+                                        <br />
+                                        @Html.TextBox("ContactPhoneNumber", null, new { @class = "form-control" })
+                                        <br />
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.Label("ContactSubject", "Subject")
+                                        <br />
+                                        @Html.TextBox("ContactSubject", null, new { @class = "form-control" })
+                                        <br />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        @Html.Label("ContactMessage", "Message")
+                                        <br />
+                                        @Html.TextArea("ContactMessage", null, new { @class = "form-control" })
+                                        <br />
+                                    </div>
+                                    <div class="col-md-6 text-center" style="padding-top:45px;">
+                                        <button class="btn btn-success text-center" type="submit"><i class="fa fa-comment">&ensp;Contact us!</i></button>
+                                    </div>
+                                </div>
+                                    }
+                                </div>
+                            </div>
                 </section>
             </div>
         </div>

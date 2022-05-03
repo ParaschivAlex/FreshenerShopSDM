@@ -27,7 +27,7 @@ namespace FreshenerShopSDM.Models
         public string ContactSubject { get; set; }
 
         [Required(ErrorMessage = "The message is mandatory.")]
-        [StringLength(512, ErrorMessage = "The name is maximum 512 character long.")]
+        [StringLength(2048, ErrorMessage = "The message is maximum 2048 character long.")]
         public string ContactMessage { get; set; }
 
         public DateTime ContactModifyDate { get; set; }

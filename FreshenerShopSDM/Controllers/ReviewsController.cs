@@ -41,7 +41,8 @@ namespace FreshenerShopSDM.Controllers
 			Review rev = db.Reviews.Find(id);
 			if (rev.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
 			{
-				ViewBag.Review = rev;
+                ViewBag.CurrentUser = User.Identity.GetUserId();
+                ViewBag.Review = rev;
 				return View(rev);
 			}
 			else

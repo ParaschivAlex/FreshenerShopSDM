@@ -1,33 +1,41 @@
 ﻿@if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
 }
 
 @model FreshenerShopSDM.Models.Contact
 
-@{
-    ViewBag.Title = "All contact forms:"; }
-<ol class="breadcrumb">
-    <li><h3>@ViewBag.Title</h3></li>
-</ol>
-@foreach (var contact in ViewBag.Contacts)
-{<div class="panel-heading">UserName: @contact.ContactEmail</div>
-<div class="panel-body">
-    <i class="glyphicon glyphicon-envelope"></i>Subject: <span class="label label-default">@contact.ContactSubject</span>
-    <br />
-    <i class="glyphicon glyphicon-console"></i>Message: <span class="label label-default">@contact.ContactMessage</span>
-    <br /><br />
-    <i class="glyphicon glyphicon-time"></i>Date created: <span class="label label-default">@contact.ContactModifyDate</span>
-    <br />
-    <i class="glyphicon glyphicon-info-sign"></i>Added by: <span class="label label-default">@contact.UserId</span>
-</div>
-<div class="panel-footer">
-    <a class="btn btn-sm btn-success" href="/Contacts/Show/@contact.ContactId">Show form details.</a>
-    @using (Html.BeginForm(actionName: "Delete", controllerName: "Contacts", routeValues: new { id = contact.ContactId }))
+<h2 class="text-center">All contact forms:</h2><br />
+<div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xl-3">
+    @foreach (var contact in ViewBag.Contacts)
     {
-        @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button class="btn btn-danger" type="submit">Delete contact form.</button>
+    <div class="col mb-4">
+        <div class="card h-100 border-secondary mb-3"><br />
+            <h5 class="card-title text-center">UserName: @contact.ContactEmail</h5>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">
+                        <i class="fa fa-book"></i>&ensp;Subject: <span class="label label-default">@contact.ContactSubject</span>
+                    </li>
+                    <li class="list-group-item text-center">
+                        <i class="fa fa-mobile-phone"></i>&ensp;Phone number: <span class="label label-default">@contact.ContactPhoneNumber</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer" style="padding-left:30px; padding-right:30px;">
+                <a class="btn btn-sm btn-info fa fa-eye float-left" href="/Contacts/Show/@contact.ContactId">&ensp; Show details</a>
+                @using (Html.BeginForm(actionName: "Delete", controllerName: "Contacts", routeValues: new { id = contact.ContactId }))
+                {
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-sm btn-danger fa fa-trash float-right" type="submit">&ensp;Delete form</button>
+                }<br /><br />
+            </div>
+            <div class="card-footer text-center">
+                <small class="text-muted">Date created: @contact.ContactModifyDate</small>
+            </div>
+        </div>
+    </div>
+        <br /><br />
     }
 </div>
-<br /><br />
-}

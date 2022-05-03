@@ -20,7 +20,9 @@ namespace FreshenerShopSDM.Models
 		[Required(ErrorMessage = "Category image is mandatory.")]
 		public string CategoryImage { get; set; }
 
-		public string CategoryDescription { get; set; }
+        [Required(ErrorMessage = "Category description is mandatory.")]
+        [StringLength(256, ErrorMessage = "The description is maximum 256 character long.")]
+        public string CategoryDescription { get; set; }
 
 		public virtual ICollection<Freshener> Fresheners { get; set; }
 	}

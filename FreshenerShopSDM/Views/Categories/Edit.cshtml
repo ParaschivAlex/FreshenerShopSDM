@@ -1,31 +1,47 @@
 ﻿@model FreshenerShopSDM.Models.Category
-<h2>Editare categorie</h2>
+<h2 class="text-center">Edit categoriy @Model.CategoryId, @Model.CategoryName</h2><br />
 
 <form method="post" action="/Categories/Edit/@Model.CategoryId">
 
-	@Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.HttpMethodOverride(HttpVerbs.Put)
 
-	@Html.HiddenFor(m => m.CategoryId)
+    @Html.HiddenFor(m => m.CategoryId)
+    <div class="form-row text-center justify-content-center">
+        <div class="form-group col-md-12">
+            @Html.Label("CategoryName", "Category Name")
+            <br />
+            @Html.Editor("CategoryName")
+            <br />
+        </div>
+    </div><br />
+    <div class="form-row text-center justify-content-center">
+        <div class="form-group col-md-12">
+            @Html.Label("CategorySlug", "Category Slug")
+            <br />
+            @Html.Editor("CategorySlug")
+            <br />
+        </div>
+    </div><br />
+    <div class="form-row text-center justify-content-center">
+        <div class="form-group col-md-12">
+            @Html.Label("CategoryImage", "Category Image")
+            <br />
+            @Html.Editor("CategoryImage")
+            <br />
+        </div>
+    </div><br />
+    <div class="form-row text-center justify-content-center">
+        <div class="form-group col-md-12">
+            @Html.Label("CategoryDescription", "Category Description")
+            <br />
+            @Html.Editor("CategoryDescription")
+            <br />
+        </div>
+    </div><br />
 
-	@Html.Label("CategoryName", "Category Name")
-	<br />
-	@Html.Editor("CategoryName")
-	<br /><br />
-
-	@Html.Label("CategorySlug", "Category Slug")
-	<br />
-	@Html.Editor("CategorySlug")
-	<br /><br />
-
-	@Html.Label("CategoryImage", "Category Image")
-	<br />
-	@Html.Editor("CategoryImage")
-	<br /><br />
-
-	@Html.Label("CategoryDescription", "Category Description")
-	<br />
-	@Html.Editor("CategoryDescription")
-	<br /><br />
-
-	<button class="btn btn-success" type="submit">Modify Category</button>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <button class="btn btn-success justify-content-center" type="submit"><i class="fa fa-check">&ensp;Modify category</i></button>
+        </div>
+    </div>
 </form>
