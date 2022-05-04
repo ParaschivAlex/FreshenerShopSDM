@@ -55,17 +55,64 @@ body { counter-reset: srl; background-image: url('https://images.unsplash.com/ph
         <div class="container body-content responsive"><br/>
             @RenderBody()
 
-            <div class="foot">
-                <footer>
-                    <hr />
-                    <p>&copy; @DateTime.Now.Year - SDM Office Group SRL</p>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
-                            <li class="breadcrumb-item"><a href="/Home/About">About us</a></li>
-                            <li class="breadcrumb-item"><a href="/Contacts/New">Contact</a></li>
-                        </ol>
-                    </nav>
+            <div class="foot"><hr />
+                <footer class="text-center bg-light text-dark">
+                    <div class="container p-3">
+                        <!--<section style="max-height:60px;">
+                            <a class="btn btn-outline-dark btn-floating m-1" href="javascript:void(0)" role="button">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+
+                            <a class="btn btn-outline-dark btn-floating m-1" href="javascript:void(0)" role="button">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+
+                            <a class="btn btn-outline-dark btn-floating m-1" href="javascript:void(0)" role="button">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+
+                            <a class="btn btn-outline-dark btn-floating m-1" href="javascript:void(0)" role="button">
+                                <i class="fa fa-github"></i>
+                            </a>
+                            <br />&nbsp;
+                        </section>
+                        <section>
+                            <form action="">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-auto">
+                                        <p class="pt-2"><strong>Sign up for promotions</strong></p>
+                                    </div>
+                                    <div class="col-md-5 col-12">
+                                        <div class="form-outline mb-4">
+                                            <input type="email" id="formsignup" class="form-control" placeholder="Email address" />
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <a class="btn btn-outline-dark mb-4" href="javascript:void(0)" role="button">
+                                            Subscribe
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </section>-->
+                        <section>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4 mb-4 mb-md-0 text-center">
+                                    <a href="/Home/Index" class="text-uppercase text-center" style="color:black"><strong>Home</strong></a>
+                                </div>
+                                <div class="col-lg-4 col-md-4 mb-4 mb-md-0">
+                                    <a href="/Home/About" class="text-uppercase" style="color:black"><strong>About us</strong></a>
+                                </div>
+                                <div class="col-lg-4 col-md-4 mb-4 mb-md-0">
+                                    <a href="/Contacts/New" class="text-uppercase" style="color:black"><strong>Contact</strong></a>
+                                </div>
+                            </div>
+                        </section>
+                        
+                    </div>
+                    <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.05);">
+                        &copy; @DateTime.Now.Year - <strong>SDM Office Group SRL</strong>
+                    </div>
                 </footer>
             </div>
         </div>       

@@ -6,35 +6,31 @@
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
     @Html.HiddenFor(m => m.CategoryId)
-    <div class="form-row text-center justify-content-center">
-        <div class="form-group col-md-12">
+    <div class="form-row text-left justify-content-center">
+        <div class="form-group col-md-6 justify-content-center align-items-center">
             @Html.Label("CategoryName", "Category Name")
-            <br />
-            @Html.Editor("CategoryName")
+            @Html.ValidationMessageFor(m => m.CategoryName, " *", new { @class = "text-danger " })
+            @Html.TextBox("CategoryName", null, new { @class = "form-control" })
             <br />
         </div>
-    </div><br />
-    <div class="form-row text-center justify-content-center">
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-6 justify-content-center align-items-center">
             @Html.Label("CategorySlug", "Category Slug")
-            <br />
-            @Html.Editor("CategorySlug")
+            @Html.ValidationMessageFor(m => m.CategorySlug, " *", new { @class = "text-danger " })
+            @Html.TextBox("CategorySlug", null, new { @class = "form-control" })
             <br />
         </div>
     </div><br />
-    <div class="form-row text-center justify-content-center">
-        <div class="form-group col-md-12">
+    <div class="form-row text-left justify-content-center">
+        <div class="form-group col-md-6 justify-content-center align-items-center">
             @Html.Label("CategoryImage", "Category Image")
-            <br />
-            @Html.Editor("CategoryImage")
+            @Html.ValidationMessageFor(m => m.CategoryImage, " *", new { @class = "text-danger " })
+            @Html.TextBox("CategoryImage", null, new { @class = "form-control" })
             <br />
         </div>
-    </div><br />
-    <div class="form-row text-center justify-content-center">
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-6 justify-content-center align-items-center">
             @Html.Label("CategoryDescription", "Category Description")
-            <br />
-            @Html.Editor("CategoryDescription")
+            @Html.ValidationMessageFor(m => m.CategoryDescription, " *", new { @class = "text-danger " })
+            @Html.TextBox("CategoryDescription", null, new { @class = "form-control" })
             <br />
         </div>
     </div><br />

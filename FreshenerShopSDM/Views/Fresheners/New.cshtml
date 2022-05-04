@@ -1,6 +1,6 @@
 ﻿@model FreshenerShopSDM.Models.Freshener
 
-<h2 class="text-center">Add Freshener</h2>
+<h2 class="text-center">Add Freshener</h2><br/>
 
 @if (TempData.ContainsKey("message"))
 {
@@ -10,21 +10,20 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Fresheners"))
 {
-    <div class="form-row text-left justify-content-center align-items-center">
-        <div class="form-group col-md-4 justify-content-center align-items-center">
-            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div class="form-row text-left justify-content-center">
+        <div class="form-group col-md-4">
             @Html.Label("FreshenerName", "Freshener Name", new { @class = "text-center " })
             @Html.ValidationMessageFor(m => m.FreshenerName, " *", new { @class = "text-danger" })
 
-            @Html.TextBox("FreshenerName", null, new { @class = "form-control justify-content-center align-items-center", @style = "align: center; display: table" })
+            @Html.TextBox("FreshenerName", null, new { @class = "form-control" })
         </div>
-        <div class="form-group col-md-4 justify-content-center">
+        <div class="form-group col-md-4">
             @Html.Label("FreshenerSlug", "Freshener Slug", new { @class = "text-center" })
             @Html.ValidationMessageFor(m => m.FreshenerSlug, "", new { @class = "text-danger " })
             <br />
             @Html.TextBox("FreshenerSlug", null, new { @class = "form-control" })
         </div>
-        <div class="form-group col-md-4 justify-content-center">
+        <div class="form-group col-md-4">
             @Html.Label("FreshenerDescription", "Freshener Description", new { @class = "text-center" })
             @Html.ValidationMessageFor(m => m.FreshenerDescription, " *", new { @class = "text-danger " })
             <br />

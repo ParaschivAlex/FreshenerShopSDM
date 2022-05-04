@@ -1,20 +1,32 @@
-﻿@{
-	ViewBag.Title = "Show all users"; }
-<ol class="breadcrumb">
-	<li><h3>@ViewBag.Title</h3></li>
-</ol>
-@foreach (var user in ViewBag.UsersList)
-{<div class="panel-heading">UserName: @user.UserName</div>
-<div class="panel-body">
-	<i class="glyphicon glyphicon-envelope"></i>User Email: <span class="label label-default">@user.Email</span>
-	<br /><br />
-	@if (@user.PhoneNumber != null)
-	{<i class="glyphicon glyphicon-phone"></i>@:User Phone Number:<span class="label label-default">@user.PhoneNumber</span>
-}
+﻿<h2 class="text-center">All users</h2><br/>
+
+<div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xl-3">
+    @foreach (var user in ViewBag.UsersList)
+    {
+    <div class="col mb-4">
+        <div class="card h-100 border-secondary mb-3">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">
+                        <i class="fa fa-user">&ensp;UserName: @user.UserName</i>
+                    </li>
+                    <li class="list-group-item text-center">
+                        <i class="fa fa-at">&ensp;Email: @user.Email</i>
+                    </li>
+                    @if (@user.PhoneNumber != null)
+                    {
+                        <li class="list-group-item text-center">
+                            <i class="fa fa-mobile-phone">&ensp;User Phone Number: @user.PhoneNumber</i>
+                        </li>
+                    }
+                        <li class="list-group-item text-center">
+                            <br />
+                            <a class="btn btn-sm btn-info fa fa-search float-left" href="/Users/Show/@user.Id">&ensp;Show User</a>
+                            <a class="btn btn-sm btn-warning fa fa-edit float-right" href="/Users/Edit/@user.Id">&ensp;Edit User</a>
+                        </li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+    }
 </div>
-<div class="panel-footer">
-	<a class="btn btn-sm btn-success" href="/Users/Edit/@user.Id">Edit User</a>
-	<a class="btn btn-sm btn-success" href="/Users/Show/@user.Id">Show User</a>
-</div>
-<br /><br />
-}

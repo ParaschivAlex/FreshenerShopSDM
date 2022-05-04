@@ -1,49 +1,37 @@
 ﻿@model FreshenerShopSDM.Models.ApplicationUser
 
-<ol class="breadcrumb">
-	<li><h3>@ViewBag.Title</h3></li>
-</ol>
+<h2 class="text-center">Edit user: @Model.UserName</h2><br />
 
 @using (Html.BeginForm(actionName: "Edit", controllerName: "Users", routeValues: new { id = @Model.Id }))
 {
-	@Html.HttpMethodOverride(HttpVerbs.Put)
-
-	<br />
-
-	<i class="glyphicon glyphicon-user"></i>
-	@Html.Label("UserName", "UserName", new { @class = "" })
-
-	<br />
-
-	@Html.EditorFor(m => m.UserName)
-
-	<br /><br />
-
-	<i class="glyphicon glyphicon-envelope"></i>
-	@Html.Label("Email", "User Email", new { @class = "" })
-
-	<br />
-
-	@Html.EditorFor(m => m.Email)
-
-	<br /><br />
-
-	<i class="glyphicon glyphicon-phone"></i>
-	@Html.Label("PhoneNumber", "User Phone Number")
-
-	<br />
-
-	@Html.EditorFor(m => m.PhoneNumber)
-
-	<br /><br />
-
-	<i class="glyphicon glyphicon-th-list"></i>
-	<label>Change Role</label>
-	@Html.DropDownList("newRole", new SelectList(Model.AllRoles, "Value", "Text", ViewBag.userRole), null, new { @class = "form-control" })
-
-	<br />
-
-	<button class="btn btn-sm btn-success" type="submit">Modify User</button>
-
-
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    <div class="form-row text-center justify-content-center">
+        <div class="form-group col-md-12">
+            <i class="fa fa-user"></i>
+            @Html.Label("UserName", "UserName", new { @class = "" })
+            @Html.EditorFor(m => m.UserName)
+        </div>
+    </div>
+    <div class="form-row text-center justify-content-center">
+        <div class="form-group col-md-12">
+            <i class="fa fa-at"></i>
+            @Html.Label("Email", "User Email", new { @class = "" })
+            @Html.EditorFor(m => m.Email)
+        </div>
+    </div>
+    <div class="form-row text-center justify-content-center">
+        <div class="form-group col-md-12">
+            <i class="fa fa-mobile-phone"></i>
+            @Html.Label("PhoneNumber", "User Phone Number")
+            @Html.EditorFor(m => m.PhoneNumber)
+        </div>
+    </div>
+    <div class="form-row text-center justify-content-center">
+            <i class="fa fa-group"></i>
+            <label>&ensp;Change Role &ensp;</label>
+            @Html.DropDownList("newRole", new SelectList(Model.AllRoles, "Value", "Text", ViewBag.userRole), null, new { @class = "form-control" })
+    </div><br/>
+    <div class="form-row text-center justify-content-center">
+        <button class="btn btn-sm btn-success fa fa-check" type="submit">&ensp;Modify User</button>
+    </div>
 }

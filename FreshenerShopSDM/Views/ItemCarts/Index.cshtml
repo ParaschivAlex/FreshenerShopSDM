@@ -1,10 +1,11 @@
 ﻿<div class="container-fluid">
-    <h2 class="text-primary">Cos de cumparaturi</h2>
-    <a class="btn btn-info" href="/Fresheners/Index"><i class="fa fa-arrow-left"></i>  Inapoi la lista de produse</a>
-    <br /><br />
+    <h2 class="text-center">Your cart</h2>
+    <a class="btn btn-info fa fa-arrow-left" href="/Fresheners/Index">&ensp;Back to all fresheners</a>
+    <br />
     @if (TempData.ContainsKey("message"))
     {
-        <h1>@ViewBag.message</h1>
+        <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+        <br />
     }
     <div class="row">
         <div class="col-md-8">
@@ -22,7 +23,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-3">
-                                <img class="img-responsive" src="@ic.Freshener.FreshenerImage" alt="poza produsului" />
+                                <img class="card-img-top" src="@ic.Freshener.FreshenerImage" alt="poza produsului" />
                             </div>
                             <div class="col-md-5">
                                 <p style="height:120px; overflow:hidden;">@ic.Freshener.FreshenerDescription</p>
@@ -49,7 +50,7 @@
                                 </div>
                                 <h4 class="text-center">
 
-                                    Price:<i> @ic.Freshener.FreshenerPrice Lei</i>                                   
+                                    Price:<i> @ic.Freshener.FreshenerPrice Lei</i>
                                 </h4>
                             </div>
                         </div>

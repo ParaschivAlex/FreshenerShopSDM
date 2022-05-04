@@ -1,34 +1,39 @@
 ﻿@model FreshenerShopSDM.Models.ApplicationUser
 
-<ol class="breadcrumb">
-	<li><h3>@ViewBag.Title</h3></li>
-</ol>
+<h2 class="text-center">User details: @Model.UserName</h2><br/>
 
-<div class="panel-heading">UserName: @Model.UserName</div>
+<div class="col d-flex justify-content-center">
+    <div class="card justify-content-center text-center" style="width:50%;">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-center">
+                    <i class="fa fa-code"></i>&ensp;Id: @Model.Id</i>
+                </li>
+                <li class="list-group-item text-center">
+                    <i class="fa fa-at"></i>&ensp;Email: @Model.Email</i>
+                </li>
+                <li class="list-group-item text-center">
+                    <i class="fa fa-group"></i>&ensp;User Role: @ViewBag.roleName</i>
+                </li>
 
-<div class="panel-body">
-
-	<i class="glyphicon glyphicon-envelope"></i>User Email: <span class="label label-default">@Model.Email</span>
-	<br />
-	<i class="glyphicon glyphicon-th-list"></i>User Role: @ViewBag.roleName
-
-	<br /><br />
-
-	@if (@Model.PhoneNumber != null)
-	{
-		<i class="glyphicon glyphicon-phone"></i>@:User Phone Number:<span class="label label-default">@Model.PhoneNumber</span>
-	}
-
+                @if (@Model.PhoneNumber != null)
+                {
+                    <li class="list-group-item text-center">
+                        <i class="fa fa-mobile">&ensp;User Phone Number:@Model.PhoneNumber</i>
+                    </li>
+                }
+                @if ((string)Model.Id != ViewBag.currentUser)
+                {
+                    <li class="list-group-item text-center">
+                        @using (Html.BeginForm(actionName: "Delete", controllerName: "Users", routeValues: new { id = @Model.Id }))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <br />
+                            <button class="btn btn-danger fa fa-trash" type="submit">&ensp;Delete User</button>
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
 </div>
-
-@if ((string)Model.Id != ViewBag.currentUser)
-{
-	<div class="panel-footer">
-		@using (Html.BeginForm(actionName: "Delete", controllerName: "Users", routeValues: new { id = @Model.Id }))
-		{
-			@Html.HttpMethodOverride(HttpVerbs.Delete)
-			<br />
-			<button class="btn btn-danger" type="submit">Delete User</button>
-		}
-	</div>
-}
