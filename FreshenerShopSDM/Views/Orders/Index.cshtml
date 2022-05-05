@@ -11,46 +11,46 @@
     {
     <div class="col mb-4 text-center">
         <div class="card h-100 border-secondary mb-3">
-            <div class="card-header"><h5>Order Id: @order.OrderId</h5></div>
+            <div class="card-header">
+                <h5>Order Id: @order.OrderId</h5>
+                @if (order.OrderSent == true)
+                {
+                    <h5 class="fa fa-paper-plane">&ensp;Order Sent: <i class="fa fa-check"></i></h5>
+                }
+                else
+                {
+                    <h5 class="fa fa-paper-plane">&ensp;Order Sent: <i class="fa fa-times"></i></h5>
+                }
+            </div>
             <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-center">
-                            <i class="fa fa-user">&ensp;Name: <strong>@order.OrderFirstName @order.OrderLastName</strong></i>
-                        </li>
-                        <li class="list-group-item text-center">
-                            <i class="fa fa-mobile-phone">&ensp;Phone: <strong>@order.OrderPhone</strong></i>
-                        </li>
-                        <li class="list-group-item text-center">
-                            <i class="fa fa-money">&ensp;Total: <strong>@order.OrderTotal</strong></i>
-                        </li>
-                        <li class="list-group-item text-center">
-                            <i class="fa fa-calendar">&ensp;Date: <strong>@order.OrderModifyDate</strong></i>
-                        </li>
-                        <li class="list-group-item text-center">
-                            <i class="fa">&ensp;Email: <strong>@order.OrderEmail</strong></i>
-                        </li>
-                        <li class="list-group-item text-center">
-                            <i class="fa fa-log-in">&ensp;User Id: <strong>@order.UserId</strong></i>
-                        </li>
-                        <li class="list-group-item text-center">
-                            @if (order.OrderSent == true)
-                            {
-                                <i class="fa fa-paper-plane">&ensp;Order Sent: <i class="fa fa-check"></i></i>
-                            }
-                            else
-                            {
-                                <i class="fa fa-paper-plane">&ensp;Order Sent: <i class="fa fa-times"></i></i>
-                            }
-                        </li><br />
-                        <li class="list-group-item text-center">
-                            <a class="btn btn-sm btn-info fa fa-search float-left" href="/Orders/Show/@order.OrderId">&ensp;Show details.</a>
-                            @using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = order.OrderId }))
-                            {
-                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">
+                        <i class="fa fa-user">&ensp;Name: <strong>@order.OrderFirstName @order.OrderLastName</strong></i>
+                    </li>
+                    <li class="list-group-item text-center">
+                        <i class="fa fa-money">&ensp;Total: <strong>@order.OrderTotal Lei</strong></i>
+                    </li>
+                    <li class="list-group-item text-center">
+                        <i class="fa fa-calendar">&ensp;Date: <strong>@order.OrderModifyDate</strong></i>
+                    </li>
+                    <li class="list-group-item text-center">
+                        <i class="fa fa-mobile-phone">&ensp;Phone: <strong>@order.OrderPhone</strong></i>
+                    </li>
+                    <li class="list-group-item text-center">
+                        <i class="fa">&ensp;Email: <strong>@order.OrderEmail</strong></i>
+                    </li>
+                    <li class="list-group-item text-center">
+                        <i class="fa fa-log-in">&ensp;User Id: <strong>@order.UserId</strong></i>
+                    </li>       &nbsp;          
+                    <li class="list-group-item text-center">
+                        <a class="btn btn-sm btn-info fa fa-search float-left" href="/Orders/Show/@order.OrderId">&ensp;Show details.</a>
+                        @using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = order.OrderId }))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
                             <button class="btn btn-sm btn-danger fa fa-edit float-right" type="submit">&ensp;Delete order</button>
-                            }
-                        </li>
-                    </ul>
+                        }
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

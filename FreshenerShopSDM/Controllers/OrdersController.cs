@@ -214,7 +214,16 @@ namespace FreshenerShopSDM.Controllers
 
                 db.SaveChanges();
                 TempData["message"] = "The order has been deleted!";
+                
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index");
+                }
                 return Redirect("/Home/Index");
+            }
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index");
             }
             return Redirect("/Home/Index");
         }

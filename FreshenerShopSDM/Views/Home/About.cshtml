@@ -1,55 +1,32 @@
-﻿<style>
-    h2 {
-        color: black;
-    }
+﻿@{
+    ViewBag.Title = "We are SDM OFFICE GROUP!";
+}
+<h2 style="text-align:center">@ViewBag.Title</h2>
 
-    img {
-        border: 3px dashed indianred;
-    }
+@if (TempData.ContainsKey("message"))
+{
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
+}
 
-    body { 
-        counter-reset: srl; background-image: url('https://i.pinimg.com/originals/eb/de/af/ebdeaf8043e99fe98f0463fe5a22462f.jpg'); 
-        background-repeat: no-repeat; 
-        background-size: cover;
-        background-attachment: fixed; 
-         background-position: center;
-    }
-
-    .pa {
-        font-weight: 600;
-        font-size:20px;
-    }
-</style>
-
-<body>
-    @{
-        ViewBag.Title = "We are SDM OFFICE GROUP!";
-    }
-    <h2 style="text-align:center">@ViewBag.Title</h2>
-
-    @if (TempData.ContainsKey("message"))
-    {
-        <h1>@ViewBag.message</h1>
-    }
-
-    <div class="container-fluid">
-        <div class="row" style="margin:5px 0 5px 0;">
-            <div class="col-md-4">
-                <img src="https://image.made-in-china.com/2f0j00jTrGulhWqygf/Perfume-Bottles-Car-Air-Freshener-Glass-Bottle-Car-Hanging-Perfume-Car-Air-Fresher-JSD-B0036-.jpg" alt="little bottle fresheners" style="width:256px;height:256px;float:left;">
-            </div>
-            <div class="col-md-4" style="padding: 0px 0px 0px 55px;">
-                <img src="https://m.media-amazon.com/images/I/614+bM4Z17L._SL1500_.jpg" alt="automated fresheners" style="width:256px;height:256px;float:initial;">
-            </div>
-            <div class="col-md-4">
-                <img src="https://sc04.alicdn.com/kf/HTB1JpQ.b.GF3KVjSZFvq6z_nXXai.jpg" alt="fresheners with sticks" style="width:256px;height:256px;float:right">
-            </div>
+<div class="container-fluid">
+    <div class="row" style="margin:5px 0 5px 0;">
+        <div class="col-md-4">
+            <img src="https://image.made-in-china.com/2f0j00jTrGulhWqygf/Perfume-Bottles-Car-Air-Freshener-Glass-Bottle-Car-Hanging-Perfume-Car-Air-Fresher-JSD-B0036-.jpg" alt="little bottle fresheners" style="width:256px;height:256px;float:left;">
+        </div>
+        <div class="col-md-4" style="padding: 0px 0px 0px 55px;">
+            <img src="https://m.media-amazon.com/images/I/614+bM4Z17L._SL1500_.jpg" alt="automated fresheners" style="width:256px;height:256px;float:initial;">
+        </div>
+        <div class="col-md-4">
+            <img src="https://sc04.alicdn.com/kf/HTB1JpQ.b.GF3KVjSZFvq6z_nXXai.jpg" alt="fresheners with sticks" style="width:256px;height:256px;float:right">
         </div>
     </div>
+</div>
     &nbsp;
-    <p class="pa" style="text-align:center">SDM OFFICE GROUP is a company founded in 2006, with dedicated and professional people.</p>
+<p class="pa" style="text-align:center">SDM OFFICE GROUP is a company founded in 2006, with dedicated and professional people.</p>
     &nbsp;
-    <p class="pa" style="text-align:center">SDM OFFICE GROUP has been developing from a great idea that took shape and it is continously involving in big projects. We have unique fresheners in Romania, espacially fresheners imported from big countries. We are also involed in selling books, toys, office suplies and constuction materials, which you can find on our other sites, each one dedicated for its type.</p>
+<p class="pa" style="text-align:center">SDM OFFICE GROUP has been developing from a great idea that took shape and it is continously involving in big projects. We have unique fresheners in Romania, espacially fresheners imported from big countries. We are also involed in selling books, toys, office suplies and constuction materials, which you can find on our other sites, each one dedicated for its type.</p>
     &nbsp;
-    <h2 style="text-align:center">Careers</h2>
+<h2 style="text-align:center">Careers</h2>
     &nbsp;
-    <p class="pa" style="text-align:center">You can send your CV to alexandru.paraschiv13@s.unibuc.ro or call us at +40 745 745 7455</p>
+<p class="pa" style="text-align:center">You can send your CV to alexandru.paraschiv13@s.unibuc.ro or call us at +40 745 745 7455</p>
