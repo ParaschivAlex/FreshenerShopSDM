@@ -214,9 +214,9 @@ namespace FreshenerShopSDM.Controllers
 
                 db.SaveChanges();
                 TempData["message"] = "The order has been deleted!";
-                return RedirectToAction("Index");
+                return Redirect("/Home/Index");
             }
-            return RedirectToAction("Index");
+            return Redirect("/Home/Index");
         }
 
         [Authorize(Roles = "Admin")]
@@ -239,7 +239,7 @@ namespace FreshenerShopSDM.Controllers
                 ViewBag.Order = order;
                 return View(order);
             }
-            return RedirectToAction("Index");
+            return Redirect("/Home/Index");
         }
 
         [Authorize(Roles = "Admin")]

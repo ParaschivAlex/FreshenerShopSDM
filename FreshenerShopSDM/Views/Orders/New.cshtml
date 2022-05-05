@@ -1,59 +1,64 @@
 ﻿@model FreshenerShopSDM.Models.Order
 
-<h2>Tell us where to deliver your order</h2>
+<h2 class="text-center">Tell us where to deliver your order</h2><br />
 
 @if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
 }
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Orders"))
 {
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-    @Html.Label("OrderFirstName", "First Name")
-    @Html.ValidationMessageFor(m => m.OrderFirstName, " *", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("OrderFirstName", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("OrderLastName", "Last Name")
-    @Html.ValidationMessageFor(m => m.OrderLastName, " *", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("OrderLastName", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("OrderCity", "City")
-    @Html.ValidationMessageFor(m => m.OrderCity, " *", new { @class = "text-danger " })
-    <br />
-    @Html.TextArea("OrderCity", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("OrderState", "State")
-    @Html.ValidationMessageFor(m => m.OrderState, " *", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("OrderState", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("OrderStreet", "Street")
-    @Html.ValidationMessageFor(m => m.OrderStreet, " *", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("OrderStreet", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("OrderPostalCode", "Postal Code")<br />
-    @Html.TextBox("OrderPostalCode", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("OrderPhone", "Phone number")
-    @Html.ValidationMessageFor(m => m.OrderPhone, " *", new { @class = "text-danger " })
-    <br />
-    @Html.TextBox("OrderPhone", null, new { @class = "form-control" })
-    <br /><br />
-
-    @Html.Label("OrderEmail", "Email")<br />
-    @Html.TextBox("OrderEmail", null, new { @class = "form-control" })
-    <br /><br />
-
-    <br />
-    <button class="btn btn-sm btn-success" type="submit">Send order</button>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderFirstName", "First Name")
+            @Html.ValidationMessageFor(m => m.OrderFirstName, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderFirstName", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderLastName", "Last Name")
+            @Html.ValidationMessageFor(m => m.OrderLastName, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderLastName", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderCity", "City")
+            @Html.ValidationMessageFor(m => m.OrderCity, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderCity", null, new { @class = "form-control" })
+        </div>
+    </div><br />
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            @Html.Label("OrderState", "State")
+            @Html.ValidationMessageFor(m => m.OrderState, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderState", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-6 mb-3">
+            @Html.Label("OrderStreet", "Street")
+            @Html.ValidationMessageFor(m => m.OrderStreet, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderStreet", null, new { @class = "form-control" })
+        </div>
+    </div><br />
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderPostalCode", "Postal Code")
+            @Html.TextBox("OrderPostalCode", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderPhone", "Phone number")
+            @Html.ValidationMessageFor(m => m.OrderPhone, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderPhone", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderEmail", "Email")
+            @Html.ValidationMessageFor(m => m.OrderPhone, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderEmail", null, new { @class = "form-control" })
+        </div>
+    </div><br />
+          <div class="row text-center">
+              <div class="col-md-12">
+                  <button class="btn btn-success justify-content-center" type="submit"><i class="fa fa-paper-plane">&ensp;Send order</i></button>
+              </div>
+          </div>
 }

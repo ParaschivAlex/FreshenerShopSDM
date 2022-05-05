@@ -1,6 +1,6 @@
 ﻿@model FreshenerShopSDM.Models.Freshener
 
-<h2 class="text-center">Add Freshener</h2><br/>
+<h2 class="text-center">Add Freshener</h2><br />
 
 @if (TempData.ContainsKey("message"))
 {
@@ -10,6 +10,7 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Fresheners"))
 {
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     <div class="form-row text-left justify-content-center">
         <div class="form-group col-md-4">
             @Html.Label("FreshenerName", "Freshener Name", new { @class = "text-center " })

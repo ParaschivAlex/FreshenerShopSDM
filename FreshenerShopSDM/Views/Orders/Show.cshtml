@@ -1,15 +1,12 @@
 ﻿@if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
 }
 
 @model FreshenerShopSDM.Models.Order
 
-@{
-    ViewBag.Title = "Order details:"; 
-}
-
-<h2>@ViewBag.Title</h2>
+<h2 class="text-center">Order @Model.OrderId details:</h2><br />
 
 @foreach (var orderCompleted in ViewBag.OrdersCompleted)
 {
@@ -58,5 +55,5 @@
             <button class="btn btn-danger" type="submit">Delete order</button>
         }
     </div>
-        <br /><br />
+    <br /><br />
 </div>

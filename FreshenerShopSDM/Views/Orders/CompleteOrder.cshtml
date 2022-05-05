@@ -1,11 +1,25 @@
 ﻿@model FreshenerShopSDM.Models.Order
 @if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
 }
-<h2>We have received your order!</h2>
-<p>We are processing it, you should expect to receive it in 2-4 working days! Your order number is: @ViewBag.Order.OrderId</p>
-<p>
-    Check out more interesting fresheners!
-    <a href="/Fresheners/Index/" class="btn btn-info">Shop Now!</a>
-</p>
+<div style="padding-left:33.5%;">
+    <div class="card w-50 text-center mb-4 my-auto align-self-center align-items-center">
+        <img class="card-img-top" src="https://images.unsplash.com/photo-1609522886437-27a610fbe81d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8ZGVsaXZlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="delivering">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h4 class="card-title">We have received your order!</h4>
+                </li>
+                <li class="list-group-item">
+                    <p class="card-text">We are processing it, you should expect to receive it in 2-4 working days! Your order number is: <strong>@ViewBag.Order.OrderId</strong></p>                
+                </li>
+                <li class="list-group-item">
+                    Check out more interesting fresheners!
+                    <br /><a href="/Fresheners/Index/" class="btn btn-info fa fa-shopping-bag">&ensp;Shop Now!</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

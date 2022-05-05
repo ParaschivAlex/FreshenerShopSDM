@@ -1,44 +1,54 @@
 ﻿@if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
 }
 
 @model FreshenerShopSDM.Models.Order
 
-@{
-    ViewBag.Title = "Your orders:"; }
-<ol class="breadcrumb">
-    <li><h3>@ViewBag.Title</h3></li>
-</ol>
+<h2 class="text-center">Your orders:</h2><br />
+
+<div class="row row-cols-1 row-cols-lg-2 row-cols-md-2 row-cols-sm-1 row-cols-xl-3">
 @foreach (var order in ViewBag.Orders)
-{<div class="panel-heading">Order Id: @order.OrderId</div>
-<div class="panel-body">
-
-    <i class="glyphicon glyphicon-phone"></i>Phone: <span class="label label-default">@order.OrderPhone</span>
-    <br />
-    <i class="glyphicon glyphicon-euro"></i>Total: <span class="label label-default">@order.OrderTotal</span>
-    <br />
-    <i class="glyphicon glyphicon-time"></i>Date: <span class="label label-default">@order.OrderModifyDate</span>
-    <br />
-    <i class="glyphicon glyphicon-envelope"></i>Email: <span class="label label-default">@order.OrderEmail</span>
-    <br />
-
-</div>
-<div class="panel-footer">
-    <a class="btn btn-sm btn-success" href="/Orders/UserShowOrder/@order.OrderId">Show order details.</a>
-    @if (order.OrderSent == false)
-    {
-        using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = order.OrderId }))
-        {
-            @Html.HttpMethodOverride(HttpVerbs.Delete)
-            <button class="btn btn-danger" type="submit">Cancel order</button>
-        }
-        <p>If you want to edit your order, please contact us via email/phone or cancel this order and make another.</p>
-    }
-    @if (order.OrderSent == true)
-    {
-        <p>You can not cancel this order, it has already been processed and sent to you. Please contact us via email/phone for more information.</p>
-    }
-</div>
-<br /><br />
+{
+    <div class="col mb-4 text-center">
+        <div class="card h-100 border-secondary mb-3">
+            <div class="card-header"><h5>Order Id: @order.OrderId</h5></div>
+                <div class="card-body">                   
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-center">
+                            <i class="fa fa-mobile-phone">&ensp;Phone: <strong>@order.OrderPhone</strong></i>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <i class="fa fa-money">&ensp;Total: <strong>@order.OrderTotal</strong></i>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <i class="fa fa-calendar">&ensp;Date: <strong>@order.OrderModifyDate</strong></i>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <i class="fa">&ensp;Email: <strong>@order.OrderEmail</strong></i>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <a class="btn btn-sm btn-success fa fa-search" href="/Orders/UserShowOrder/@order.OrderId">&ensp;Show details.</a>
+                        </li>
+                        <li class="list-group-item text-center">
+                            @if (order.OrderSent == false)
+                            {
+                                using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = order.OrderId }))
+                                {
+                                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                    <button class="btn btn-sms btn-danger fa fa-trash" type="submit">&ensp;Cancel order</button>
+                                }
+                                <p>If you want to edit your order, please contact us via email/phone or cancel this order and make another.</p>
+                            }
+                            @if (order.OrderSent == true)
+                            {
+                                <p><strong>You can not cancel this order, it has already been processed and sent to you. Please contact us via email/phone for more information.</strong></p>
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </div>
 }
+</div>

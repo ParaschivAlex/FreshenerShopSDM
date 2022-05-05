@@ -1,40 +1,58 @@
 ﻿@if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
 }
 
-@model FreshenerShopSDM.Models.Order
+<h2 class="text-center">All orders:</h2><br/>
 
-@{
-    ViewBag.Title = "All orders:"; }
-<ol class="breadcrumb">
-    <li><h3>@ViewBag.Title</h3></li>
-</ol>
-@foreach (var order in ViewBag.Orders)
-{<div class="panel-heading">Order Id: @order.OrderId</div>
- <div class="panel-body">
-     <i class="glyphicon glyphicon-user"></i>Name : <span class="label label-default">@order.OrderFirstName @order.OrderLastName</span>
-     <br />
-     <i class="glyphicon glyphicon-phone"></i>Phone: <span class="label label-default">@order.OrderPhone</span>
-     <br />
-     <i class="glyphicon glyphicon-euro"></i>Total: <span class="label label-default">@order.OrderTotal</span>
-     <br />
-     <i class="glyphicon glyphicon-time"></i>Date: <span class="label label-default">@order.OrderModifyDate</span>
-     <br />
-     <i class="glyphicon glyphicon-envelope"></i>Email: <span class="label label-default">@order.OrderEmail</span>
-     <br />
-     <i class="glyphicon glyphicon-log-in"></i>User Id: <span class="label label-default">@order.UserId</span>
-     <br />
-     <i class="glyphicon glyphicon-envelope"></i>Order Sent? <span class="label label-default">@order.OrderSent</span>
-     <br />
- </div>
-<div class="panel-footer">
-    <a class="btn btn-sm btn-success" href="/Orders/Show/@order.OrderId">Show order details.</a>
-    @using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = order.OrderId }))
+<div class="row row-cols-1 row-cols-lg-2 row-cols-md-2 row-cols-sm-1 row-cols-xl-3">
+    @foreach (var order in ViewBag.Orders)
     {
-        @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button class="btn btn-danger" type="submit">Delete order</button>
-    }
+    <div class="col mb-4 text-center">
+        <div class="card h-100 border-secondary mb-3">
+            <div class="card-header"><h5>Order Id: @order.OrderId</h5></div>
+            <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-center">
+                            <i class="fa fa-user">&ensp;Name: <strong>@order.OrderFirstName @order.OrderLastName</strong></i>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <i class="fa fa-mobile-phone">&ensp;Phone: <strong>@order.OrderPhone</strong></i>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <i class="fa fa-money">&ensp;Total: <strong>@order.OrderTotal</strong></i>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <i class="fa fa-calendar">&ensp;Date: <strong>@order.OrderModifyDate</strong></i>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <i class="fa">&ensp;Email: <strong>@order.OrderEmail</strong></i>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <i class="fa fa-log-in">&ensp;User Id: <strong>@order.UserId</strong></i>
+                        </li>
+                        <li class="list-group-item text-center">
+                            @if (order.OrderSent == true)
+                            {
+                                <i class="fa fa-paper-plane">&ensp;Order Sent: <i class="fa fa-check"></i></i>
+                            }
+                            else
+                            {
+                                <i class="fa fa-paper-plane">&ensp;Order Sent: <i class="fa fa-times"></i></i>
+                            }
+                        </li><br />
+                        <li class="list-group-item text-center">
+                            <a class="btn btn-sm btn-info fa fa-search float-left" href="/Orders/Show/@order.OrderId">&ensp;Show details.</a>
+                            @using (Html.BeginForm(actionName: "Delete", controllerName: "Orders", routeValues: new { id = order.OrderId }))
+                            {
+                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="btn btn-sm btn-danger fa fa-edit float-right" type="submit">&ensp;Delete order</button>
+                            }
+                        </li>
+                    </ul>
+            </div>
+        </div>
+    </div>
+    }  
 </div>
-<br /><br />
-}

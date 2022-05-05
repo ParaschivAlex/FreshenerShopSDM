@@ -41,6 +41,7 @@
                         <div class="row">
                             @using (Html.BeginForm(actionName: "New", controllerName: "Contacts"))
                             {
+                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                                 <div class="row">
                                     <div class="col-md-6">
                                         @Html.Label("ContactName", "Name")
@@ -80,8 +81,8 @@
                                         <button class="btn btn-success text-center" type="submit"><i class="fa fa-comment">&ensp;Contact us!</i></button>
                                     </div>
                                 </div>
-                                    }
-                                </div>
+                            }
+                        </div>
                             </div>
                 </section>
             </div>

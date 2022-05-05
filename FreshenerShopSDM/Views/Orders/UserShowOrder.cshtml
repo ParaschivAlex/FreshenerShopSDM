@@ -1,43 +1,51 @@
-﻿@Styles.Render("~/Content/css")
-@Scripts.Render("~/bundles/modernizr")
-@if (TempData.ContainsKey("message"))
+﻿@if (TempData.ContainsKey("message"))
 {
-    <h1>@ViewBag.message</h1>
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
 }
 
 @model FreshenerShopSDM.Models.Order
 
-@{
-    ViewBag.Title = "Order details:";
-}
-    <h2>@ViewBag.Title</h2>
+<h1 class="text-center">Order @Model.OrderId details:</h1><br />
 
+<div class="card mb-3">
     @foreach (var orderCompleted in ViewBag.OrdersCompleted)
     {
-        <div class="panel-body">
-            Freshener: <span class="label label-default">@orderCompleted.Freshener.FreshenerName</span>
-            <a href="/Fresheners/Show/@orderCompleted.Freshener.FreshenerId"><img class="img-responsive" src="@orderCompleted.Freshener.FreshenerImage" alt="freshener image" style="height:200px; width:150px; margin: 5px 0px 14px 0px;" /></a> X <span class="label label-default">@orderCompleted.FreshenerQuantity</span>
-            <br />
+        <div class="row no-gutters justify-content-center align-items-center text-center">
+            <div class="col-md-4">
+                <a href="/Fresheners/Show/@orderCompleted.Freshener.FreshenerId">
+                    <img class="card-img" src="@orderCompleted.Freshener.FreshenerImage" alt="freshener image" />
+                </a>
+            </div>
+            <div class="col-md-5">
+                <h3 class="text-center">@orderCompleted.Freshener.FreshenerName</h3>
+            </div>
+            <div class="col-md-3">
+                <h4>@(orderCompleted.Freshener.FreshenerPrice * orderCompleted.FreshenerQuantity) Lei</h4>
+                <h5>@orderCompleted.FreshenerQuantity piece(s)</h5>
+            </div>
+                <br />&nbsp;
         </div>
-    }
-    <div class="panel-heading">Order Id: @Model.OrderId</div>
-    <div class="panel-body">
-        <i class="glyphicon glyphicon-user"></i>Name : <span class="label label-default">@Model.OrderFirstName @Model.OrderLastName</span>
-        <br />
-        <i class="glyphicon glyphicon-phone"></i>Phone: <span class="label label-default">@Model.OrderPhone</span>
-        <br />
-        <i class="glyphicon glyphicon-euro"></i>Total: <span class="label label-default">@Model.OrderTotal</span>
-        <br />
-        <i class="glyphicon glyphicon-time"></i>Date: <span class="label label-default">@Model.OrderModifyDate</span>
-        <br />
-        <i class="glyphicon glyphicon-envelope"></i>Email: <span class="label label-default">@Model.OrderEmail</span>
-        <br />
-        City: <span class="label label-default">@Model.OrderCity</span>
-        <br />
-        State: <span class="label label-default">@Model.OrderState</span>
-        <br />
-        Street name: <span class="label label-default">@Model.OrderStreet</span>
-        <br />
-        Postal Code: <span class="label label-default">@Model.OrderPostalCode</span>
-        <br /><br />
+     }
+        <div class="panel-heading">Order Id: @Model.OrderId</div>
+        <div class="panel-body">
+            <i class="glyphicon glyphicon-user"></i>Name : <span class="label label-default">@Model.OrderFirstName @Model.OrderLastName</span>
+            <br />
+            <i class="glyphicon glyphicon-phone"></i>Phone: <span class="label label-default">@Model.OrderPhone</span>
+            <br />
+            <i class="glyphicon glyphicon-euro"></i>Total: <span class="label label-default">@Model.OrderTotal</span>
+            <br />
+            <i class="glyphicon glyphicon-time"></i>Date: <span class="label label-default">@Model.OrderModifyDate</span>
+            <br />
+            <i class="glyphicon glyphicon-envelope"></i>Email: <span class="label label-default">@Model.OrderEmail</span>
+            <br />
+            City: <span class="label label-default">@Model.OrderCity</span>
+            <br />
+            State: <span class="label label-default">@Model.OrderState</span>
+            <br />
+            Street name: <span class="label label-default">@Model.OrderStreet</span>
+            <br />
+            Postal Code: <span class="label label-default">@Model.OrderPostalCode</span>
+            <br /><br />
+        </div>
     </div>

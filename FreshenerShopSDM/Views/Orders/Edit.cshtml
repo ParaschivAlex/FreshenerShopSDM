@@ -1,47 +1,73 @@
 ﻿@model FreshenerShopSDM.Models.Order
+@if (TempData.ContainsKey("message"))
+{
+    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
+    <br />
+}
 
-<h2 class="text-primary">Edit Order Address @Model.OrderId, @Model.UserId</h2>
+<h2 class="text-center">Edit Order Address @Model.OrderId:</h2><br />
 
 @using (Html.BeginForm(actionName: "Edit", controllerName: "Orders", routeValues: new { id = Model.OrderId }))
 {
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
-    @Html.Label("OrderFirstName", "First Name")<br />
-    @Html.EditorFor(m => m.OrderFirstName)
-    <br /><br />
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderFirstName", "First Name")
+            @Html.ValidationMessageFor(m => m.OrderFirstName, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderFirstName", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderLastName", "Last Name")
+            @Html.ValidationMessageFor(m => m.OrderLastName, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderLastName", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderCity", "City")
+            @Html.ValidationMessageFor(m => m.OrderCity, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderCity", null, new { @class = "form-control" })
+        </div>
+    </div><br />
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderState", "State")
+            @Html.ValidationMessageFor(m => m.OrderState, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderState", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderStreet", "Street")
+            @Html.ValidationMessageFor(m => m.OrderStreet, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderStreet", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderPostalCode", "Postal Code")
+            @Html.TextBox("OrderPostalCode", null, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderPhone", "Phone number")
+            @Html.ValidationMessageFor(m => m.OrderPhone, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderPhone", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderEmail", "Email")
+            @Html.ValidationMessageFor(m => m.OrderPhone, " *", new { @class = "text-danger " })
+            @Html.TextBox("OrderEmail", null, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4 mb-3">
+            @Html.Label("OrderSent", "Order Sent")
+            @Html.CheckBox("OrderSent", false, new { @class = "form-control" })
+        </div>
+    </div><br/>
 
-    @Html.Label("OrderLastName", "Last Name")<br />
-    @Html.EditorFor(m => m.OrderLastName)
-    <br /><br />
-
-    @Html.Label("OrderCity", "City")<br />
-    @Html.EditorFor(m => m.OrderCity)
-    <br /><br />
-
-    @Html.Label("OrderState", "State")<br />
-    @Html.EditorFor(m => m.OrderState)
-    <br /><br />
-
-    @Html.Label("OrderPostalCode", "Postal Code")<br />
-    @Html.EditorFor(m => m.OrderPostalCode)
-    <br /><br />
-
-    @Html.Label("OrderStreet", "Street name")<br />
-    @Html.EditorFor(m => m.OrderStreet)
-    <br /><br />
-
-    @Html.Label("OrderPhone", "Phone number")<br />
-    @Html.EditorFor(m => m.OrderPhone)
-    <br /><br />
-
-    @Html.Label("OrderEmail", "Email")<br />
-    @Html.EditorFor(m => m.OrderEmail)
-    <br /><br />
-
-    @Html.Label("OrderSent", "Order Sent")<br />
-    @Html.EditorFor(m => m.OrderSent)
-    <br /><br />
-
-    <button class="btn btn-sm btn-success" type="submit">Modify order details</button>
+          <div class="row text-center">
+              <div class="col-md-12">
+                  <button class="btn btn-success justify-content-center" type="submit"><i class="fa fa-check">&ensp;Edit order address</i></button>
+              </div>
+          </div>
 }
 
+
+<br /><br />
