@@ -8,7 +8,11 @@
     <p>"Wherever you go, go with all your hearth."</p>
 </div>
 
-<!-- Container (About Section) -->
+@foreach(FreshenerShopSDM.Models.Freshener fresh in ViewBag.MostPopular)
+{
+    <p>@fresh.FreshenerId</p>
+}
+
 <div id="about" class="container-fluid">
     <div class="row">
         <div class="col-sm-8">

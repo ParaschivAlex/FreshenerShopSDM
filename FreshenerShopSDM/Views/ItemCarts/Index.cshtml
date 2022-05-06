@@ -1,83 +1,96 @@
-﻿<div class="container-fluid">
-    <h2 class="text-center">Your cart</h2>
-    <a class="btn btn-info fa fa-arrow-left" href="/Fresheners/Index">&ensp;Back to all fresheners</a>
+﻿<h2 class="text-center">Your cart</h2><br/>
+    <a class="btn btn-info fa fa-arrow-left" href="/Fresheners/Index">&ensp;Back to all fresheners</a><br/>
     <br />
     @if (TempData.ContainsKey("message"))
     {
         <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
         <br />
     }
-    <div class="row">
-        <div class="col-md-8">
-            @foreach (var ic in ViewBag.ItemCarts)
-            {
-                <div class="panel panel-default">
-                    <div class="panel-heading" style="background-color:white;">
-                        <h4 class="text-primary pull-left">@ic.Freshener.FreshenerName</h4>
-                        <form method="post" action="/ItemCarts/Delete/@ic.ItemCartId">
-                            @Html.HttpMethodOverride(HttpVerbs.Delete)
-                            <button class="btn btn-danger pull-right" type="submit"><i class="fa fa-trash"></i>&ensp;Remove</button>
-                        </form>
-                        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <h4 class="card-header text-center">
+                        Order sumarry
+                    </h4>
+                    <div class="card-body">
+
+                        @if (ViewBag.TotalSum >= 300)
+                        {
+                            <p>
+                                <span class="text-left float-left">Fresheners:</span> <span class="text-right float-right">@ViewBag.TotalSum Lei</span>
+                            </p><br />
+                            <p>
+                                <span class="text-left float-left">Shippinp tax:</span><span class="text-right float-right">0 Lei</span>
+                            </p><br />
+                        }
+                        else
+                        {
+                            <p>
+                                <span class="text-left float-left">Total fresheners:</span>  <span class="text-right float-right">@(ViewBag.TotalSum - 20) Lei</span>
+                            </p><br />
+                            <p>
+                                <span class="text-left float-left">Shipping Tax:</span>  <span class="text-right float-right">20 Lei</span>
+                            </p><br />
+                        }
+                        <h5>
+                            <span class="text-left float-left">Total:</span> <span class="text-right float-right">@ViewBag.TotalSum Lei</span>
+                        </h5>
+                        <br /><br />
+                        <div class="align-items-center justify-content-center text-center">
+                            <a href="/Orders/New" class="btn fa fa-shopping-bag btn-success">
+                                &ensp;Continue
+                            </a>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img class="card-img-top" src="@ic.Freshener.FreshenerImage" alt="poza produsului" />
-                            </div>
-                            <div class="col-md-5">
-                                <p style="height:120px; overflow:hidden;">@ic.Freshener.FreshenerDescription</p>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-3">
-                                        <form method="post" action="/ItemCarts/DecreaseItem/@ic.ItemCartId">
-                                            @Html.HttpMethodOverride(HttpVerbs.Put)
-                                            <button class="btn btn-info" type="submit"><i class="fa fa-minus"></i></button>
-                                        </form>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <h4><b>@ic.ItemCartQuantity</b></h4>
-                                    </div>
-                                    <div class="col-md-3">
+                    <div class="card-footer text-muted text-center">
+                        <p>20 Lei shipping tax for orders less than 300 Lei</p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    @foreach (var ic in ViewBag.ItemCarts)
+                    {
+                        <div class="card-body">
+                            <div class="row no-gutters">
+                                <div class="col-lg-2 col-xl-2 col-md-2 col-sm-2 col-2">
+                                    <a href="/Fresheners/Show/@ic.Freshener.FreshenerId">
+                                        <img class="card-img" src="@ic.Freshener.FreshenerImage" alt="freshener image" />
+                                    </a>
+                                </div>
+                                <div class="col-lg-4 col-xl-4 col-md-4 col-sm-3 col-3">
+                                    <h4 class="text-center">@ic.Freshener.FreshenerName</h4>
+                                </div>
+                                <div class="col-lg-1 col-xl-1 col-md-1 col-sm-2 col-2 float-left">
+                                    <form method="post" action="/ItemCarts/DecreaseItem/@ic.ItemCartId">
+                                        @Html.HttpMethodOverride(HttpVerbs.Put)
+                                        <button class="btn btn-info" type="submit"><i class="fa fa-minus"></i></button>
+                                    </form>
+                                </div>
+                                <div class="col-lg-1 col-xl-1 col-md-1 col-sm-1 col-1">
+                                    <h4 class="text-center"><b>@ic.ItemCartQuantity</b></h4>
+                                </div>
+                                <div class="col-lg-1 col-xl-1 col-md-1 col-sm-2 col-2">
+                                    <div class="float-right">
                                         <form method="post" action="/ItemCarts/IncrementItem/@ic.ItemCartId">
                                             @Html.HttpMethodOverride(HttpVerbs.Put)
                                             <button class="btn btn-info" type="submit"><i class="fa fa-plus"></i></button>
                                         </form>
                                     </div>
-                                    <div class="col-md-2"></div>
                                 </div>
-                                <h4 class="text-center">
-
-                                    Price:<i> @ic.Freshener.FreshenerPrice Lei</i>
-                                </h4>
+                                <div class="col-lg-3 col-xl-3 col-md-3 col-sm-2 col-2">
+                                    <h5 class="text-center float-right">
+                                        Price:<i> @ic.Freshener.FreshenerPrice Lei</i>
+                                    </h5>
+                                    <form method="post" action="/ItemCarts/Delete/@ic.ItemCartId">
+                                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                        <button class="btn btn-danger fa fa-trash pull-right" type="submit">&ensp;Remove</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </div>
-            }
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="text-center text-success">Salut, @ViewBag.currentUser.UserName</h4>
-                </div>
-                <div class="panel-body">
-
-                    <div class="text-center">
-                        <h4>Total: @ViewBag.TotalSum Lei</h4>
-                        <h5>Free Shipping for orders more than 300 Lei</h5>
-                        <h5>20 Lei shipping tax for orders less than 300 Lei</h5>
-                        <br />
-                        <a href="/Orders/New" class="btn btn-success">
-                            <i class="fa fa-shopping-bag">&ensp;Continue</i>
-                        </a>
-                    </div>
-
-                </div>
-
             </div>
         </div>
-    </div>
-</div>
