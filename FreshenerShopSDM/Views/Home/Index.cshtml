@@ -1,80 +1,90 @@
-﻿@if (TempData.ContainsKey("message"))
+﻿<style>
+    .carousel-control-next,
+    .carousel-control-prev,
+    .carousel-indicators {
+        filter: invert(100%);
+    }
+</style>
+
+@if (TempData.ContainsKey("message"))
 {
     <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
     <br />
 }
-<div class="jumbotron text-center">
-    <h1>SDM OFFICE GROUP</h1>
-    <p>"Wherever you go, go with all your hearth."</p>
-</div>
-
-@foreach(FreshenerShopSDM.Models.Freshener fresh in ViewBag.MostPopular)
-{
-    <p>@fresh.FreshenerId</p>
-}
-
-<div id="about" class="container-fluid">
-    <div class="row">
-        <div class="col-sm-8">
-            <h2>About Company Page</h2><br>
-            <h4>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br />
+<div class="text-center align-items-center justify-content-center">
+    <h1 class="text-center">SDM OFFICE GROUP</h1><br />
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-lg-2 row-cols-md-1 row-cols-sm-1 row-cols-xl-2">
+            <div>
+                <h2 style="padding-top:15%">We care about you</h2><br>
+                <h4>During more than 16 years we have been delivering the best air fresheners that could be found on Earth. We are working with some of the biggest providers from Spain and Italy, and our networks are expading in Japan.</h4><br />
+            </div>
+            <div>
+                <img class="card-img-top" src="https://images.pexels.com/photos/7795819/pexels-photo-7795819.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="freshener" />
+            </div>
         </div>
-        <div class="col-sm-4">
-            <span class="glyphicon glyphicon-book logo"></span>
+    </div>&nbsp;
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-lg-2 row-cols-md-2 row-cols-sm-1 row-cols-xl-2">
+            <div>
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1603138461779-b27814ed7aa0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1073&q=80" alt="freshener" />
+            </div>
+            <div>
+                <h2 style="padding-top:18%">The best freshener</h2style="padding-top:15%"><br>
+                <h4>Our store has a wide range of air fresheners. There can be found from car-fresheners, to room-fresheners or even automatic-fresheners. The aromas we have are unique, unprecedented so far and we are still growing.</h4><br />
+            </div>
         </div>
     </div>
-</div>
-
-<div class="container-fluid bg-grey">
-    <div class="row">
-        <div class="col-sm-4">
-            <span class="glyphicon glyphicon-globe logo slideanim"></span>
-        </div>
-        <div class="col-sm-8">
-            <h2>Our Values</h2><br>
-            <h4><strong>MISSION:</strong> Our mission lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h4><br>
-            <p>
-                <strong>VISION:</strong> Our vision Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-            </p>
-        </div>
-    </div>
-</div>
-
-<!-- Container (Services Section) -->
-<!-- Container (Portfolio Section) -->
-<div id="portfolio" class="container-fluid text-center ">
-
-    <h2>What our customers say</h2>
-    <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <h4>"This company is the best. I am so happy with the result!"<br><span>Michael Roe, Vice President, Comment Box</span></h4>
+</div><br/><br />
+<div class="text-center mb-3">
+    <h2 class="text-center">Most popular fresheners</h2><br />
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xl-3 justify-content-center align-items-center">
+        @foreach (FreshenerShopSDM.Models.Freshener fresh in ViewBag.MostPopular)
+        {
+            <div class="col mb-4">
+                <div class="card h-100 border-secondary mb-3">
+                    <a href="/Fresheners/Show/@fresh.FreshenerId">
+                        <img class="card-img-top" src="@fresh.FreshenerImage" alt="most popular" style="height:200px;" />
+                    </a>
+                    <div class="card-body">
+                        <a href="/Fresheners/Show/@fresh.FreshenerId" style="color:black">
+                            <h3 class="card-title text-center">@fresh.FreshenerName</h3>
+                        </a>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item text-center">
+                            <h4>@fresh.FreshenerPrice Lei</h4>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="item">
-                <h4>"One word... WOW!!"<br><span>John Doe, Salesman, Rep Inc</span></h4>
+        }
+    </div>&nbsp;
+
+    <div id="carouseloppinions" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <h4>"I like the website, very respectful. I am very happy with it!"<br /></h4> <h6><span class="text-muted">Mike Dean, President, Google</span></h6>&nbsp;
             </div>
-            <div class="item">
-                <h4>"Could I... BE any more happy with this company?"<br><span>Chandler Bing, Actor, FriendsAlot</span></h4>
+            <div class="carousel-item">
+                <h4>"This is awesome for a 1-man work!"<br></h4><h6><span class="text-muted">John THomas, Postman, Pitesti</span></h6>&nbsp;
+            </div>
+            <div class="carousel-item">
+                <h4>"5 out of 5. Great!"<br></h4><h6><span class="text-muted">MR Big, YouTuber, USA</span></h6>&nbsp;
             </div>
         </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <a class="carousel-control-prev" href="#carouseloppinions" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <a class="carousel-control-next" href="#carouseloppinions" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
-        </a>
+        </a>&nbsp;
+        <ol class="carousel-indicators text-light">
+            <li data-target="#carouseloppinions" data-slide-to="0" class="active" style="color:black"></li>
+            <li data-target="#carouseloppinions" data-slide-to="1" style="color:black"></li>
+            <li data-target="#carouseloppinions" data-slide-to="2" style="color:black"></li>
+        </ol>
     </div>
 </div>

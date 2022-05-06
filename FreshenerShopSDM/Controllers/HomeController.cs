@@ -20,10 +20,10 @@ namespace FreshenerShopSDM.Controllers
                              select top 3 ord.FreshenerId;*/
 
             IEnumerable<int> fresheners = db.OrderCompletes.GroupBy(oc => oc.FreshenerId).OrderByDescending(oc => oc.Count()).Take(3).Select(oc => oc.Key);
-            var top3Fresheners = db.Fresheners.Where(f => fresheners.Contains(f.FreshenerId)).ToList();
-            System.Diagnostics.Debug.WriteLine(fresheners);
-            ViewBag.MostPopular = top3Fresheners;
-            return View();
+            var mostPopularFresheners = db.Fresheners.Where(f => fresheners.Contains(f.FreshenerId)).ToList();
+            //System.Diagnostics.Debug.WriteLine(fresheners);
+            ViewBag.MostPopular = mostPopularFresheners;
+            return View(ViewBag);
 		}
 
 		public ActionResult About()
