@@ -30,12 +30,24 @@
                         }
                         else
                         {
-                            <p>
-                                <span class="text-left float-left">Total fresheners:</span>  <span class="text-right float-right">@(ViewBag.TotalSum - 20) Lei</span>
-                            </p><br />
-                            <p>
+
+                            if (ViewBag.TotalSum == 0)
+                            {<p>
+                                    <span class="text-left float-left">Total fresheners:</span>  <span class="text-right float-right">0 Lei</span>
+                                </p><br />
+                                <p>
+                                    <span class="text-left float-left">Shipping Tax:</span>  <span class="text-right float-right">0 Lei</span>
+                                </p><br />
+                            }
+                            else
+                            {
+                                <p>
+                                    <span class="text-left float-left">Total fresheners:</span>  <span class="text-right float-right">@(ViewBag.TotalSum - 20) Lei</span>
+                                </p><br />
+                                <p>
                                 <span class="text-left float-left">Shipping Tax:</span>  <span class="text-right float-right">20 Lei</span>
                             </p><br />
+                            }
                         }
                         <h5>
                             <span class="text-left float-left">Total:</span> <span class="text-right float-right">@ViewBag.TotalSum Lei</span>

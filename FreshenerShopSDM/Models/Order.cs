@@ -36,7 +36,7 @@ namespace FreshenerShopSDM.Models
         public string OrderPostalCode { get; set; }
 
         [Required(ErrorMessage = "The phone number is mandatory.")]
-        //[RegularExpression("\D[0-9]{6,}", ErrorMessage = "This phone number is not valid.")]
+        [RegularExpression(@"^(\+4|)?[0-9]{6,}", ErrorMessage = "This phone number is not valid.")]
         public string OrderPhone { get; set; }
 
         [Required(ErrorMessage = "The email is mandatory.")]
