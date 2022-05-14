@@ -6,24 +6,87 @@
 }
     <h2 class="text-center">@Model.CategoryName</h2>
     <br />
-    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xl-4">
+    <div class="row row-cols-1 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-xl-3">
         @foreach (var freshener in ViewBag.Fresheners)
         {
-        <div class="col mb-3">
-            <div class="card h-100 mb-3" style="background-color:#f1f3e0">
+        <div class="col mb-4">
+            <div class="card h-100 border-secondary mb-3">
+                <a href="/Fresheners/Show/@freshener.FreshenerId">
+                    <img class="card-img-top" src="@freshener.FreshenerImage" alt="freshener image" style="height:200px;" />
+                </a>
                 <div class="card-body">
-                    <h4 class="card-title text-center"><a style="color:black" href="/Fresheners/Show/@freshener.FreshenerId">@freshener.FreshenerName</a></h4>
-                    <h5 class="card-title text-center">@freshener.FreshenerPrice Lei</h5>
+                    <a href="/Fresheners/Show/@freshener.FreshenerId" style="color:black">
+                        <h3 class="card-title text-center">@freshener.FreshenerName</h3>
+                    </a>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-center" style="background-color:#f1f3e0">
-                        
-
-                        <a href="/Fresheners/Show/@freshener.FreshenerId">
-                            <img class="card-img-bottom" src="@freshener.FreshenerImage" alt="freshener image" style="height:200px;" />
-                        </a>
+                    <li class="list-group-item text-center">
+                        Rating:&ensp;
+                        @if (!float.IsNaN(freshener.FreshenerRating))
+                        {
+                            var j = 0;
+                            for (var i = 1; i <= freshener.FreshenerRating; i++)
+                            {
+                                <i class="fa fa-star" style="color:gold;"></i>
+                                j++;
+                            }
+                            if (freshener.FreshenerRating - j != 0)
+                            {
+                                <i class="fa fa-star-half-full" style="color:gold;"></i>
+                            }
+                            for (var i = 5 - freshener.FreshenerRating; i >= 1; i--)
+                            {
+                                <i class="fa fa-star-o" style="color:gold;"></i>
+                            }
+                        }
+                        else
+                        {
+                            <a href="/Fresheners/Show/@freshener.FreshenerId" style="color:black">No reviews yet!</a>
+                        }
+                    </li>
+                    <li class="list-group-item text-center">
+                        <h4>@freshener.FreshenerPrice Lei</h4>
+                    </li>
+                    @if (freshener.FreshenerAvailability == false)
+                    {
+                        <li class="list-group-item text-center" style="padding-top:1.7em;">
+                            <form action="javascript:void(0);">
+                                <button class="btn btn-outline-danger">
+                                    <i class="fa">Freshener unavailable!</i>
+                                </button>
+                            </form>
                         </li>
+                    }
+
+                    @if (freshener.FreshenerStock > 0 && freshener.FreshenerAvailability == true)
+                    {
+                        <li class="list-group-item text-center" style="padding-top:1.7em;">
+                            <form method="post" action="/ItemCarts/New">
+                                <input type="hidden" name="FreshenerId" value="@freshener.FreshenerId" />
+                                <input type="hidden" name="ItemCartQuantity" value="1" />
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-shopping-bag">&ensp;Add to Basket</i>
+                                </button>
+                            </form>
+                        </li>
+                    }
+                    @if (freshener.FreshenerStock <= 0 && freshener.FreshenerAvailability == true)
+                    {
+                        <li class="list-group-item text-center" style="padding-top:1.7em;">
+                            <form action="javascript:void(0);">
+                                <button class="btn btn-outline-danger">
+                                    <i class="fa">Out of stock!</i>
+                                </button>
+                            </form>
+                        </li>
+                    }
                 </ul>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="card-footer text-center">
+                        <small class="text-muted">Added on: @freshener.FreshenerModifyDate</small>
+                    </div>
+                }
             </div>
         </div>
         }

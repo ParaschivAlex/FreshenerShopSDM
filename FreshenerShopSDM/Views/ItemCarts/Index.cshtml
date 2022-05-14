@@ -1,6 +1,11 @@
 ﻿<h2 class="text-center">Your cart</h2><br/>
-    <a class="btn btn-info fa fa-arrow-left" href="/Fresheners/Index">&ensp;Back to all fresheners</a><br/>
-    <br />
+<div class="row text-center justify-content-center">
+    <div class="col-md-3">
+        <a class="btn btn-info fa fa-arrow-left" href="/Fresheners/Index">&ensp;Back to all fresheners</a><br />
+        <br />
+    </div>
+    <div class="col-md-9"></div>
+</div>
     @if (TempData.ContainsKey("message"))
     {
         <h1 class="text-center"> @ViewBag.message&nbsp;</h1>

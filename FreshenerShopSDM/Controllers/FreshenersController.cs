@@ -14,7 +14,6 @@ namespace FreshenerShopSDM.Controllers
     {
 		private ApplicationDbContext db = new ApplicationDbContext();
 
-		private readonly int _perPage = 3;
 		private List<Freshener> FreshenersSorted;
 
 		public ActionResult Index()
@@ -52,13 +51,7 @@ namespace FreshenerShopSDM.Controllers
 
 			var currentPage = Convert.ToInt32(Request.Params.Get("page"));
 
-			var offset = 0;
-
-			if (!currentPage.Equals(0))
-			{
-				offset = (currentPage - 1) * this._perPage;
-			}
-			var paginatedFresheners = FreshenersSorted.Skip(offset).Take(this._perPage);
+			var paginatedFresheners = FreshenersSorted;
 
 			if (TempData.ContainsKey("message"))
 			{
@@ -66,7 +59,6 @@ namespace FreshenerShopSDM.Controllers
 			}
 
 			ViewBag.total = numberOfFresheners;
-			ViewBag.lastPage = Math.Ceiling((float)numberOfFresheners / (float)this._perPage);
 			ViewBag.Fresheners = paginatedFresheners;
 
 			ViewBag.SearchString = search;
