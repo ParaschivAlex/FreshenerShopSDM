@@ -20,4 +20,4 @@ Mai exista o pagina de contact cu un iframe de google maps si un formular pentru
 Dupa completarea formularului, adminul are, de asemenea, un panou unde le poate vedea pe toate si sterge din ele
 Mai este si o pagina de "about us" unde sunt puse cateva chestii, fara functionalitati specifice
 si o pagina de home.
-Urmeaza sa lucrez la partea de frontend.
+Frontend cu boostrap, siteul este responsive in totalitate.
