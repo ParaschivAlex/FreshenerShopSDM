@@ -29,13 +29,12 @@ namespace FreshenerShopSDM.Models
 		public float FreshenerRating { get; set; }
 
 		[Required(ErrorMessage = "Freshener image is mandatory.")]
-		public string FreshenerImage { get; set; } // to be changed from a static folder
+		public string FreshenerImage { get; set; }
 
 		[Required(ErrorMessage = "False OR True to tell if the freshener is on stock.")]
 		public bool FreshenerAvailability { get; set; }
 
-		public string FreshenerCode { get; set; } // unique code for each freshener given by the manufacturer.
-												  //If the freshener does not have a code, leave it blank to avoid duplicate codes.
+		public string FreshenerCode { get; set; }
 
 		public int FreshenerStock { get; set; }
 
