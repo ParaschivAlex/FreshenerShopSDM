@@ -9,7 +9,7 @@ namespace FreshenerShopSDM.Controllers
 {
 	public class CategoriesController : Controller
 	{
-        private ApplicationDbContext db = new ApplicationDbContext();
+        public ApplicationDbContext db = new ApplicationDbContext();
 
         public ActionResult Index()
 		{

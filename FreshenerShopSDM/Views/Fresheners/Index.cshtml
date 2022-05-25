@@ -12,25 +12,24 @@
                     Sort
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="/Fresheners/SortFresheners/1">Price Ascending</a></li>
-                    <li><a class="dropdown-item" href="/Fresheners/SortFresheners/2">Price Descending</a></li>
+                    <li>@Html.ActionLink("Price Ascending", "Index", new { sortOrder = "1", currentFilter = ViewBag.CurrentFilter }, new { @class = "text-center", @style = "color:black" })</li>
+                    <li>@Html.ActionLink("Price Descending", "Index", new { sortOrder = "2", currentFilter = ViewBag.CurrentFilter })</li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/Fresheners/SortFresheners/3">Rating Ascending</a></li>
-                    <li><a class="dropdown-item" href="/Fresheners/SortFresheners/4">Rating Descending</a></li>
+                    <li>@Html.ActionLink("Rating Ascending", "Index", new { sortOrder = "1", currentFilter = ViewBag.CurrentFilter })</li>
+                    <li>@Html.ActionLink("Rating Descending", "Index", new { sortOrder = "4", currentFilter = ViewBag.CurrentFilter })</li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/Fresheners/SortFresheners/5">Oldest added</a></li>
-                    <li><a class="dropdown-item" href="/Fresheners/SortFresheners/6">Newest added</a></li>
+                    <li>@Html.ActionLink("Oldest added", "Index", new { sortOrder = "5", currentFilter = ViewBag.CurrentFilter })</li>
+                    <li>@Html.ActionLink("Newest added", "Index", new { sortOrder = "6", currentFilter = ViewBag.CurrentFilter })</li>
                 </ul>
             </div>
         </div>
         <div class="col-md-4"></div>
         <div class="col-md-4 text-right">
-            <form class="d-flex justify-content-end" method="GET">
-                <input class="form-control me-2" type="search" name="search" value="@ViewBag.SearchString" placeholder="Search" aria-label="Search">&ensp;
-                <button class="btn btn-success pull-right" type="submit">
-                    <i class="fa fa-search"></i>
-                </button>
-            </form>
+            @using (Html.BeginForm("Index", "Fresheners", FormMethod.Get))
+            {
+               @Html.TextBox("search", ViewBag.CurrentFilter as string)
+                <input type="submit" value="search" class="btn btn-success pull-right"/>
+            }
         </div>
     </div>
 
@@ -53,6 +52,7 @@
                             Rating:&ensp;
                             @if (!float.IsNaN(freshener.FreshenerRating))
                             {
+                                <p>@freshener.FreshenerRating</p>
                                 var j = 0;
                                 for (var i = 1; i <= freshener.FreshenerRating; i++)
                                 {
@@ -120,8 +120,9 @@
             </div>
         }&nbsp;
     </div>
+    <br />
 
     &nbsp;
-    
+
 </div>
 

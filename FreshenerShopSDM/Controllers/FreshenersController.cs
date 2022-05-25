@@ -12,46 +12,71 @@ namespace FreshenerShopSDM.Controllers
 {
     public class FreshenersController : Controller
     {
-		private ApplicationDbContext db = new ApplicationDbContext();
+		public ApplicationDbContext db = new ApplicationDbContext();
 
-		private List<Freshener> FreshenersSorted;
+		private List<Freshener> freshenersList;
 
-		public ActionResult Index()
+		public ActionResult Index(string sortOrder, string search, string currentFilter)
 		{
-			var fresheners = db.Fresheners.Include("Category").OrderBy(f => f.FreshenerModifyDate);
-			if (FreshenersSorted == null)
+			ViewBag.CurrentSort = sortOrder;
+
+			//var fresheners = db.Fresheners.Include("Category").OrderBy(f => f.FreshenerModifyDate);
+
+			if (search == null)
 			{
-				FreshenersSorted = fresheners.ToList();
+				search = currentFilter;
 			}
 
-			if (TempData.ContainsKey("Fresheners"))
+			ViewBag.CurrentFilter = search;
+
+			var fresheners = from f in db.Fresheners
+							 select f;
+
+			var freshenersToUpdateRating = db.Fresheners.Include("Category").OrderBy(f => f.FreshenerModifyDate);
+			freshenersList = freshenersToUpdateRating.ToList();
+			
+			if (!String.IsNullOrEmpty(search))
 			{
-				FreshenersSorted = TempData["Fresheners"] as List<Freshener>;
+				fresheners = fresheners.Where(fr => fr.FreshenerName.Contains(search) || fr.FreshenerDescription.Contains(search));
 			}
 
-			var search = "";
-
-			if (Request.Params.Get("search") != null)
+			foreach (var fresh in freshenersList)
 			{
-				search = Request.Params.Get("search").Trim();
-				List<int> freshenersIds = db.Fresheners.Where(fr => fr.FreshenerName.Contains(search) ||  fr.FreshenerDescription.Contains(search)).Select(f => f.FreshenerId).ToList();
-
-				fresheners = db.Fresheners.Where(freshener => freshenersIds.Contains(freshener.FreshenerId)).Include("Category").OrderBy(f => f.FreshenerModifyDate);
-				FreshenersSorted = fresheners.ToList();
-			}
-
-			Console.WriteLine(FreshenersSorted);
-			foreach (var fresh in FreshenersSorted)
-			{
-				Console.WriteLine(fresh);
 				RatingChecker(fresh);
 			}
 
-			var numberOfFresheners = FreshenersSorted.Count();
+			switch (sortOrder)
+			{
+				case "1": //increasing by price
+					fresheners = fresheners.OrderBy(f => f.FreshenerPrice);
+					//System.Diagnostics.Debug.WriteLine("increasing price");
+					break;
+				case "2": //decreasing by price
+					fresheners = fresheners.OrderByDescending(f => f.FreshenerPrice);
+					//System.Diagnostics.Debug.WriteLine("decreasing price");
+					break;
+				case "3": //increasing by rating
+					fresheners = fresheners.OrderBy(f => f.FreshenerRating);
+					//System.Diagnostics.Debug.WriteLine("increasing rating");
+					break;
+				case "4": //decreasing by rating
+					fresheners = fresheners.OrderByDescending(f => f.FreshenerRating);
+					//System.Diagnostics.Debug.WriteLine("decreasing rating");
+					break;
+				case "5": //newest
+					fresheners = fresheners.OrderBy(f => f.FreshenerModifyDate);
+					//System.Diagnostics.Debug.WriteLine("newest");
+					break;
+				case "6": //oldest
+					fresheners = fresheners.OrderByDescending(f => f.FreshenerModifyDate);
+					//System.Diagnostics.Debug.WriteLine("oldest");
+					break;
+				default:
+					fresheners = fresheners.OrderBy(f => f.FreshenerModifyDate);
+					break;
+			}		
 
-			var currentPage = Convert.ToInt32(Request.Params.Get("page"));
-
-			var paginatedFresheners = FreshenersSorted;
+			var numberOfFresheners = fresheners.Count();
 
 			if (TempData.ContainsKey("message"))
 			{
@@ -59,51 +84,10 @@ namespace FreshenerShopSDM.Controllers
 			}
 
 			ViewBag.total = numberOfFresheners;
-			ViewBag.Fresheners = paginatedFresheners;
-
-			ViewBag.SearchString = search;
+			ViewBag.Fresheners = fresheners;
+			//ViewBag.SearchString = search;
 
 			return View();
-		}
-
-		public ActionResult SortFresheners(int id)
-		{
-			switch (id)
-			{
-				case 1: //increasing by price
-					FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerPrice).ToList();
-                    //System.Diagnostics.Debug.WriteLine("increasing price");
-                    break;
-				case 2: //decreasing by price
-                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerPrice).ToList();
-                    //System.Diagnostics.Debug.WriteLine("decreasing price");
-                    FreshenersSorted.Reverse();
-					break;
-				case 3: //increasing by rating
-                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerRating).ToList();
-                    //System.Diagnostics.Debug.WriteLine("increasing rating");
-                    break;
-				case 4: //decreasing by rating
-                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerRating).ToList();
-                    //System.Diagnostics.Debug.WriteLine("decreasing rating");
-                    FreshenersSorted.Reverse();
-					break;
-                case 5: //newest
-                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerModifyDate).ToList();
-                    //System.Diagnostics.Debug.WriteLine("newest");
-                    break;
-                case 6: //oldest
-                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerModifyDate).ToList();
-                   //System.Diagnostics.Debug.WriteLine("oldest");
-                    FreshenersSorted.Reverse();
-                    break;
-                default:
-                    FreshenersSorted = db.Fresheners.Include("Category").OrderBy(a => a.FreshenerModifyDate).ToList();
-                    break;
-
-            }
-			TempData["Fresheners"] = FreshenersSorted;
-			return Redirect("/Fresheners/Index");
 		}
 
 		public ActionResult Show(int id)
@@ -252,29 +236,29 @@ namespace FreshenerShopSDM.Controllers
 			float rating = 0;
 			//int numberOfReviews = 0;
 			var reviews = db.Reviews.Where(rv => rv.FreshenerId == freshener.FreshenerId);
-            if (reviews != null)
-            {
-                try
-                {
-                    foreach (var rev in reviews)
-                    {
-                        rating += rev.ReviewGrade;
-                        //numberOfReviews++;
-                    }
-                    //rating /= numberOfReviews;
-                    rating /= reviews.Count();
-                    freshener.FreshenerRating = rating;
-                    db.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.InnerException.Message);
-                }
-            }
-            else
-            {
-                return;
-            }
+			if (reviews != null)
+			{
+				try
+				{
+					foreach (var rev in reviews)
+					{
+						rating += rev.ReviewGrade;
+						//numberOfReviews++;
+					}
+					//rating /= numberOfReviews;
+					rating /= reviews.Count();
+					freshener.FreshenerRating = rating;
+					db.SaveChanges();
+				}
+				catch (Exception e)
+				{
+					Console.WriteLine(e.InnerException.Message);
+				}
+			}
+			else
+			{
+				return;
+			}
 		}
 	}
 }

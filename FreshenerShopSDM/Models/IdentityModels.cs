@@ -33,6 +33,8 @@ namespace FreshenerShopSDM.Models
 			Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext,
 				FreshenerShopSDM.Migrations.Configuration>("DefaultConnection"));
 		}*/
+        //pentru a reveni la baza de date locala, decomentati codul de mai sus si comentati-l pe cel de mai jos.
+        //eventual este necesara comanda enable-migrations --Force, add-migration Initial si update-database
         public ApplicationDbContext()
             : base("AzureDb", throwIfV1Schema: false)
         {
