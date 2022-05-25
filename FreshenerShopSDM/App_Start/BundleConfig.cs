@@ -29,6 +29,8 @@ namespace FreshenerShopSDM
                       "~/Content/bootstrap.min.css",
                       "~/Content/site.css",
                         "~/Content/font-awesome.css"));
+            BundleTable.EnableOptimizations = false;
         }
+
 	}
 }

@@ -27,14 +27,20 @@ namespace FreshenerShopSDM.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        /*public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
 		{
 			Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext,
 				FreshenerShopSDM.Migrations.Configuration>("DefaultConnection"));
-		}
+		}*/
+        public ApplicationDbContext()
+            : base("AzureDb", throwIfV1Schema: false)
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext,
+                FreshenerShopSDM.Migrations.Configuration>("AzureDb"));
+        }
 
-		public DbSet<Freshener> Fresheners { get; set; }
+        public DbSet<Freshener> Fresheners { get; set; }
 		public DbSet<Category> Categories { get; set; }
 		public DbSet<Review> Reviews { get; set; }
 		public DbSet<Cart> Carts { get; set; }

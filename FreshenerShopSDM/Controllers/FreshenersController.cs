@@ -207,6 +207,22 @@ namespace FreshenerShopSDM.Controllers
 		public ActionResult Delete(int id)
 		{
 			Freshener freshener = db.Fresheners.Find(id);
+
+			var reviews = db.Reviews.Where(fr => fr.FreshenerId == id);
+			foreach (var review in reviews)
+			{
+				db.Reviews.Remove(review);
+			}
+
+			/*List<int> ordersCompleted = db.OrderCompletes.Where(ordCom => ordCom.FreshenerId == freshener.FreshenerId).Select(ordC => ordC.OrderId).ToList();
+			foreach (var orderCompleted in ordersCompleted)
+			{
+
+				Order orde = db.Orders.Find(orderCompleted);
+					db.Orders.Remove(orde);
+				}
+			}*/
+
 			db.Fresheners.Remove(freshener);
 			db.SaveChanges();
 			TempData["message"] = "The freshener has been deleted!";

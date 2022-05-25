@@ -109,6 +109,30 @@ namespace FreshenerShopSDM.Controllers
 		public ActionResult Delete(int id)
 		{
 			Category category = db.Categories.Find(id);
+			List<int> freshenersToDelete = db.Fresheners.Where(fr => fr.CategoryId == id).Select(f => f.FreshenerId).ToList();
+
+			foreach (var freshenerDelete in freshenersToDelete)
+            {
+				Freshener fresh = db.Fresheners.Find(freshenerDelete);
+
+				List<int> reviews = db.Reviews.Where(rev => rev.FreshenerId == fresh.FreshenerId).Select(r => r.ReviewId).ToList();
+				foreach (var review in reviews)
+				{
+					Review rev = db.Reviews.Find(review);
+					db.Reviews.Remove(rev);
+				}
+
+				/*List<int> ordersCompleted = db.OrderCompletes.Where(ordCom => ordCom.FreshenerId == freshener.FreshenerId).Select(ordC => ordC.OrderId).ToList();
+				foreach (var orderCompleted in ordersCompleted)
+				{
+
+					Order orde = db.Orders.Find(orderCompleted);
+						db.Orders.Remove(orde);
+					}
+				}*/
+
+				db.Fresheners.Remove(fresh);
+            }
 			db.Categories.Remove(category);
 			TempData["message"] = "The category has been deleted!";
 			db.SaveChanges();

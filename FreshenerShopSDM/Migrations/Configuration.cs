@@ -1,4 +1,4 @@
-namespace FreshenerShopSDM.Migrations
+﻿namespace FreshenerShopSDM.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -11,14 +11,14 @@ namespace FreshenerShopSDM.Migrations
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
-            ContextKey = "FreshenerShopSDM.Models.ApplicationDbContext";
+            ContextKey = "FreshenerShopSDM.AppContext";
         }
 
         protected override void Seed(FreshenerShopSDM.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
         }
     }

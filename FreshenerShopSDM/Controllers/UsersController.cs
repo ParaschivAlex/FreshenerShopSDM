@@ -102,11 +102,37 @@ namespace FreshenerShopSDM.Controllers
 			ApplicationDbContext context = new ApplicationDbContext();
 			var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 			var user = UserManager.Users.FirstOrDefault(u => u.Id == id);
+
 			var reviews = db.Reviews.Where(rev => rev.UserId == id);
 			foreach (var review in reviews)
 			{
 				db.Reviews.Remove(review);
 			}
+
+			var carts = db.Carts.Where(crt => crt.UserId == id);
+			foreach (var cart in carts)
+			{
+				db.Carts.Remove(cart);
+			}
+
+			var orders = db.Orders.Where(ord => ord.UserId == id);
+			foreach (var order in orders)
+			{
+				/*List<int> orderItems = db.OrderCompletes.Where(orditm => orditm.OrderId == order.OrderId).Select(o => o.OrderCompleteId).ToList();
+				foreach (var orderItem in orderItems)
+				{
+					OrderComplete ordCom = db.OrderCompletes.Find(orderItem);
+					db.OrderCompletes.Remove(ordCom);
+				}*/
+				db.Orders.Remove(order);
+			}
+
+			var contactforms = db.Contacts.Where(cnt => cnt.UserId == id);
+			foreach (var contact in contactforms)
+			{
+				db.Contacts.Remove(contact);
+			}
+
 			db.SaveChanges();
 			UserManager.Delete(user);
 			return RedirectToAction("Index");
