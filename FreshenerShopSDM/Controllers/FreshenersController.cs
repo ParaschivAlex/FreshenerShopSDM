@@ -42,9 +42,9 @@ namespace FreshenerShopSDM.Controllers
 
 			foreach (var fresh in freshenersList)
 			{
-				RatingChecker(fresh);
+				RatingChecker(fresh.FreshenerId);
 			}
-
+			
 			switch (sortOrder)
 			{
 				case "1": //increasing by price
@@ -57,7 +57,7 @@ namespace FreshenerShopSDM.Controllers
 					break;
 				case "3": //increasing by rating
 					fresheners = fresheners.OrderBy(f => f.FreshenerRating);
-					//System.Diagnostics.Debug.WriteLine("increasing rating");
+					//Debug.WriteLine("rating up");
 					break;
 				case "4": //decreasing by rating
 					fresheners = fresheners.OrderByDescending(f => f.FreshenerRating);
@@ -86,7 +86,7 @@ namespace FreshenerShopSDM.Controllers
 			ViewBag.total = numberOfFresheners;
 			ViewBag.Fresheners = fresheners;
 			//ViewBag.SearchString = search;
-
+			//db.SaveChanges();
 			return View();
 		}
 
@@ -230,35 +230,40 @@ namespace FreshenerShopSDM.Controllers
 			return selectList;
 		}
 
-		[NonAction]
-		public void RatingChecker(Freshener freshener)
+		[HttpPut]
+		public ActionResult RatingChecker(int id)
 		{
-			float rating = 0;
-			//int numberOfReviews = 0;
+			int rating = 0;
+			int numberOfReviews = 0;
+			Freshener freshener = db.Fresheners.Find(id);
+
 			var reviews = db.Reviews.Where(rv => rv.FreshenerId == freshener.FreshenerId);
 			if (reviews != null)
 			{
-				try
+				if (TryUpdateModel(freshener))
 				{
 					foreach (var rev in reviews)
 					{
 						rating += rev.ReviewGrade;
-						//numberOfReviews++;
+						numberOfReviews++;
 					}
-					//rating /= numberOfReviews;
-					rating /= reviews.Count();
-					freshener.FreshenerRating = rating;
-					db.SaveChanges();
-				}
-				catch (Exception e)
-				{
-					Console.WriteLine(e.InnerException.Message);
+					if (numberOfReviews != 0)
+					{
+						rating /= numberOfReviews;
+						//rating /= reviews.Count();
+						freshener.FreshenerRating = rating;
+						Debug.WriteLine(rating);
+						db.SaveChanges();
+						return View();
+					}
+					return View();
 				}
 			}
 			else
 			{
-				return;
+				return View();
 			}
+			return View();
 		}
 	}
 }

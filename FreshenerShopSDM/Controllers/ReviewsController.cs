@@ -50,7 +50,6 @@ namespace FreshenerShopSDM.Controllers
 				TempData["message"] = "You do not have the rights to modify this review!";
 				return RedirectToAction("Index", "Fresheners");
 			}
-
 		}
 
 		[HttpPut]

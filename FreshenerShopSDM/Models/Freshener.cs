@@ -26,7 +26,7 @@ namespace FreshenerShopSDM.Models
 		[Range(0.1, int.MaxValue, ErrorMessage = "The price can't be below 0.")]
 		public float FreshenerPrice { get; set; }
 
-		public float FreshenerRating { get; set; }
+		public int FreshenerRating { get; set; }
 
 		[Required(ErrorMessage = "Freshener image is mandatory.")]
 		public string FreshenerImage { get; set; }

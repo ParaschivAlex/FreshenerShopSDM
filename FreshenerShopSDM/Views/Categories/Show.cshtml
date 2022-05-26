@@ -22,7 +22,7 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-center">
                         Rating:&ensp;
-                        @if (!float.IsNaN(freshener.FreshenerRating))
+                        @if (freshener.FreshenerRating != 0)
                         {
                             var j = 0;
                             for (var i = 1; i <= freshener.FreshenerRating; i++)

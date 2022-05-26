@@ -8,18 +8,18 @@
     <div class="row">
         <div class="col-md-4 mb-3">
             <div class="dropdown">
-                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-success dropdown-toggle fa" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sort
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <ul class="dropdown-menu text-center text-center" aria-labelledby="dropdownMenuButton">
                     <li>@Html.ActionLink("Price Ascending", "Index", new { sortOrder = "1", currentFilter = ViewBag.CurrentFilter }, new { @class = "text-center", @style = "color:black" })</li>
-                    <li>@Html.ActionLink("Price Descending", "Index", new { sortOrder = "2", currentFilter = ViewBag.CurrentFilter })</li>
+                    <li>@Html.ActionLink("Price Descending", "Index", new { sortOrder = "2", currentFilter = ViewBag.CurrentFilter }, new { @class = "text-center", @style = "color:black" })</li>
                     <li><hr class="dropdown-divider"></li>
-                    <li>@Html.ActionLink("Rating Ascending", "Index", new { sortOrder = "1", currentFilter = ViewBag.CurrentFilter })</li>
-                    <li>@Html.ActionLink("Rating Descending", "Index", new { sortOrder = "4", currentFilter = ViewBag.CurrentFilter })</li>
+                    <li>@Html.ActionLink("Highest Rating", "Index", new { sortOrder = "4", currentFilter = ViewBag.CurrentFilter }, new { @class = "text-center", @style = "color:black" })</li>
+                    <li>@Html.ActionLink("Lowest Rating", "Index", new { sortOrder = "3", currentFilter = ViewBag.CurrentFilter }, new { @class = "text-center", @style = "color:black" })</li>
                     <li><hr class="dropdown-divider"></li>
-                    <li>@Html.ActionLink("Oldest added", "Index", new { sortOrder = "5", currentFilter = ViewBag.CurrentFilter })</li>
-                    <li>@Html.ActionLink("Newest added", "Index", new { sortOrder = "6", currentFilter = ViewBag.CurrentFilter })</li>
+                    <li>@Html.ActionLink("Oldest added", "Index", new { sortOrder = "5", currentFilter = ViewBag.CurrentFilter }, new { @class = "text-center", @style = "color:black" })</li>
+                    <li>@Html.ActionLink("Newest added", "Index", new { sortOrder = "6", currentFilter = ViewBag.CurrentFilter }, new { @class = "text-center", @style = "color:black" })</li>
                 </ul>
             </div>
         </div>
@@ -28,7 +28,7 @@
             @using (Html.BeginForm("Index", "Fresheners", FormMethod.Get))
             {
                @Html.TextBox("search", ViewBag.CurrentFilter as string)
-                <input type="submit" value="search" class="btn btn-success pull-right"/>
+               <button type="submit" value="Search" class="btn btn-success pull-right fa fa-search"/>
             }
         </div>
     </div>
@@ -50,9 +50,8 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-center">
                             Rating:&ensp;
-                            @if (!float.IsNaN(freshener.FreshenerRating))
+                            @if (freshener.FreshenerRating != 0)
                             {
-                                <p>@freshener.FreshenerRating</p>
                                 var j = 0;
                                 for (var i = 1; i <= freshener.FreshenerRating; i++)
                                 {
