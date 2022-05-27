@@ -6,19 +6,19 @@ namespace FreshenerShopSDM.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class CreateInitial : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
+    public sealed partial class local : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateInitial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(local));
         
         string IMigrationMetadata.Id
         {
-            get { return "202205251445394_CreateInitial"; }
+            get { return "202205271803381_local"; }
         }
         
         string IMigrationMetadata.Source
         {
-            get { return null; }
+            get { return Resources.GetString("Source"); }
         }
         
         string IMigrationMetadata.Target

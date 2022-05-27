@@ -252,7 +252,7 @@ namespace FreshenerShopSDM.Controllers
 						rating /= numberOfReviews;
 						//rating /= reviews.Count();
 						freshener.FreshenerRating = rating;
-						Debug.WriteLine(rating);
+						//Debug.WriteLine(rating);
 						db.SaveChanges();
 						return View();
 					}

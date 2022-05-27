@@ -28,19 +28,27 @@ namespace FreshenerShopSDM.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         /*public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-		{
-			Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext,
-				FreshenerShopSDM.Migrations.Configuration>("DefaultConnection"));
-		}*/
+             : base("DefaultConnection", throwIfV1Schema: false)
+         {
+             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext,
+                 FreshenerShopSDM.Migrations.Configuration>("DefaultConnection"));
+        }*/
+
         //pentru a reveni la baza de date locala, decomentati codul de mai sus si comentati-l pe cel de mai jos.
-        //eventual este necesara comanda enable-migrations --Force, add-migration Initial si update-database
+        //eventual este necesara stergerea migratiei anterioare, apoi comanda enable-migrations -Force, Add-Migration Initial (-IgnoreChanges) si Update-Database
         public ApplicationDbContext()
             : base("AzureDb", throwIfV1Schema: false)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext,
                 FreshenerShopSDM.Migrations.Configuration>("AzureDb"));
+        //Pentru a deschide db-ul dintr-un loc fizic nou, azure portal -> sql database -> firewall rules -> add a firewall rule -> save
         }
+
+        /*La schimbarea db-ului din local in azure, trebuie sa nu fie populat fisierul de migratie.
+         Daca este populat cu toata migratia, visual studio ruleaza acel fisier la fiecare schimbare.
+         Astfel apare o eroare la primul rand (ex. are create table Carts dar deja exista).
+         Singura solutie este sa comentez fisierul de migratie cand folosesc db-ul de azure. Sau daca am nevoie de migratie
+         pe db-ul de azure, trebuie sters fisierul de migratie si creat altul pe acel connectionString.*/
 
         public DbSet<Freshener> Fresheners { get; set; }
 		public DbSet<Category> Categories { get; set; }
