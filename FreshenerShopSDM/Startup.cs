@@ -12,7 +12,6 @@ namespace FreshenerShopSDM
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            // Se apeleaza o metoda in care se adauga contul de administrator si rolurile aplicatiei
             CreateAdminUserAndApplicationRoles();
         }
         private void CreateAdminUserAndApplicationRoles()
@@ -27,7 +26,6 @@ namespace FreshenerShopSDM
                     Name = "Admin"
                 };
                 roleManager.Create(role);
-                // se adauga utilizatorul administrator
                 var user = new ApplicationUser
                 {
                     UserName = "paraschivcalexandru@gmail.com",
