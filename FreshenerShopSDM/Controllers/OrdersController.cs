@@ -24,7 +24,6 @@ namespace FreshenerShopSDM.Controllers
                                   orderby order.OrderId
                                   select order;
 
-            System.Diagnostics.Debug.WriteLine(orders);
             ViewBag.Orders = orders.ToList();
             return View();
         }
@@ -44,7 +43,6 @@ namespace FreshenerShopSDM.Controllers
                          orderby order.OrderId
                          select order;
 
-            System.Diagnostics.Debug.WriteLine(orders);
             ViewBag.Orders = orders.ToList();
             return View();
         }
@@ -54,7 +52,6 @@ namespace FreshenerShopSDM.Controllers
         {
 
             Order order = new Order();
-            var currentUser = User.Identity.GetUserId();
             
             order.UserId = User.Identity.GetUserId();
 
@@ -107,19 +104,16 @@ namespace FreshenerShopSDM.Controllers
                 if (ModelState.IsValid)
                 {
                     db.Orders.Add(order);
-                    //db.SaveChanges();
                     AddOrderIdToItemCart(order.OrderId);
 
                     db.SaveChanges();
 
-                    //Console.WriteLine("DB.SAVEDCHANGES");
                     TempData["message"] = "The order has been added!";
 
                     ViewBag.OrderId = order.OrderId;
 
                     var currentUserEmail = db.Users.FirstOrDefault(u => u.Id == currentUser);
                     order.OrderUsername = currentUserEmail.Email;
-                    //System.Diagnostics.Debug.WriteLine(currentUserEmail.Email);
 
                     CompleteOrderDeleteItemsFromItemCart();
 
@@ -128,14 +122,14 @@ namespace FreshenerShopSDM.Controllers
                 else
                 {
                     Console.WriteLine("Error on modelstate.isvalid for adding a new order.");
-                    TempData["message"] = "Something went wrong!";
+                    TempData["message"] = "Order not added!";
                     return View(order);
                 }
             }
             catch (Exception)
             {
                 Console.WriteLine("Error on try catch for adding a new order.");
-                TempData["message"] = "Something went wrong!";
+                TempData["message"] = "Order not added!";
                 return View(order);
             }
         }     
@@ -157,7 +151,6 @@ namespace FreshenerShopSDM.Controllers
                 OrderId = id,
                 FreshenerQuantity = i.ItemCartQuantity
             });
-            //System.Diagnostics.Debug.WriteLine(id);
 
             foreach (var completedItem in completedItems)
             {

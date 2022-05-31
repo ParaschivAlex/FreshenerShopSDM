@@ -118,12 +118,6 @@ namespace FreshenerShopSDM.Controllers
 			var orders = db.Orders.Where(ord => ord.UserId == id);
 			foreach (var order in orders)
 			{
-				/*List<int> orderItems = db.OrderCompletes.Where(orditm => orditm.OrderId == order.OrderId).Select(o => o.OrderCompleteId).ToList();
-				foreach (var orderItem in orderItems)
-				{
-					OrderComplete ordCom = db.OrderCompletes.Find(orderItem);
-					db.OrderCompletes.Remove(ordCom);
-				}*/
 				db.Orders.Remove(order);
 			}
 
