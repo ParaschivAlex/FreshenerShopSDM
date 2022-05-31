@@ -1,12 +1,8 @@
 ﻿@model FreshenerShopSDM.Models.Order
 
-<h2 class="text-center">Tell us where to deliver your order</h2><br />
+<h2 class="text-center">Tell us where to deliver your order</h2>
+<br />
 
-@if (TempData.ContainsKey("message"))
-{
-    <h1 class="text-center"> @ViewBag.message&nbsp;</h1>
-    <br />
-}
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Orders"))
 {
@@ -27,7 +23,8 @@
             @Html.ValidationMessageFor(m => m.OrderCity, " *", new { @class = "text-danger " })
             @Html.TextBox("OrderCity", null, new { @class = "form-control" })
         </div>
-    </div><br />
+    </div>
+    <br />
     <div class="form-row">
         <div class="col-md-6 mb-3">
             @Html.Label("OrderState", "State")
@@ -39,7 +36,8 @@
             @Html.ValidationMessageFor(m => m.OrderStreet, " *", new { @class = "text-danger " })
             @Html.TextBox("OrderStreet", null, new { @class = "form-control" })
         </div>
-    </div><br />
+    </div>
+    <br />
     <div class="form-row">
         <div class="col-md-4 mb-3">
             @Html.Label("OrderPostalCode", "Postal Code")
@@ -55,10 +53,11 @@
             @Html.ValidationMessageFor(m => m.OrderPhone, " *", new { @class = "text-danger " })
             @Html.TextBox("OrderEmail", null, new { @class = "form-control" })
         </div>
-    </div><br />
-          <div class="row text-center">
-              <div class="col-md-12">
-                  <button class="btn btn-success justify-content-center" type="submit"><i class="fa fa-paper-plane">&ensp;Send order</i></button>
-              </div>
-          </div>
+    </div>
+    <br />
+    <div class="row text-center">
+        <div class="col-md-12">
+            <button class="btn btn-success justify-content-center" type="submit"><i class="fa fa-paper-plane">&ensp;Send order</i></button>
+        </div>
+    </div>
 }

@@ -129,14 +129,14 @@ namespace FreshenerShopSDM.Controllers
                 {
                     Console.WriteLine("Error on modelstate.isvalid for adding a new order.");
                     TempData["message"] = "Something went wrong!";
-                    return Redirect("/Home/Index/");
+                    return View(order);
                 }
             }
             catch (Exception)
             {
                 Console.WriteLine("Error on try catch for adding a new order.");
                 TempData["message"] = "Something went wrong!";
-                return Redirect("/Home/Index/");
+                return View(order);
             }
         }     
 
@@ -186,11 +186,7 @@ namespace FreshenerShopSDM.Controllers
 
             foreach (var item in items)
             {
-                //System.Diagnostics.Debug.WriteLine(item);
-                //if (item.ItemCartId != null)
-                //{
                 return true;
-                // }
             }
             return false;
         }
@@ -299,5 +295,6 @@ namespace FreshenerShopSDM.Controllers
             return View(order);
 
         }
+
     }
 }

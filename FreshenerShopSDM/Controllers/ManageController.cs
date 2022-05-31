@@ -7,12 +7,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using FreshenerShopSDM.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace FreshenerShopSDM.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -63,7 +65,7 @@ namespace FreshenerShopSDM.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
-            var userId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();       
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),

@@ -7,13 +7,16 @@
         <div class="card-body">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-center">
-                    <i class="fa fa-code"></i>&ensp;Id: @Model.Id</i>
+                    <i class="fa fa-code"></i>&ensp;Id: @Model.Id
                 </li>
                 <li class="list-group-item text-center">
-                    <i class="fa fa-at"></i>&ensp;Email: @Model.Email</i>
+                    <i class="fa fa-at"></i>&ensp;Email: @Model.Email
                 </li>
                 <li class="list-group-item text-center">
-                    <i class="fa fa-group"></i>&ensp;User Role: @ViewBag.roleName</i>
+                    <i class="fa fa-id-card"></i>&ensp;Name: @Model.Name
+                </li>
+                <li class="list-group-item text-center">
+                    <i class="fa fa-group"></i>&ensp;User Role: @ViewBag.roleName
                 </li>
 
                 @if (@Model.PhoneNumber != null)
